@@ -5,7 +5,7 @@ import RouteStack from './routing/routing'
 function App() {
   return (
     <div className="App">
-      <RouteStack />
+      <RouteStack/>
     </div>
   );
 }
