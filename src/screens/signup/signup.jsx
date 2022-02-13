@@ -1,54 +1,43 @@
-import { TextField, Box, Button, InputAdornment, IconButton } from '@mui/material';
-import { ThemeProvider } from "@mui/material/styles";
-import lightTheme from '../../themes/light_theme';
-import Styles from './styles';
+import './signup.css';
+import Heading from '../../components/heading/heading';
+import Description from '../../components/description/description';
+import Card from '../../components/card/card';
+import Textfield from '../../components/textfield/textfield';
+import Spacer from '../../components/spacer';
 import { useState } from 'react';
-import { ArrowForward, Visibility, VisibilityOff } from '@mui/icons-material';
+import ForgotPassword from '../../components/forgotpassword/forgotpassword';
+import Button from '../../components/button/button';
+import Google from '../../components/google/google';
 
 function SignupScreen(){
-    const [values, setValues] = useState({
-        password: '',
-        showPassword: false,
-      });
-    
-      const handleChange = (prop) => (event) => {
-        setValues({ ...values, [prop]: event.target.value });
-      };
-    
-      const handleClickShowPassword = () => {
-        setValues({
-          ...values,
-          showPassword: !values.showPassword,
-        });
-      };
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
+
+    function onNext(){
+      console.log(email, password);
+    }
 
     return (
-        <ThemeProvider theme={lightTheme}>
-            <div style={Styles.container}>
-                <Box sx={Styles.heading}>Register Your Account</Box>
-                <Box sx={Styles.description}>Nostrud non sit commodo voluptate id excepteur nisi. Reprehenderit aliquip nostrud cillum reprehenderit ipsum dolore excepteur ullamco quis cupidatat irure.</Box>
-                <TextField id="email_field" label="Email" variant="filled" sx={Styles.textfield} />
-                <TextField id="password_field" label="Password" variant="filled" sx={Styles.textfield}
-            type={values.showPassword ? 'text' : 'password'}
-            value={values.password}
-            onChange={handleChange('password')}
-            InputProps={{
-                endAdornment: (
-                    <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={handleClickShowPassword}
-                  edge="end"
-                >
-                  {values.showPassword ? <VisibilityOff /> : <Visibility />}
-                </IconButton>
-              </InputAdornment>
-                )
-              }}
-            />
-                <Button variant="contained" size='large' endIcon={<ArrowForward />}>Get Started</Button>
+        <div className="container">
+          <Card>
+            <Heading text="Create your Account" fontSize={24} />
+            <Description text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s" />
+            <Spacer height={30}/>
+            <div className="form">
+              <Textfield placeholder="Email address" value={email} onChange={setEmail}/>
+              <Spacer height={15}/>
+              <Textfield type={showPassword ? "text" : "password"} placeholder="Password" value={password} onChange={setPassword}/>
+            <Spacer height={7}/>
+              <ForgotPassword />
+              <Button text="Next" onClick={onNext}/>
             </div>
-        </ThemeProvider>
+            <Spacer height={70}/>
+            <Description text="Or continue with" style={{alignSelf: "center"}}/>
+            <Spacer height={30}/>
+            <Google />
+          </Card>
+        </div>
     )
 }
 
