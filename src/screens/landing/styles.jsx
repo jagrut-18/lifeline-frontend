@@ -7,7 +7,7 @@ export default {
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
         backgroundSize: "contain",
-        backgroundColor: '#ffffff',
+        backgroundColor: COLORS.background,
         width: '100vw',
         height: '100vh'
     }
