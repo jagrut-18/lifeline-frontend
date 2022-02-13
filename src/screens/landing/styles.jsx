@@ -1,4 +1,3 @@
-import COLORS from '../../themes/colors';
 import LandingImage from '../../images/landing_image.svg';
 
 export default {
