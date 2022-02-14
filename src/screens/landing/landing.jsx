@@ -41,6 +41,8 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
+import { Link, useNavigate } from 'react-router-dom';
+import routes from '../../routing/routes';
 
 const pages = ['Products', 'Pricing', 'Blog'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
@@ -48,6 +50,7 @@ const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 const LandingScreen = () => {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
+    const navigate = useNavigate();
 
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
@@ -58,6 +61,7 @@ const LandingScreen = () => {
 
     const handleCloseNavMenu = () => {
         setAnchorElNav(null);
+        navigate(routes.onboarding1);
     };
 
     const handleCloseUserMenu = () => {
