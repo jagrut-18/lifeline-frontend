@@ -34,3 +34,9 @@ code {
   --google: #F1F1F1;
 }
 
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}

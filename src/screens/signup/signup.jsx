@@ -8,14 +8,19 @@ import { useState } from 'react';
 import ForgotPassword from '../../components/forgotpassword/forgotpassword';
 import Button from '../../components/button/button';
 import Google from '../../components/google/google';
+import { Link, useNavigate } from 'react-router-dom';
+import routes from '../../routing/routes';
 
 function SignupScreen(){
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
+    const navigate = useNavigate();
 
     function onNext(){
       console.log(email, password);
+      
+      navigate(routes.onboarding1);
     }
 
     return (
@@ -30,7 +35,7 @@ function SignupScreen(){
               <Textfield type={showPassword ? "text" : "password"} placeholder="Password" value={password} onChange={setPassword}/>
             <Spacer height={7}/>
               <ForgotPassword />
-              <Button text="Next" onClick={onNext}/>
+                <Button text="Next" onClick={onNext}/>
             </div>
             <Spacer height={70}/>
             <Description text="Or continue with" style={{alignSelf: "center"}}/>

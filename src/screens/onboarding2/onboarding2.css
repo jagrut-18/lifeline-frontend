@@ -1,0 +1,12 @@
+.onboarding_row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+}
+
+.onboarding_row2 {
+    justify-content: start;
+}
