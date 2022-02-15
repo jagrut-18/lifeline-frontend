@@ -1,14 +1,21 @@
 import './menu.css'
 import React, { useState, useEffect } from 'react';
 import logo from '../images/doctor.png';
-import { Login } from '@mui/icons-material';
+import routes from '../routing/routes';
+import { useNavigate } from 'react-router-dom';
 
 const Menu = () => {
     const [loginFlag, setLoginFlag] = useState(false);
+    const navigate = useNavigate();
 
     // useEffect(() => {
     //     setLoginFlag(true)
     // }, [])
+
+    function onNext(){        
+        navigate(routes.login);
+    }
+  
 
 
     return (
@@ -28,7 +35,7 @@ const Menu = () => {
                     </div>
                     :
                     <div className="login-button-wrapper">
-                        <button type="button" className="login-button">Login</button>
+                        <button type="button" className="login-button" onClick={onNext}>Login</button>
                     </div>
             }
         </div>
