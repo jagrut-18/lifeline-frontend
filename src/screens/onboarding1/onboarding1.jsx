@@ -8,6 +8,7 @@ import Button from '../../components/button/button';
 import Card from '../../components/card/card';
 import { useNavigate } from 'react-router-dom';
 import routes from '../../routing/routes';
+import ErrorComponent from '../../components/error/error';
 
 /* props:
     
@@ -16,11 +17,27 @@ import routes from '../../routing/routes';
 export default function OnboardingScreen1(props) {
     const navigate = useNavigate();
     
-    const [first, setFirst] = useState();
-    const [last, setLast] = useState();
-    const [phone, setPhone] = useState();
+    const [first, setFirst] = useState('');
+    const [last, setLast] = useState('');
+    const [phone, setPhone] = useState('');
+    const [error, setError] = useState(null);
+
+    function validate(){
+        if (first == '' || last == '' || phone == ''){
+            setError("Please fill all the details");
+            return false;
+        }
+        if (phone.length != 10) {
+            setError("Invalid phone number");
+            return false;
+        }
+        setError(null);
+        return true;
+    }
 
     function onNext(){
+        if (!validate()) return;
+
         var data = {
             'first_name': first,
             'last_name': last,
@@ -41,8 +58,9 @@ export default function OnboardingScreen1(props) {
                 <Spacer height={15}/>
                 <Textfield placeholder="Last Name" value={last} onChange={setLast}/>
                 <Spacer height={15}/>
-                <Textfield type="number" placeholder="Phone Number" value={phone} onChange={setPhone}/>
-                <Spacer height={15}/>
+                <Textfield type="number" placeholder="Phone Number" value={phone} onChange={setPhone} />
+                <Spacer height={20}/>
+                {error && <ErrorComponent message={error}/>}
                 <Button text="Next" onClick={onNext}/>
                 </div>
             </Card>
