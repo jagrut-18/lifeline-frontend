@@ -18,11 +18,15 @@ code {
   --text-secondary: #757575;
   --primary: #B8405E;
   --primary-light: #b8405e0a;
+  --secondary: #1976D2;
+  --secondary-light: #1976D20a;
   --google: #F1F1F1;
   --textfield-background: #f9f9f9;
   --textfield-unfocused: 1px solid #D9D9D9;
-  --textfield-focused: 1px solid var(--primary);
+  --textfield-focused: 1px solid var(--secondary);
+  --textfield-error: 1px solid var(--primary);
   --button-text: white;
+  --error: #FF3D00;
 }
 
 /* Dark Theme */

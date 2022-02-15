@@ -9,6 +9,8 @@ import Insurance from '../../images/insurance.png';
 import { BsFillCheckCircleFill } from 'react-icons/bs';
 import { useState } from 'react';
 import Button from '../button/button';
+import ErrorComponent from '../../components/error/error';
+import { UserTypeContext } from './user_type_context';
 
 /* props:
     - onNext(selected_user_type)
@@ -28,30 +30,43 @@ export default function UserTypeSelect(props) {
         },
         {
             user_type: 'insurance',
-            name: 'Insurance',
+            name: 'Insurance Provider',
             asset: Insurance,
         },
     ];
 
-    const [selectedUser, setSelectedUser] = useState();
+    const [selectedUser, setSelectedUser] = useState(null);
+    const [error, setError] = useState();
+
+    function onNext(){
+        if (selectedUser == null){
+            setError("Please select the user type");
+            return;
+        }
+        setError(null);
+        props.onNext();
+    }
 
 
     return (
-        <Card>
-            <Heading text="Who are you?" fontSize={24} />
-            <Description text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s" />
-            <Spacer height={30}/>
-            {userTypes.map(function (value) {
-                var isSelected = selectedUser === value.user_type;
-                return (
-                    <div key={value.user_type} className={`user_container ${isSelected ? "selected_user" : ""}`} onClick={() => setSelectedUser(value.user_type)}>
-                        <img src={value.asset} alt="img" className="user_img" />
-                        <div className="user_name">{value.name}</div>
-                        {isSelected && <BsFillCheckCircleFill color='var(--primary)' size={24}/>}
-                    </div>
-                )
-            })}
-            <Button text="Next" onClick={props.onNext}/>
-        </Card>
+        <UserTypeContext.Provider value={selectedUser}>
+            <Card>
+                <Heading text="Who are you?" fontSize={24} />
+                <Description text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s" />
+                <Spacer height={30}/>
+                {userTypes.map(function (value) {
+                    var isSelected = selectedUser === value.user_type;
+                    return (
+                        <div key={value.user_type} className={`user_container ${isSelected ? "selected_user" : ""}`} onClick={() => setSelectedUser(value.user_type)}>
+                            <img src={value.asset} alt="img" className="user_img" />
+                            <div className="user_name">{value.name}</div>
+                            {isSelected && <BsFillCheckCircleFill color='var(--primary)' size={24}/>}
+                        </div>
+                    )
+                })}
+                {error && <ErrorComponent message={error} /> }
+                <Button text="Next" onClick={onNext}/>
+            </Card>
+        </UserTypeContext.Provider>
     )
 }

@@ -6,14 +6,26 @@ import Spacer from '../../components/spacer';
 import Textfield from '../../components/textfield/textfield';
 import Button from '../../components/button/button';
 import { useState } from 'react';
+import ErrorComponent from '../../components/error/error';
 
 export default function OnboardingScreen3(props) {
-    const [address, setAddress] = useState();
-    const [city, setCity] = useState();
-    const [state, setState] = useState();
-    const [zipcode, setZipcode] = useState();
+    const [address, setAddress] = useState('');
+    const [city, setCity] = useState('');
+    const [state, setState] = useState('');
+    const [zipcode, setZipcode] = useState('');
+    const [error, setError] = useState();
     
+    function validate(){
+        const fields = [address, city, state, zipcode]
+        if (fields.some((field) => field == '')){
+            setError("Please fill all the details");
+            return false;
+        }
+        return true;
+    }
+
     function onSubmit() {
+        if (!validate()) return;
         const data = {
             'address': address,
             'city': city,
@@ -38,8 +50,9 @@ export default function OnboardingScreen3(props) {
                     <Textfield placeholder="State" value={state} onChange={setState} />                    
                 </div>
                 <Spacer height={15}/>
-                <Textfield type="number" placeholder="Zipcode" style={{width: "calc(50% - 5px)"}} value={zipcode} onChange={setZipcode}/>                
+                <Textfield type="number" placeholder="Zipcode" style={{width: "calc(50% - 5px)"}} value={zipcode} onChange={setZipcode} />                
                 <Spacer height={20}/>
+                {error && <ErrorComponent message={error} />}
                 <Button text="Next" onClick={onSubmit} />
                 </div>
             </Card>
