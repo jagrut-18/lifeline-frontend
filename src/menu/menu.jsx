@@ -15,8 +15,6 @@ const Menu = () => {
     function onNext(){        
         navigate(routes.login);
     }
-  
-
 
     return (
         <div className="navbar">
