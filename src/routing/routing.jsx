@@ -7,6 +7,7 @@ import OnboardingScreen3 from "../screens/onboarding3/onboarding3";
 import LoginScreen from "../screens/login/login";
 import SignupScreen from "../screens/signup/signup";
 import UserTypeScreen from "../screens/user_type/user_type";
+import HomeScreen from "../screens/home/home";
 import routes from "./routes";
 
 function RouteStack() {
@@ -20,6 +21,7 @@ function RouteStack() {
                 <Route path={routes.onboarding1} element={<OnboardingScreen1 />} />
                 <Route path={routes.onboarding2} element={<OnboardingScreen2 />} />
                 <Route path={routes.onboarding3} element={<OnboardingScreen3 />} />
+                <Route path={routes.home} element={<HomeScreen />} />
             </Routes>
         </div>
     );

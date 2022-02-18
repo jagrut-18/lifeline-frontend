@@ -14,11 +14,6 @@
     margin: 15px 0;
 }
 
-.menu-icon {
-    width: 25px;
-    cursor: pointer;
-}
-
 .nav-wrapper {
     display: flex;
     width: 100%;
@@ -36,14 +31,57 @@ nav ul li {
     margin-right: 30px;
 }
 
-nav ul li a {
+nav ul li .link {
     text-decoration: none;
     color: #535461;
-    font-size: 15px;
+    font-size: 16px;
+    cursor: pointer;
 }
 
-nav ul li a:hover {
+nav ul li .link:hover {
     color: #B8405E;
+}
+
+.menu-icon {
+    width: 25px;
+    cursor: pointer;
+}
+
+.menu-wrapper {
+    position: relative;
+}
+
+.menu-wrapper .menu-main-section {
+    display: flex;
+    align-items: center;
+}
+
+.menu-wrapper .menu-main-section .menu-icon-wrapper {
+    width: 40px;
+    height: 40px;
+    border-width: 1px;
+    border-radius: 20px;
+    border-color: #B8405E;
+    margin-right: 10px;
+}
+
+.menu-wrapper .menu-main-section .arrow-button {
+    padding: 0px;
+    margin: 0px;
+    border: 0px;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.menu-dropdown-wrapper {
+    position: relative;
+}
+
+.menu-dropdown-wrapper-inner {
+    position: absolute;
+    z-index: 1;
+    left: -95px;
+    top: 10px;
 }
 
 .login-button-wrapper {
@@ -63,4 +101,9 @@ nav ul li a:hover {
     color: #B8405E;
     border-radius: 6px;
     cursor: pointer;
+}
+
+.menu-item {
+    color: #757575 !important;
+    font-size: 16px !important;
 }

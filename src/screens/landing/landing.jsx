@@ -44,17 +44,17 @@ const LandingScreen = () => {
                 </div>
                 <div className="box">
                     <div className="box-col">
-                        <div><span>P</span></div>
+                        <div className="heading-wrapper"><span>P</span></div>
                         <h2>Patients</h2>
                         <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard</p>
                     </div>
                     <div className="box-col">
-                        <div><span>D</span></div>
+                        <div className="heading-wrapper"><span>D</span></div>
                         <h2>Doctors</h2>
                         <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard</p>
                     </div>
                     <div className="box-col">
-                        <div><span>I</span></div>
+                        <div className="heading-wrapper"><span>I</span></div>
                         <h2>Insurance Providers</h2>
                         <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard</p>
                     </div>
