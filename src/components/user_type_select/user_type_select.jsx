@@ -11,7 +11,6 @@ import { useState } from 'react';
 import Button from '../button/button';
 import ErrorComponent from '../../components/error/error';
 import { UserTypeContext } from './user_type_context';
-
 /* props:
     - onNext(selected_user_type)
 */
@@ -44,7 +43,8 @@ export default function UserTypeSelect(props) {
             return;
         }
         setError(null);
-        props.onNext(selectedUser);
+        localStorage.setItem('user_type', JSON.stringify(selectedUser));
+        props.onNext();
     }
 
 

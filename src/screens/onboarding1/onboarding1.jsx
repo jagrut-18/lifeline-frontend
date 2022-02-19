@@ -17,7 +17,6 @@ import ErrorComponent from '../../components/error/error';
 
 export default function OnboardingScreen1(props) {
     const navigate = useNavigate();
-
     const [first, setFirst] = useState('');
     const [last, setLast] = useState('');
     const [phone, setPhone] = useState('');

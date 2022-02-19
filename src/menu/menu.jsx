@@ -8,9 +8,11 @@ import MenuItem from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
 import { useNavigate } from 'react-router-dom';
 import { BrowserRouter as Router, Link } from "react-router-dom";
+import useLocalStorage from '../utilities/use_location';
 
 const Menu = () => {
     const [loginFlag, setLoginFlag] = useState(true);
+    const [token, _] = useLocalStorage("token", localStorage.getItem("token"));
     const [openMenuFlag, setOpenMenu] = useState(false);
     console.log(openMenuFlag)
     const navigate = useNavigate();
@@ -34,7 +36,7 @@ const Menu = () => {
         <div className="navbar">
             <img src={Logo} alt="logo" className="logo" />
             {
-                loginFlag ?
+                token ?
                     <div className="nav-wrapper">
                         <nav>
                             <ul>

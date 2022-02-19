@@ -6,8 +6,7 @@ import routes from '../../routing/routes';
 export default function UserTypeScreen() {
     const navigate = useNavigate();
 
-    function onNext(selectedUser) {
-        // console.log(selectedUser)
+    function onNext() {
         navigate(routes.signup, {user_type: selectedUser});
     }
 

@@ -1,0 +1,21 @@
+/* .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    width: 40%;
+    margin: auto;
+} */
+.profile_wrapper {
+    height: 100%;
+    width: 100%;
+}
+
+.profile_row {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    width: 100%;
+}
