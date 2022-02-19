@@ -7,22 +7,23 @@ import doctor from '../../images/doctor_landing.svg';
 import Card from '@mui/material/Card';
 import Menu from '../../menu/menu'
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const LandingScreen = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        // axios.get('http://3.220.183.182:5000/')
-        //     .then(function (response) {
-        //         console.log(response);
-        //     })
-        //     .catch(function (error) {
-        //         // handle error
-        //         console.log(error);
-        //     })
-        //     .then(function () {
-        //         // always execute
-        //     });
+        axios.get('http://3.220.183.182:5000/')
+            .then(function (response) {
+                console.log(response);
+            })
+            .catch(function (error) {
+                // handle error
+                console.log(error);
+            })
+            .then(function () {
+                // always execute
+            });
 
     }, [])
 

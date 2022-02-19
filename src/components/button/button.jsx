@@ -6,7 +6,7 @@ export default function Button(props) {
         ...props.style,
     }
     return (
-        <button className='button' style={style} onClick={props.onClick}>
+        <button className='button1' style={style} onClick={props.onClick}>
             {props.text}
             <img src={LongArrow} alt="arrow" className="long_arrow" />
         </button>

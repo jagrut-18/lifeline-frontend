@@ -11,7 +11,7 @@ import { useNavigate } from 'react-router-dom';
 import routes from '../../routing/routes';
 import ErrorComponent from '../../components/error/error';
 
-export default function DoctorOnboarding() {
+export default function InsuranceOnboarding() {
   // navigation hook
   const navigate = useNavigate();
   // error hook
@@ -19,12 +19,12 @@ export default function DoctorOnboarding() {
   // dropdown options
   const yesNo = ['Yes', 'No']
   // field hooks
-  const [specialization, setSpecialization] = useState('');
+  const [companyName, setCompanyName] = useState('');
   const [hasCovidCare, setHasCovidCare] = useState('');
 
 
   function validate() {
-    const fields = [specialization, hasCovidCare];
+    const fields = [companyName, hasCovidCare];
     if (fields.some((field) => field == null || field == '')) {
       setError("Please fill all the fields");
       return false;
@@ -35,7 +35,7 @@ export default function DoctorOnboarding() {
   function onNext() {
     if (!validate()) return;
     const data = {
-      'specialization': specialization,
+      'companyName': companyName,
       'has_covid_care': hasCovidCare,
     }
     console.log(data);
@@ -49,7 +49,7 @@ export default function DoctorOnboarding() {
         <Heading text="About you" fontSize={24} />
         <Description text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s" />
         <Spacer height={30} />
-        <Textfield value={specialization} onChange={setSpecialization} placeholder="Specialization" />
+        <Textfield value={companyName} onChange={setCompanyName} placeholder="Company Name" />
         <Spacer height={15} />
         <div className="onboarding_row onboarding_row2">
           Do you provide Covid Care?

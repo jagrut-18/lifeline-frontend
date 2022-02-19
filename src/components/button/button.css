@@ -1,4 +1,4 @@
-.button {
+.button1 {
     background-color: var(--primary);
     color: var(--button-text);
     border: none;
@@ -14,7 +14,7 @@
     cursor: pointer;
 }
 
-.button:hover {
+..button1:hover {
     filter: brightness(90%);
     -webkit-filter: brightness(90%);
 }

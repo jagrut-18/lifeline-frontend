@@ -11,17 +11,17 @@ import Google from '../../components/google/google';
 import { useNavigate } from 'react-router-dom';
 import ErrorComponent from '../../components/error/error';
 import routes from '../../routing/routes';
+import axios from 'axios';
 
 function LoginScreen() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const [error, setError] = useState(null);
-const navigate = useNavigate();
+    const navigate = useNavigate();
 
     //validate input
     function validate() {
-        let isValidatedFlag = true
         let errorString = ""
         let regexEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
         let regexPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/
@@ -62,55 +62,62 @@ const navigate = useNavigate();
                 validationCount5++
             }
         }
-        
+
         //Upper and lower letters, At least one number, At least one special character
 
         //for 8 characters
         if (validationCount1 < 8) {
-            isValidatedFlag = false
             errorString += "8 or more characters required. "
         }
 
         //for lower case and uppercase
         if (validationCount2 == 0 || validationCount3 == 0) {
-            isValidatedFlag = false
             errorString += "Upper and lower letters required.  "
         }
 
         //for numbers
         if (validationCount4 == 0) {
-            isValidatedFlag = false
             errorString += "At least one number required.  "
         }
 
         //for special characters
         if (validationCount5 == 0) {
-            isValidatedFlag = false
             errorString += "At least one special character required.  "
         }
 
         //password validation
         if (password == "" || !regexPassword.test(password)) {
-            isValidatedFlag = false
+            setError(errorString)
+            return false
         }
 
         //code to execute if all validations satisfy
-        if (isValidatedFlag) {
-            setError("")
-            return true
-        } else {
-            setError(errorString)
-        }
+        setError("")
+        return true
     }
 
-    console.log('hi')
     function onNext() {
         if (!validate()) return;
+        var formData = new FormData();
+        formData.append('email', 'qwerty@gmail.com');
+        formData.append('password', '@Qwerty123');
+        
+        axios.post('http://3.220.183.182:5000/login', formData).then(function (response) {
+            console.log(response);
+            navigate(routes.home);
+        })
+            .catch(function (error) {
+                // handle error
+                console.log(error);
+            })
+            .then(function () {
+                // always execute
+            });
 
-        navigate(routes.home);
+        // navigate(routes.home);
 
         //Api call to send email and password
-        
+
         // var data = {
         //     'first_name': first,
         //     'last_name': last,
@@ -135,7 +142,7 @@ const navigate = useNavigate();
                     <Button text="Next" onClick={onNext} />
                 </div>
                 <div className="error-wrapper">
-                    {error && <ErrorComponent message={error}/>}
+                    {error && <ErrorComponent message={error} />}
                 </div>
                 <Spacer height={70} />
                 <Description text="Or continue with" style={{ alignSelf: "center" }} />

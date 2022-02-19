@@ -44,7 +44,7 @@ export default function UserTypeSelect(props) {
             return;
         }
         setError(null);
-        props.onNext();
+        props.onNext(selectedUser);
     }
 
 
