@@ -27,6 +27,7 @@ code {
   --textfield-error: 1px solid var(--primary);
   --button-text: white;
   --error: #FF3D00;
+  --loading-background: #9D9D9D;
 }
 
 /* Dark Theme */

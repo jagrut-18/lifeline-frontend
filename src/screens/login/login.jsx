@@ -11,13 +11,14 @@ import Google from '../../components/google/google';
 import { useNavigate } from 'react-router-dom';
 import ErrorComponent from '../../components/error/error';
 import routes from '../../routing/routes';
+import login from '../../auth/login';
 
 function LoginScreen() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const [error, setError] = useState(null);
-const navigate = useNavigate();
+    const navigate = useNavigate();
 
     //validate input
     function validate() {
@@ -106,7 +107,9 @@ const navigate = useNavigate();
     console.log('hi')
     function onNext() {
         if (!validate()) return;
-
+        const userId = 'abcd';
+        const token = 'abc';
+        login(email, userId, token);
         navigate(routes.home);
 
         //Api call to send email and password

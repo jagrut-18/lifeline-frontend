@@ -9,6 +9,7 @@ import { useState } from 'react';
 import ErrorComponent from '../../components/error/error';
 
 export default function OnboardingScreen3(props) {
+    // field hooks
     const [address, setAddress] = useState('');
     const [city, setCity] = useState('');
     const [state, setState] = useState('');

@@ -9,6 +9,7 @@ import SignupScreen from "../screens/signup/signup";
 import UserTypeScreen from "../screens/user_type/user_type";
 import HomeScreen from "../screens/home/home";
 import routes from "./routes";
+import UpdateProfileScreen from "../screens/update_profile/update_profile";
 
 function RouteStack() {
     return (
@@ -21,10 +22,21 @@ function RouteStack() {
                 <Route path={routes.onboarding1} element={<OnboardingScreen1 />} />
                 <Route path={routes.onboarding2} element={<OnboardingScreen2 />} />
                 <Route path={routes.onboarding3} element={<OnboardingScreen3 />} />
-                <Route path={routes.home} element={<HomeScreen />} />
             </Routes>
         </div>
     );
 }
 
-export default RouteStack
+function LoggedInRouteStack() {
+    return (
+        <div>
+            <Route path={routes.onboarding1} element={<OnboardingScreen1 />} />
+            <Route path={routes.onboarding2} element={<OnboardingScreen2 />} />
+            <Route path={routes.onboarding3} element={<OnboardingScreen3 />} />
+            <Route path={routes.home} element={<HomeScreen />} />
+            <Route path={routes.update_profile} element={<UpdateProfileScreen />} />
+        </div>
+    )
+}
+
+export { RouteStack, LoggedInRouteStack }
