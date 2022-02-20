@@ -40,7 +40,8 @@
     color: #535461;
 }
 
-.box .box-col .button {
+
+/* .box .box-col .button {
     background-color: var(--primary);
     color: var(--button-text);
     border: none;
@@ -59,7 +60,7 @@
 .box .box-col .button:hover {
     filter: brightness(90%);
     -webkit-filter: brightness(90%);
-}
+} */
 
 .box .box-col .border {
     margin-top: 20px;

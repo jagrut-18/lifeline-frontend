@@ -18,16 +18,19 @@ import { UserTypeContext } from './user_type_context';
 export default function UserTypeSelect(props) {
     const userTypes = [
         {
+            user_type_id: '1',
             user_type: 'patient',
             name: 'Patient',
             asset: Patient,
         },
         {
+            user_type_id: '2',
             user_type: 'doctor',
             name: 'Doctor',
             asset: Doctor,
         },
         {
+            user_type_id: '3',
             user_type: 'insurance',
             name: 'Insurance Provider',
             asset: Insurance,
@@ -43,10 +46,9 @@ export default function UserTypeSelect(props) {
             return;
         }
         setError(null);
-        localStorage.setItem('user_type', JSON.stringify(selectedUser));
+        localStorage.setItem('user_type_id', selectedUser);
         props.onNext();
     }
-
 
     return (
         <UserTypeContext.Provider value={selectedUser}>
@@ -55,9 +57,9 @@ export default function UserTypeSelect(props) {
                 <Description text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s" />
                 <Spacer height={30}/>
                 {userTypes.map(function (value) {
-                    var isSelected = selectedUser === value.user_type;
+                    var isSelected = selectedUser === value.user_type_id;
                     return (
-                        <div key={value.user_type} className={`user_container ${isSelected ? "selected_user" : ""}`} onClick={() => setSelectedUser(value.user_type)}>
+                        <div key={value.user_type} className={`user_container ${isSelected ? "selected_user" : ""}`} onClick={() => setSelectedUser(value.user_type_id)}>
                             <img src={value.asset} alt="img" className="user_img" />
                             <div className="user_name">{value.name}</div>
                             {isSelected && <BsFillCheckCircleFill color='var(--primary)' size={24}/>}

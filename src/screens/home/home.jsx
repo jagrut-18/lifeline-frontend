@@ -1,6 +1,5 @@
 
 import './home.css'
-import { useEffect } from 'react';
 import routes from '../../routing/routes';
 import Doctor from '../../images/home_page_doctor.svg';
 import Menu from '../../menu/menu'

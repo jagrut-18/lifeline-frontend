@@ -103,23 +103,24 @@ function LoginScreen() {
         var formData = new FormData();
         formData.append('email', 'qwerty@gmail.com');
         formData.append('password', '@Qwerty123');
+        navigate(routes.home);
 
-        axios.post('http://3.220.183.182:5000/login', formData).then(function (response) {
-            console.log(response);
-            navigate(routes.home);
-        })
-            .catch(function (error) {
-                // handle error
-                console.log(error);
-                // navigate(routes.home);
-                const userId = 'abcd';
-                const token = 'abc';
-                login(email, userId, token);
-                navigate(routes.home);
-            })
-            .then(function () {
-                // always execute
-            });
+        // axios.post('http://3.220.183.182:5000/login', formData).then(function (response) {
+        //     console.log(response);
+        //     navigate(routes.home);
+        // })
+        //     .catch(function (error) {
+        //         // handle error
+        //         console.log(error);
+        //         // navigate(routes.home);
+        //         const userId = 'abcd';
+        //         const token = 'abc';
+        //         login(email, userId, token);
+        //         navigate(routes.home);
+        //     })
+        //     .then(function () {
+        //         // always execute
+        //     });
 
 
         //Api call to send email and password

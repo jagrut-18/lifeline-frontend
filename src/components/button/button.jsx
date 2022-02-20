@@ -4,10 +4,11 @@ import LongArrow from '../../images/long_arrow.svg';
 export default function Button(props) {
     const style = {
         backgroundColor: props.isLoading ? "var(--loading-background" : "var(--primary)",
+        width: props.width ? props.width : '180px',
         ...props.style,
     }
     return (
-        <button className='button1' style={style} onClick={props.onClick}>
+        <button className='button' style={style} onClick={props.onClick}>
             {props.text}
             {
                 props.isLoading

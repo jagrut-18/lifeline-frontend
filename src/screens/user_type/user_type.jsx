@@ -7,7 +7,7 @@ export default function UserTypeScreen() {
     const navigate = useNavigate();
 
     function onNext() {
-        navigate(routes.signup, {user_type: selectedUser});
+        navigate(routes.signup);
     }
 
     return (

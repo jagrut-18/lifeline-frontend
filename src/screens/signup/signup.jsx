@@ -1,5 +1,4 @@
-import React, { useState, useLocation } from 'react';
-import { UserTypeContext } from '../../components/user_type_select/user_type_context.js';
+import React, { useState } from 'react';
 import './signup.css';
 import Heading from '../../components/heading/heading';
 import Description from '../../components/description/description';
@@ -9,7 +8,7 @@ import Spacer from '../../components/spacer';
 import ForgotPassword from '../../components/forgotpassword/forgotpassword';
 import Button from '../../components/button/button';
 import Google from '../../components/google/google';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import routes from '../../routing/routes';
 import axios from 'axios';
 import ErrorComponent from '../../components/error/error';
@@ -101,27 +100,31 @@ function SignupScreen() {
     //code to execute if all validations satisfy
     setError("")
     return true
-  
+
   }
 
   function onNext() {
     if (!validate()) return;
+
     var formData = new FormData();
-    formData.append('email', 'ksh@gmail.com');
-    formData.append('password', '@Qwerty123');
-    formData.append('user_type_id', '1');
+
+    formData.append('email', email);
+    formData.append('password', password);
+    formData.append('user_type_id', localStorage.getItem('user_type_id'));
 
     axios.post('http://3.220.183.182:5000/signup', formData).then(function (response) {
       console.log(response);
-      navigate(routes.home);
+      //if error
+      //print something went wrong
+      //else if user already exists
+      //print appropriate message
+      //else
+      navigate(routes.onboarding1);
     })
       .catch(function (error) {
-        // handle error
+        setError("Something went wrong")
         console.log(error);
       })
-      .then(function () {
-        // always execute
-      });
 
     // navigate(routes.home);
 

@@ -1,6 +1,6 @@
 import React from 'react'
 import './card1.css'
-import Button2  from '../button2/button2'
+import Button  from '../button/button'
 
 function Card1(props) {
     return (
@@ -12,7 +12,7 @@ function Card1(props) {
                 <h2>{props.header}</h2>
                 <p>{props.description}</p>
                 <div className="border" />
-                <Button2 text={props.buttonText} />
+                <Button text={props.buttonText} width={'100%'}/>
             </div>
         </div>
     )
