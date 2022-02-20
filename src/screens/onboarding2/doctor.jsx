@@ -21,6 +21,8 @@ export default function DoctorOnboarding() {
 	// field hooks
 	const [specialization, setSpecialization] = useState('');
 	const [hasCovidCare, setHasCovidCare] = useState('');
+	const genderOptions = ['Male', 'Female']
+    const [gender, setGender] = useState(null);
 
 
 	function validate() {
@@ -42,8 +44,11 @@ export default function DoctorOnboarding() {
 		onboardingData = {
 			...onboardingData,
 			'specialization': specialization,
-			'has_covid_care': hasCovidCare
+			'has_covid_care': hasCovidCare,
+			'sex': gender.toLowerCase()
 		}
+
+		localStorage.setItem('onboardingData', JSON.stringify(onboardingData))
 
 		navigate(routes.onboarding3);
 	}
@@ -54,6 +59,8 @@ export default function DoctorOnboarding() {
 				<Heading text="About you" fontSize={24} />
 				<Description text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s" />
 				<Spacer height={30} />
+				<DropdownSelect placeholder="Gender" options={genderOptions} onChange={setGender} />
+				<Spacer height={15} />
 				<Textfield value={specialization} onChange={setSpecialization} placeholder="Specialization" />
 				<Spacer height={15} />
 				<div className="onboarding_row onboarding_row2">

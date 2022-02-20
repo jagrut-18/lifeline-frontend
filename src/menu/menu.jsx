@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import { BrowserRouter as Router, Link } from "react-router-dom";
 import useLocalStorage from '../utilities/use_location';
 import logout from '../auth/logout';
+import Heading from '../components/heading/heading';
 
 const Menu = () => {
     const [loginFlag, setLoginFlag] = useState(true);
@@ -34,6 +35,10 @@ const Menu = () => {
         console.log("hi")
     }
 
+    const myAccount = () => {
+        navigate(routes.update_profile);
+    }
+
     const onLogout = () => {
         logout();
         navigate(routes.login);
@@ -41,7 +46,10 @@ const Menu = () => {
 
     return (
         <div className="navbar">
-            <img src={Logo} alt="logo" className="logo" />
+            {/* <img src={Logo} alt="logo" className="logo" /> */}
+            <div className="logo">
+                <Heading text="LifeLine" />
+            </div>
             {
                 token ?
                     <div className="nav-wrapper">
@@ -68,7 +76,7 @@ const Menu = () => {
                                             <Paper>
                                                 <MenuList>
                                                     <MenuItem onClick={myAppointments} className="menu-item">My Appointments</MenuItem>
-                                                    <MenuItem className="menu-item">My account</MenuItem>
+                                                    <MenuItem onClick={myAccount} className="menu-item">My account</MenuItem>
                                                     <MenuItem onClick={onLogout} className="menu-item">Logout</MenuItem>
                                                 </MenuList>
                                             </Paper>

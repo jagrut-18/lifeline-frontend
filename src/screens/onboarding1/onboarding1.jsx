@@ -54,7 +54,7 @@ export default function OnboardingScreen1(props) {
             let onboardingData = {
                 'first_name': first,
                 'last_name': last,
-                'phone': phone,
+                'phone_number': phone,
                 'company_name': companyName
             }
 
@@ -65,7 +65,7 @@ export default function OnboardingScreen1(props) {
             let onboardingData = {
                 'first_name': first,
                 'last_name': last,
-                'phone': phone
+                'phone_number': phone
             }
             
             localStorage.setItem('onboardingData', JSON.stringify(onboardingData))

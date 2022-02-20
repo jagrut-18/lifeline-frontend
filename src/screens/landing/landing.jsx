@@ -36,7 +36,7 @@ const LandingScreen = () => {
             <Menu />
             <div className="row">
                 <div className="col-1">
-                    <h2>Lorem Ipsum is simply dummy text.</h2>
+                    <h2>LifeLine</h2>
                     <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
                     <button type="button" onClick={navigateNext}>Get Started</button>
                 </div>
@@ -47,17 +47,17 @@ const LandingScreen = () => {
                     <div className="box-col">
                         <div className="heading-wrapper"><span>P</span></div>
                         <h2>Patients</h2>
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard</p>
+                        <p>Stay on top of your heath and wellness. Book appointments, have regular checkups, chat with doctors any time, get medical insurance. All at one place!</p>
                     </div>
                     <div className="box-col">
                         <div className="heading-wrapper"><span>D</span></div>
                         <h2>Doctors</h2>
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard</p>
+                        <p>Manager your schedule, appointments, meet pateints and get access to thier medical records here!</p>
                     </div>
                     <div className="box-col">
                         <div className="heading-wrapper"><span>I</span></div>
                         <h2>Insurance Providers</h2>
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard</p>
+                        <p>Log in with your company details and start providing your instant afforable packages to our customers.</p>
                     </div>
                 </div>
             </div>

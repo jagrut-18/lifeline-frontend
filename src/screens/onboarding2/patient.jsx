@@ -46,13 +46,13 @@ export default function PatientOnboarding() {
 
         onboardingData = {
             ...onboardingData,
-            'dob': `${dob.month}-${dob.day}-${dob.year}`,
-            'gender': gender,
+            'birth_date': `${dob.month}-${dob.day}-${dob.year}`,
+            'sex': gender.toLowerCase(),
             'height': parseInt(height),
             'weight': parseInt(weight),
-            'blood_group': bloodGroup,
-            'smoke': smoke,
-            'drink': drink
+            'blood_type': bloodGroup,
+            'smoking_pref': smoke,
+            'drinking_pref': drink
         }
 
         localStorage.setItem('onboardingData', JSON.stringify(onboardingData))
