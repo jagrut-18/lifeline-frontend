@@ -102,29 +102,24 @@ function LoginScreen() {
         var formData = new FormData();
         formData.append('email', email);
         formData.append('password', password);
-        // navigate(routes.home);
 
         axios.post('http://3.220.183.182:5000/login', formData).then(function (response) {
+
+            //for successful login
             if (response.data.response_code == "200") {
-                login(email, response.data.data.user_id, response.data.data.token);
+                saveLoginDetails(email, response.data.data.user_id, response.data.data.token);
+                navigate(routes.home, { replace: true });
             } else if (response.data.response_code == "220") {
+                //for incorrect password or email
+                setError("Incorrect password or email")
             } else if (response.data.response_code == "230") {
+                //for error
+                setError("Someting went wrong")
             }
         })
             .catch(function (error) {
-                // handle error
-                console.log(error);
-                // navigate(routes.home);
-                const userId = 'abcd';
-                const token = 'abc';
-                login(email, userId, token);
-                // navigate(routes.home);
+                setError("Someting went wrong")
             })
-            .then(function () {
-                // always execute
-            });
-
-        navigate(routes.home, {replace: true});
     }
 
     return (

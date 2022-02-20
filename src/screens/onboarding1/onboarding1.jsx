@@ -23,6 +23,10 @@ export default function OnboardingScreen1(props) {
     const [error, setError] = useState(null);
     const [userTypeId, setUserTypeId] = useState(localStorage.getItem('user_type_id'))
 
+    console.log(useState(localStorage.getItem('email')))
+    console.log(useState(localStorage.getItem('user_id')))
+    console.log(useState(localStorage.getItem('token')))
+
     function validate() {
         if (first == '' || last == '' || phone == '') {
             setError("Please fill all the details");

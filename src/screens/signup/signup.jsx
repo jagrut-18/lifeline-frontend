@@ -12,6 +12,7 @@ import { useNavigate } from 'react-router-dom';
 import routes from '../../routing/routes';
 import axios from 'axios';
 import ErrorComponent from '../../components/error/error';
+import saveLoginDetails from '../../auth/login';
 
 function SignupScreen() {
   const [email, setEmail] = useState('');
@@ -113,12 +114,14 @@ function SignupScreen() {
     formData.append('user_type_id', localStorage.getItem('user_type_id'));
 
     axios.post('http://3.220.183.182:5000/signup', formData).then(function (response) {
-      console.log(response);
       if (response.data.response_code == "200") {
-        
+        saveLoginDetails(email, response.data.data.user_id, response.data.data.token);
+        navigate(routes.onboarding1);
       } else if (response.data.response_code == "210") {
         //user already exists
+        setError("This user already exists")
       } else if (response.data.response_code == "230") {
+        setError("Something went wrong")
       }
       // navigate(routes.onboarding1);
     })
@@ -126,18 +129,6 @@ function SignupScreen() {
         setError("Something went wrong")
         console.log(error);
       })
-
-    // navigate(routes.home);
-
-    //Api call to send email and password
-
-    // var data = {
-    //     'first_name': first,
-    //     'last_name': last,
-    //     'phone': phone,
-    // }
-    // console.log(data);
-    // navigate(routes.onboarding2);
   }
   return (
     <div className="container">

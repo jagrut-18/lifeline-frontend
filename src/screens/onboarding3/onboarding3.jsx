@@ -8,6 +8,7 @@ import Button from '../../components/button/button';
 import { useState } from 'react';
 import ErrorComponent from '../../components/error/error';
 import routes from '../../routing/routes';
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 export default function OnboardingScreen3(props) {
@@ -53,12 +54,6 @@ export default function OnboardingScreen3(props) {
                 'state': state,
                 'zipcode': zipcode
             }
-
-
-            formData.append('email', email);
-            formData.append('email', email);
-            formData.append('email', email);
-            formData.append('email', email);
             
 
         } else if (userTypeId == "2") {
