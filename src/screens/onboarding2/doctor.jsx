@@ -40,9 +40,7 @@ export default function DoctorOnboarding() {
 		let onboardingData = JSON.parse(localStorage.getItem('onboardingData'))
 
 		onboardingData = {
-			'first_name': onboardingData.first_name,
-			'last_name': onboardingData.last_name,
-			'phone': onboardingData.phone,
+			...onboardingData,
 			'specialization': specialization,
 			'has_covid_care': hasCovidCare
 		}

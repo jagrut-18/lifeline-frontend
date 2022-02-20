@@ -8,8 +8,8 @@ import Button from '../../components/button/button';
 import { useState } from 'react';
 import ErrorComponent from '../../components/error/error';
 import routes from '../../routing/routes';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { API } from '../../api/api';
 
 export default function OnboardingScreen3(props) {
     // field hooks
@@ -30,75 +30,35 @@ export default function OnboardingScreen3(props) {
         return true;
     }
 
-    function onSubmit() {
+    async function onSubmit() {
         if (!validate()) return;
 
         let onboardingData = JSON.parse(localStorage.getItem('onboardingData'))
         let formData = new FormData();
+        const userId = localStorage.getItem('user_id');
 
-        if (userTypeId == "1") {
-
-            onboardingData = {
-                'first_name': onboardingData.first_name,
-                'last_name': onboardingData.last_name,
-                'phone': onboardingData.phone,
-                'dob': onboardingData.dob,
-                'gender': onboardingData.gender,
-                'height': onboardingData.height,
-                'weight': onboardingData.weight,
-                'blood_group': onboardingData.bloodGroup,
-                'smoke': onboardingData.smoke,
-                'drink': onboardingData.drink,
+        onboardingData = {
+                ...onboardingData,
                 'address': address,
                 'city': city,
                 'state': state,
-                'zipcode': zipcode
-            }
-            
-
-        } else if (userTypeId == "2") {
-
-            onboardingData = {
-                'first_name': onboardingData.first_name,
-                'last_name': onboardingData.last_name,
-                'phone': onboardingData.phone,
-                'specialization': onboardingData.specialization,
-                'has_covid_care': onboardingData.hasCovidCare,
-                'city': city,
-                'state': state,
-                'zipcode': zipcode
-            }
-
-        } else if (userTypeId == "3") {
-
-            onboardingData = {
-                'first_name': onboardingData.first_name,
-                'last_name': onboardingData.last_name,
-                'phone': onboardingData.phone,
-                'company_name': onboardingData.companyName,
-                'city': city,
-                'state': state,
-                'zipcode': zipcode
-            }
+                'zipcode': zipcode,
+                'user_id': userId,
         }
 
-        axios.post('http://3.220.183.182:5000/Onboarding', formData).then(function (response) {
-            if (response.data.response_code == "200") {
-                navigate(routes.home, {replace: true});
+        console.log(onboardingData);
+         
+        for (var key in onboardingData) {
+            formData.append(key, onboardingData[key]);
+        }
 
-            } else if (response.data.response_code == "210") {
-                //user already exists
-            } else if (response.data.response_code == "230") {
-            }
-            // navigate(routes.onboarding1);
-        })
-            .catch(function (error) {
-                setError("Something went wrong")
-                console.log(error);
-            })
-
-        //Onboard api call with onboardingData object
-        //clear data and userTypeId
+        var response = await API.onboarding(formData);
+        if (response.success){
+            navigate(routes.home, {replace: true});
+        }
+        else {
+            setError(response.error);
+        }
     }
 
     return (
