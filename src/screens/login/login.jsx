@@ -12,7 +12,7 @@ import { useNavigate } from 'react-router-dom';
 import ErrorComponent from '../../components/error/error';
 import routes from '../../routing/routes';
 import axios from 'axios';
-import login from '../../auth/login';
+import saveLoginDetails from '../../auth/login';
 
 function LoginScreen() {
     const [email, setEmail] = useState('');
@@ -99,7 +99,6 @@ function LoginScreen() {
 
     function onNext() {
         if (!validate()) return;
-
         var formData = new FormData();
         formData.append('email', email);
         formData.append('password', password);
@@ -107,7 +106,7 @@ function LoginScreen() {
 
         axios.post('http://3.220.183.182:5000/login', formData).then(function (response) {
             if (response.data.response_code == "200") {
-
+                login(email, response.data.data.user_id, response.data.data.token);
             } else if (response.data.response_code == "220") {
             } else if (response.data.response_code == "230") {
             }
@@ -125,16 +124,7 @@ function LoginScreen() {
                 // always execute
             });
 
-
-        //Api call to send email and password
-
-        // var data = {
-        //     'first_name': first,
-        //     'last_name': last,
-        //     'phone': phone,
-        // }
-        // console.log(data);
-        // navigate(routes.onboarding2);
+        navigate(routes.home, {replace: true});
     }
 
     return (

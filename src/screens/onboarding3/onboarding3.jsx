@@ -33,6 +33,7 @@ export default function OnboardingScreen3(props) {
         if (!validate()) return;
 
         let onboardingData = JSON.parse(localStorage.getItem('onboardingData'))
+        let formData = new FormData();
 
         if (userTypeId == "1") {
 
@@ -53,8 +54,15 @@ export default function OnboardingScreen3(props) {
                 'zipcode': zipcode
             }
 
-        } else if (userTypeId == "2") {
+
+            formData.append('email', email);
+            formData.append('email', email);
+            formData.append('email', email);
+            formData.append('email', email);
             
+
+        } else if (userTypeId == "2") {
+
             onboardingData = {
                 'first_name': onboardingData.first_name,
                 'last_name': onboardingData.last_name,
@@ -67,7 +75,7 @@ export default function OnboardingScreen3(props) {
             }
 
         } else if (userTypeId == "3") {
-            
+
             onboardingData = {
                 'first_name': onboardingData.first_name,
                 'last_name': onboardingData.last_name,
@@ -78,8 +86,21 @@ export default function OnboardingScreen3(props) {
                 'zipcode': zipcode
             }
         }
-        
-        navigate(routes.home);
+
+        axios.post('http://3.220.183.182:5000/Onboarding', formData).then(function (response) {
+            if (response.data.response_code == "200") {
+                navigate(routes.home, {replace: true});
+
+            } else if (response.data.response_code == "210") {
+                //user already exists
+            } else if (response.data.response_code == "230") {
+            }
+            // navigate(routes.onboarding1);
+        })
+            .catch(function (error) {
+                setError("Something went wrong")
+                console.log(error);
+            })
 
         //Onboard api call with onboardingData object
         //clear data and userTypeId

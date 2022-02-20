@@ -9,6 +9,7 @@ import MenuList from '@mui/material/MenuList';
 import { useNavigate } from 'react-router-dom';
 import { BrowserRouter as Router, Link } from "react-router-dom";
 import useLocalStorage from '../utilities/use_location';
+import logout from '../auth/logout';
 
 const Menu = () => {
     const [loginFlag, setLoginFlag] = useState(true);
@@ -32,6 +33,12 @@ const Menu = () => {
     const myAppointments = () => {
         console.log("hi")
     }
+
+    const onLogout = () => {
+        logout();
+        navigate(routes.login);
+    }
+
     return (
         <div className="navbar">
             <img src={Logo} alt="logo" className="logo" />
@@ -62,7 +69,7 @@ const Menu = () => {
                                                 <MenuList>
                                                     <MenuItem onClick={myAppointments} className="menu-item">My Appointments</MenuItem>
                                                     <MenuItem className="menu-item">My account</MenuItem>
-                                                    <MenuItem className="menu-item">Logout</MenuItem>
+                                                    <MenuItem onClick={onLogout} className="menu-item">Logout</MenuItem>
                                                 </MenuList>
                                             </Paper>
                                         </div>

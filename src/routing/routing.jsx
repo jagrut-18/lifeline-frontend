@@ -31,11 +31,13 @@ function RouteStack() {
 function LoggedInRouteStack() {
     return (
         <div>
-            {/* <Route path={routes.onboarding1} element={<OnboardingScreen1 />} />
+            <Routes>
+                {/* <Route path={routes.onboarding1} element={<OnboardingScreen1 />} />
             <Route path={routes.onboarding2} element={<OnboardingScreen2 />} />
             <Route path={routes.onboarding3} element={<OnboardingScreen3 />} /> */}
             <Route path={routes.home} element={<HomeScreen />} />
             <Route path={routes.update_profile} element={<UpdateProfileScreen />} />
+            </Routes>
         </div>
     )
 }
