@@ -79,7 +79,7 @@ export default function OnboardingScreen3(props) {
             }
         }
 
-        navigate(routes.home);
+        navigate(routes.home, {replace: true});
 
         //Onboard api call with onboardingData object
     }

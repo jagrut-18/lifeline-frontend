@@ -100,10 +100,11 @@ function LoginScreen() {
     function onNext() {
         if (!validate()) return;
 
-        var formData = new FormData();
-        formData.append('email', 'qwerty@gmail.com');
-        formData.append('password', '@Qwerty123');
-        navigate(routes.home);
+        // var formData = new FormData();
+        // formData.append('email', 'qwerty@gmail.com');
+        // formData.append('password', '@Qwerty123');
+        login('qwerty@gmail.com', 'qwerty', 'abcd');
+        navigate(routes.home, {replace: true});
 
         // axios.post('http://3.220.183.182:5000/login', formData).then(function (response) {
         //     console.log(response);
