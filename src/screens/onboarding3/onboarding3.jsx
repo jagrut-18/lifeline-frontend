@@ -78,10 +78,11 @@ export default function OnboardingScreen3(props) {
                 'zipcode': zipcode
             }
         }
-
+        
         navigate(routes.home);
 
         //Onboard api call with onboardingData object
+        //clear data and userTypeId
     }
 
     return (

@@ -114,12 +114,13 @@ function SignupScreen() {
 
     axios.post('http://3.220.183.182:5000/signup', formData).then(function (response) {
       console.log(response);
-      //if error
-      //print something went wrong
-      //else if user already exists
-      //print appropriate message
-      //else
-      navigate(routes.onboarding1);
+      if (response.data.response_code == "200") {
+        
+      } else if (response.data.response_code == "210") {
+        //user already exists
+      } else if (response.data.response_code == "230") {
+      }
+      // navigate(routes.onboarding1);
     })
       .catch(function (error) {
         setError("Something went wrong")
