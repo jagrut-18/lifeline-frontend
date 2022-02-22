@@ -78,7 +78,7 @@ export default function OnboardingScreen1(props) {
             {
                 <Card>
                     <Heading text={userTypeId == "3" ? "Enter company details" : "Enter details"} fontSize={24} />
-                    <Description text={userTypeId == "3" ? "Lorem Ipsum" : "Lorem Ipsum"} />
+                    <Description text={"Introduce yourself to us! Give use some information about you so that we can identify you."} />
                     <Spacer height={30} />
                     <div className="form">
                         <Textfield placeholder="First Name" value={first} onChange={setFirst} />
@@ -86,10 +86,12 @@ export default function OnboardingScreen1(props) {
                         <Textfield placeholder="Last Name" value={last} onChange={setLast} />
                         <Spacer height={15} />
                         <Textfield type="number" placeholder={userTypeId == "3" ? "Company Phone Number" : "Phone Number"} value={phone} onChange={setPhone} />
-                        <Spacer height={15} />
                         {
                             userTypeId == "3" ?
-                                <Textfield placeholder="Company Name" value={companyName} onChange={setCompanyName} />
+                            <div>
+                                    <Spacer height={15} />
+                                    <Textfield placeholder="Company Name" value={companyName} onChange={setCompanyName} />
+                                </div>
                                 :
                                 null
                         }

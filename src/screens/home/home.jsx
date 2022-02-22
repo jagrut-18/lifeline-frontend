@@ -2,7 +2,6 @@
 import './home.css'
 import routes from '../../routing/routes';
 import Doctor from '../../images/home_page_doctor.svg';
-import Menu from '../../menu/menu'
 import Box from '../../components/card1/card1'
 import Insurance from '../../images/home_page_insurance.svg';
 import { useNavigate } from 'react-router-dom';
@@ -16,7 +15,6 @@ const HomeScreen = () => {
 
     return (
         <div className="container-home">
-            <Menu />
             <div className="row">
                 <div className="col-1">
                     <h2>LifeLine.</h2>

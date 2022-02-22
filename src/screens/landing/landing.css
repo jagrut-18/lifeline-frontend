@@ -6,9 +6,7 @@
     margin: 0;
     padding: 0;
     width: 100%;
-    min-height: 100vh;
-    box-sizing: border-box;
-    /* overflow-x: scroll; */
+    min-height: calc(100vh - 80px);
     overflow: hidden;
     background-color: #fff;
 }
@@ -51,7 +49,7 @@
     color: #fff;
     /* background: linear-gradient(to right, #fff, #B8405E); */
     background-color: #B8405E;
-    border-radius: 6px;
+    border-radius: 7px;
     cursor: pointer;
 }
 

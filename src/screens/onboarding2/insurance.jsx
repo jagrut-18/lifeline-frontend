@@ -47,7 +47,7 @@ export default function InsuranceOnboarding() {
     <div className="container">
       <Card>
         <Heading text="About you" fontSize={24} />
-        <Description text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s" />
+        <Description text="Give us a little more insight about you so that we can provide you with the best possible services." />
         <Spacer height={30} />
         <Textfield value={companyName} onChange={setCompanyName} placeholder="Company Name" />
         <Spacer height={15} />

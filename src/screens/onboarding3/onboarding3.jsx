@@ -5,11 +5,12 @@ import Description from '../../components/description/description';
 import Spacer from '../../components/spacer';
 import Textfield from '../../components/textfield/textfield';
 import Button from '../../components/button/button';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import ErrorComponent from '../../components/error/error';
 import routes from '../../routing/routes';
 import { useNavigate } from 'react-router-dom';
 import { API } from '../../api/api';
+import { LoginStateContext } from '../../contexts';
 
 export default function OnboardingScreen3(props) {
     // field hooks
@@ -19,6 +20,7 @@ export default function OnboardingScreen3(props) {
     const [zipcode, setZipcode] = useState('');
     const [error, setError] = useState();
     const [userTypeId, setUserTypeId] = useState(localStorage.getItem('user_type_id'))
+    const { isLoggedIn, setIsLoggedIn } = useContext(LoginStateContext);
     const navigate = useNavigate();
 
     function validate() {
@@ -54,6 +56,7 @@ export default function OnboardingScreen3(props) {
 
         var response = await API.onboarding(formData);
         if (response.success){
+            setIsLoggedIn(true);
             navigate(routes.home, {replace: true});
         }
         else {
@@ -66,7 +69,7 @@ export default function OnboardingScreen3(props) {
             {
                 <Card>
                     <Heading text={userTypeId == "3" ? "Where is you company located?" : "Where do you live?"} fontSize={24} />
-                    <Description text={userTypeId == "3" ? "Lorem Ipsum" : "Lorem Ipsum"} />
+                    <Description text={"Let us know your address so that we can share important details with you in timely manner."} />
                     <Spacer height={30} />
                     <div className="form">
                         <Textfield placeholder="Address" value={address} onChange={setAddress} />

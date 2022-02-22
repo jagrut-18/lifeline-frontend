@@ -1,6 +1,8 @@
 import React from 'react'
 import './card1.css'
 import Button  from '../button/button'
+import Heading from '../heading/heading'
+import Description from '../description/description'
 
 function Card1(props) {
     return (
@@ -9,8 +11,8 @@ function Card1(props) {
                 <div className="imageWrapper">
                     <img src={props.image} alt="doctor" className="doctor_image" />
                 </div>
-                <h2>{props.header}</h2>
-                <p>{props.description}</p>
+                <Heading text={props.header} style={{fontSize: 20}} />
+                <Description text={props.description} />
                 <div className="border" />
                 <Button text={props.buttonText} width={'100%'}/>
             </div>

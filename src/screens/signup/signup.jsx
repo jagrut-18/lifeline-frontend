@@ -5,7 +5,6 @@ import Description from '../../components/description/description';
 import Card from '../../components/card/card';
 import Textfield from '../../components/textfield/textfield';
 import Spacer from '../../components/spacer';
-import ForgotPassword from '../../components/forgotpassword/forgotpassword';
 import Button from '../../components/button/button';
 import Google from '../../components/google/google';
 import { useNavigate } from 'react-router-dom';
@@ -20,6 +19,7 @@ function SignupScreen() {
   const [reenterPassword, setReenterPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   //validate input
@@ -106,51 +106,47 @@ function SignupScreen() {
 
   function onNext() {
     if (!validate()) return;
-
+    setLoading(true);
     var formData = new FormData();
-
+    
     formData.append('email', email);
     formData.append('password', password);
     formData.append('user_type_id', localStorage.getItem('user_type_id'));
-
+    
     axios.post('http://3.220.183.182:5000/signup', formData).then(function (response) {
       if (response.data.response_code == "200") {
         saveLoginDetails(email, response.data.data.user_id, response.data.data.token);
         navigate(routes.onboarding1);
+        setLoading(false);
       } else if (response.data.response_code == "210") {
         //user already exists
         setError("This user already exists")
+        setLoading(false);
       } else if (response.data.response_code == "230") {
         setError("Something went wrong")
+        setLoading(false);
       }
       // navigate(routes.onboarding1);
     })
-      .catch(function (error) {
-        setError("Something went wrong")
-        console.log(error);
-      })
+    .catch(function (error) {
+      setError("Something went wrong")
+      setLoading(false);
+      console.log(error);
+    })
   }
   return (
     <div className="container">
       <Card>
         <Heading text="Create your Account" fontSize={24} />
-        <Description text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s" />
+        <Description text="Create a profile for yourself and have all your details and requirments at one place!" />
         <Spacer height={30} />
         <div className="form">
           <Textfield placeholder="Email address" value={email} onChange={setEmail} />
           <Spacer height={15} />
           <Textfield type={showPassword ? "text" : "password"} placeholder="Password" value={password} onChange={setPassword} />
-          <Spacer height={7} />
-          {
-            password != "" ?
-              <div>
-                <Textfield type={showPassword ? "text" : "password"} placeholder="Re-enter Password" value={reenterPassword} onChange={setReenterPassword} />
-                <Spacer height={7} />
-              </div>
-              :
-              null
-          }
-          <ForgotPassword />
+          <Spacer height={15} />
+          <Textfield type={showPassword ? "text" : "password"} placeholder="Re-enter Password" value={reenterPassword} onChange={setReenterPassword} />
+          <Spacer height={15} />
           <Button text="Next" onClick={onNext} />
         </div>
         <div className="error-wrapper">

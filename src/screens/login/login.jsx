@@ -4,7 +4,7 @@ import Description from '../../components/description/description';
 import Card from '../../components/card/card';
 import Textfield from '../../components/textfield/textfield';
 import Spacer from '../../components/spacer';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import ForgotPassword from '../../components/forgotpassword/forgotpassword';
 import Button from '../../components/button/button';
 import Google from '../../components/google/google';
@@ -13,12 +13,15 @@ import ErrorComponent from '../../components/error/error';
 import routes from '../../routing/routes';
 import axios from 'axios';
 import saveLoginDetails from '../../auth/login';
+import { LoginStateContext } from '../../contexts';
 
 function LoginScreen() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const [error, setError] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const {isLoggedIn, setIsLoggedIn} = useContext(LoginStateContext);
     const navigate = useNavigate();
 
     //validate input
@@ -99,6 +102,7 @@ function LoginScreen() {
 
     function onNext() {
         if (!validate()) return;
+        setLoading(true);
         var formData = new FormData();
         formData.append('email', email);
         formData.append('password', password);
@@ -108,17 +112,21 @@ function LoginScreen() {
             //for successful login
             if (response.data.response_code == "200") {
                 saveLoginDetails(email, response.data.data.user_id, response.data.data.token);
+                setIsLoggedIn(true);
                 navigate(routes.home, { replace: true });
             } else if (response.data.response_code == "220") {
                 //for incorrect password or email
+                setLoading(false);
                 setError("Incorrect password or email")
             } else if (response.data.response_code == "230") {
                 //for error
+                setLoading(false);
                 setError("Someting went wrong")
             }
         })
             .catch(function (error) {
                 setError("Someting went wrong")
+                setLoading(false);
             })
     }
 
@@ -126,7 +134,7 @@ function LoginScreen() {
         <div className="container">
             <Card>
                 <Heading text="Login to your Account" fontSize={24} />
-                <Description text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s" />
+                <Description text="Enter your credentials here and get access to all the services we provide." />
                 <Spacer height={30} />
                 <div className="form">
                     <Textfield placeholder="Email address" value={email} onChange={setEmail} />
@@ -134,7 +142,7 @@ function LoginScreen() {
                     <Textfield type={showPassword ? "text" : "password"} placeholder="Password" value={password} onChange={setPassword} />
                     <Spacer height={7} />
                     <ForgotPassword />
-                    <Button text="Next" onClick={onNext} />
+                    <Button text="Next" onClick={onNext} isLoading={loading}/>
                 </div>
                 <div className="error-wrapper">
                     {error && <ErrorComponent message={error} />}

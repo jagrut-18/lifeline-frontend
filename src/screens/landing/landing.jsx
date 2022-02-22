@@ -1,31 +1,29 @@
 
 import './landing.css'
-import { useEffect } from 'react';
 import routes from '../../routing/routes';
-import logo from '../../images/doctor.png';
 import doctor from '../../images/doctor_landing.svg';
-import Card from '@mui/material/Card';
-import Menu from '../../menu/menu'
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import Heading from '../../components/heading/heading';
+import Description from '../../components/description/description';
+import Spacer from '../../components/spacer';
 
 const LandingScreen = () => {
     const navigate = useNavigate();
 
-    useEffect(() => {
-        axios.get('http://3.220.183.182:5000/')
-            .then(function (response) {
-                console.log(response);
-            })
-            .catch(function (error) {
-                // handle error
-                console.log(error);
-            })
-            .then(function () {
-                // always execute
-            });
-
-    }, [])
+    const data = [
+        {
+            name: 'Patient',
+            description: 'Stay on top of your heath and wellness. Book appointments, have regular checkups, chat with doctors any time, get medical insurance. All at one place!',
+        },
+        {
+            name: 'Doctor',
+            description: 'Manager your schedule, appointments, meet pateints and get access to thier medical records here!',
+        },
+        {
+            name: 'Insurance Provider',
+            description: 'Log in with your company details and start providing your instant afforable packages to our customers.',
+        },
+    ]
 
     const navigateNext = () => {
         navigate(routes.user_type);
@@ -33,7 +31,6 @@ const LandingScreen = () => {
 
     return (
         <div className="container-landing">
-            <Menu />
             <div className="row">
                 <div className="col-1">
                     <h2>LifeLine</h2>
@@ -44,21 +41,16 @@ const LandingScreen = () => {
                     <img src={doctor} alt="doctor" />
                 </div>
                 <div className="box">
-                    <div className="box-col">
-                        <div className="heading-wrapper"><span>P</span></div>
-                        <h2>Patients</h2>
-                        <p>Stay on top of your heath and wellness. Book appointments, have regular checkups, chat with doctors any time, get medical insurance. All at one place!</p>
-                    </div>
-                    <div className="box-col">
-                        <div className="heading-wrapper"><span>D</span></div>
-                        <h2>Doctors</h2>
-                        <p>Manager your schedule, appointments, meet pateints and get access to thier medical records here!</p>
-                    </div>
-                    <div className="box-col">
-                        <div className="heading-wrapper"><span>I</span></div>
-                        <h2>Insurance Providers</h2>
-                        <p>Log in with your company details and start providing your instant afforable packages to our customers.</p>
-                    </div>
+                    {
+                        data.map((item) => (
+                            <div key={item.name} className="box-col">
+                                <div className="heading-wrapper"><span>{item.name.charAt(0)}</span></div>
+                                <Spacer height={5} />
+                                <Heading text={item.name} style={{fontSize: 18}}/>
+                                <Description text={item.description} />
+                            </div>
+                        ))
+                    }
                 </div>
             </div>
         </div>

@@ -54,7 +54,7 @@ export default function UserTypeSelect(props) {
         <UserTypeContext.Provider value={selectedUser}>
             <Card>
                 <Heading text="Who are you?" fontSize={24} />
-                <Description text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s" />
+                <Description text="Click on one of the options and let’s get started with our quick signup process!" />
                 <Spacer height={30}/>
                 {userTypes.map(function (value) {
                     var isSelected = selectedUser === value.user_type_id;
@@ -62,7 +62,7 @@ export default function UserTypeSelect(props) {
                         <div key={value.user_type} className={`user_container ${isSelected ? "selected_user" : ""}`} onClick={() => setSelectedUser(value.user_type_id)}>
                             <img src={value.asset} alt="img" className="user_img" />
                             <div className="user_name">{value.name}</div>
-                            {isSelected && <BsFillCheckCircleFill color='var(--primary)' size={24}/>}
+                            {isSelected && <BsFillCheckCircleFill color='var(--secondary)' size={24}/>}
                         </div>
                     )
                 })}
