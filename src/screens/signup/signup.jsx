@@ -147,7 +147,7 @@ function SignupScreen() {
           <Spacer height={15} />
           <Textfield type={showPassword ? "text" : "password"} placeholder="Re-enter Password" value={reenterPassword} onChange={setReenterPassword} />
           <Spacer height={15} />
-          <Button text="Next" onClick={onNext} />
+          <Button text="Next" isLoading={loading} onClick={onNext} />
         </div>
         <div className="error-wrapper">
           {error && <ErrorComponent message={error} />}
