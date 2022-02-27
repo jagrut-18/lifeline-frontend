@@ -10,6 +10,7 @@ import UserTypeScreen from "../screens/user_type/user_type";
 import HomeScreen from "../screens/home/home";
 import routes from "./routes";
 import UpdateProfileScreen from "../screens/update_profile/update_profile";
+import AppointmentDetailsScreen from "../screens/appointment_details/appointment_details_screen";
 
 function RouteStack() {
     return (
@@ -37,6 +38,7 @@ function LoggedInRouteStack() {
                 <Route path={routes.onboarding3} element={<OnboardingScreen3 />} />
                 <Route path={routes.home} element={<HomeScreen />} />
                 <Route path={routes.update_profile} element={<UpdateProfileScreen />} />
+                <Route path={routes.appointment_details} element={<AppointmentDetailsScreen />} />
             </Routes>
         </div>
     )

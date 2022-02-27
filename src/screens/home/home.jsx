@@ -5,12 +5,21 @@ import Doctor from '../../images/home_page_doctor.svg';
 import Box from '../../components/card1/card1'
 import Insurance from '../../images/home_page_insurance.svg';
 import { useNavigate } from 'react-router-dom';
+import DoctorHome from './doctor/doctor';
 
 const HomeScreen = () => {
     const navigate = useNavigate();
 
     const navigateNext = () => {
         navigate(routes.user_type);
+    }
+
+    if (localStorage.getItem("user_type_id") == "2") {
+        return (
+            <div className="container-home">
+                <DoctorHome />
+            </div>
+        );
     }
 
     return (

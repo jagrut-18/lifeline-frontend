@@ -8,7 +8,7 @@
     min-height: calc(100vh - 80px);
     /* overflow-x: scroll; */
     overflow: hidden;
-    background-color: #F5F5F5;
+    background-color: var(--background);
 }
 
 .row {
