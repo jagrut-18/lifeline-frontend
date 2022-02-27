@@ -1,0 +1,38 @@
+/* .button1 {
+    background-color: var(--primary);
+} */
+
+.button {
+    color: var(--button-text);
+    border: none;
+    border-radius: 12px;
+    height: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 18px;
+    padding: 0px 15px;
+    cursor: pointer;
+}
+
+.button:hover {
+    filter: brightness(90%);
+    -webkit-filter: brightness(90%);
+}
+
+.loader {
+    width: 25px;
+    height: 25px;
+    --c: radial-gradient(farthest-side, #ffffff 92%, #0000);
+    background: var(--c) 50% 0, var(--c) 50% 100%, var(--c) 100% 50%, var(--c) 0 50%;
+    background-size: 7px 7px;
+    background-repeat: no-repeat;
+    animation: s7 1s infinite;
+}
+
+@keyframes s7 {
+    to {
+        transform: rotate(.5turn)
+    }
+}

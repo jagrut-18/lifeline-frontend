@@ -8,6 +8,7 @@ const routes = {
     onboarding3: '/onboarding3',
     home: '/',
     update_profile: '/update_profile',
+    pat_book_appointment: '/pat_book_appointment',
 }
 
 export default routes;

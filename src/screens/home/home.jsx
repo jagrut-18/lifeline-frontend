@@ -1,17 +1,14 @@
 
 import './home.css'
 import routes from '../../routing/routes';
-import Doctor from '../../images/home_page_doctor.svg';
-import Box from '../../components/card1/card1'
-import Insurance from '../../images/home_page_insurance.svg';
 import { useNavigate } from 'react-router-dom';
+import HomePatient from '../../components/homepatient/homepatient';
 
 const HomeScreen = () => {
     const navigate = useNavigate();
-
-    const navigateNext = () => {
-        navigate(routes.user_type);
-    }
+    localStorage.setItem('user_type_id', "1")
+    let user_type = JSON.parse(localStorage.getItem('user_type_id'))
+    console.log(user_type)
 
     return (
         <div className="container-home">
@@ -21,11 +18,12 @@ const HomeScreen = () => {
                     <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
                 </div>
             </div>
-            <div className="row-boxes">
-                <Box image={Doctor} header={"Patients"} description={"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard"} buttonText={"Find Appointments"} />
-                <Box image={Insurance} header={"Insurance Packages"} description={"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard"} buttonText={"Explore Plans"} />
-                <div className="box-display-none" />
-            </div>
+            {
+                user_type == "1" ?
+                    <HomePatient/>
+                :
+                null
+            }
         </div>
     );
 };

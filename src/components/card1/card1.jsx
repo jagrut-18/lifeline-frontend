@@ -5,6 +5,7 @@ import Heading from '../heading/heading'
 import Description from '../description/description'
 
 function Card1(props) {
+    
     return (
         <div className="box">
             <div className="box-col">
@@ -13,8 +14,8 @@ function Card1(props) {
                 </div>
                 <Heading text={props.header} style={{fontSize: 20}} />
                 <Description text={props.description} />
+                <Button onClick={props.onClick} text={props.buttonText} width={'100%'}/>
                 <div className="border" />
-                <Button text={props.buttonText} width={'100%'}/>
             </div>
         </div>
     )

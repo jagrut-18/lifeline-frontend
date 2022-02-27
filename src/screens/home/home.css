@@ -40,21 +40,3 @@
     font-size: 16px;
     color: #535461;
 }
-
-.row-boxes {
-    position: relative;
-    padding-left: 8%;
-    padding-right: 8%;
-    padding-top: 20px;
-    margin: 0;
-    display: flex;
-    background-color: inherit;
-}
-
-.row-boxes .box .box-col .border {
-    margin-top: 20px;
-}
-
-.box-display-none {
-    flex: 1;
-}

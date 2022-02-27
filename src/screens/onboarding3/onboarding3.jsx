@@ -47,8 +47,6 @@ export default function OnboardingScreen3(props) {
                 'zipcode': zipcode,
                 'user_id': userId,
         }
-
-        console.log(onboardingData);
          
         for (var key in onboardingData) {
             formData.append(key, onboardingData[key]);
