@@ -3,12 +3,21 @@ import './home.css'
 import routes from '../../routing/routes';
 import { useNavigate } from 'react-router-dom';
 import HomePatient from '../../components/homepatient/homepatient';
+import DoctorHome from './doctor/doctor';
 
 const HomeScreen = () => {
     const navigate = useNavigate();
     localStorage.setItem('user_type_id', "1")
     let user_type = JSON.parse(localStorage.getItem('user_type_id'))
     console.log(user_type)
+
+    if (localStorage.getItem("user_type_id") == "2") {
+        return (
+            <div className="container-home">
+                <DoctorHome />
+            </div>
+        );
+    }
 
     return (
         <div className="container-home">

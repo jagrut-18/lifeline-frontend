@@ -9,6 +9,7 @@ const routes = {
     home: '/',
     update_profile: '/update_profile',
     pat_book_appointment: '/pat_book_appointment',
+    appointment_details: '/appointment_details'
 }
 
 export default routes;
