@@ -1,5 +1,5 @@
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import './patbookappointments.css'
 import routes from '../../routing/routes';
 import { useNavigate } from 'react-router-dom';
@@ -9,11 +9,14 @@ import DropdownSelect from '../../components/dropdown/dropdown';
 import ButtonSimple from '../../components/buttonsimple/buttonsimple';
 import Doctor from '../../images/doctor.svg'
 import Star from '../../images/star.svg'
+import Searchfield from '../../components/searchfield/searchfield';
+import { API } from '../../api/api';
 
 const PatientBookAppointment = () => {
     const navigate = useNavigate();
     localStorage.setItem('user_type_id', "1")
     let user_type = JSON.parse(localStorage.getItem('user_type_id'))
+    const [locationSuggestions, setLocationSuggestions] = useState([]);
 
     // const style = {
     //     backgroundColor: props.isLoading ? "var(--loading-background" : "var(--primary)",
@@ -24,6 +27,13 @@ const PatientBookAppointment = () => {
     useEffect(() => {
         //Api call 
     }, [])
+
+    async function getLocationSuggestions(query){
+        const response = await API.locationAutocomplete(query);
+        if (response.success){
+            setLocationSuggestions(response.data);
+        }
+    }
 
 
     return (
@@ -38,7 +48,7 @@ const PatientBookAppointment = () => {
                         <Textfield />
                     </div>
                     <div className="filter-wrapper">
-                        <Textfield />
+                        <Searchfield placeholder="Location" onChange={getLocationSuggestions} options={locationSuggestions}/>
                     </div>
                     <div className="filter-wrapper">
                         <DropdownSelect />
