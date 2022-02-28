@@ -237,11 +237,13 @@
 .modal-section-1 {
     display: flex;
     align-items: center;
+    margin-bottom: 10px;
 }
 
 .modal-section-1 h3 {
     flex: 1;
     margin: 0;
+    font-size: 20px;
 }
 
 .modal-section-1 button {
@@ -258,7 +260,14 @@
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-.date-time-header {
+.sub-header {
+    margin: 0;
+    font-weight: 500;
+    font-size: 15px;
+    margin-top: 10px;
+}
+
+.sub-header-1 {
     margin: 0;
     font-weight: 500;
     font-size: 15px;
@@ -267,6 +276,7 @@
 .modal-section-2 {
     display: flex;
     justify-content: center;
+    margin-top: 10px;
 }
 
 .modal-section-2 .dates-button-wrapper {
@@ -292,6 +302,11 @@
     display: block;
     color: #535461;
     font-weight: 700;
+    font-size: 15px;
+}
+
+.modal-section-2 .dates-button-wrapper .date-button .date-span-1 {
+    font-weight: 500;
 }
 
 .modal-section-2 .dates-button-wrapper .date-button-1 {
@@ -308,10 +323,16 @@
     display: block;
     color: #fff;
     font-weight: 700;
+    font-size: 15px;
+}
+
+.modal-section-2 .dates-button-wrapper .date-button-1 .date-span-1 {
+    font-weight: 500;
 }
 
 .modal-section-3 {
     display: flex;
+    margin-top: 10px;
 }
 
 .modal-section-3 .time-button-wrapper {
@@ -325,14 +346,14 @@
 }
 
 .modal-section-3 .time-button-wrapper .time-button {
-    border: none;
+    border: 1px solid #D9D9D9;
     height: 40px;
     border-radius: 8px;
     background-color: #F9F9F9;
     cursor: pointer;
     align-items: center;
     justify-content: center;
-    width: 23%;
+    width: 31%;
     margin-bottom: 10px;
     margin-right: 10px;
 }
@@ -341,6 +362,7 @@
     display: block;
     color: #535461;
     font-weight: 700;
+    font-size: 15px;
 }
 
 .modal-section-3 .time-button-wrapper .time-button-1 {
@@ -352,7 +374,7 @@
     cursor: pointer;
     align-items: center;
     justify-content: center;
-    width: 23%;
+    width: 31%;
     margin-bottom: 10px;
     margin-right: 10px;
 }
@@ -361,6 +383,7 @@
     display: block;
     color: #1976D2;
     font-weight: 700;
+    font-size: 15px;
     margin-right: 10px;
 }
 
@@ -368,8 +391,91 @@
     width: 20px;
 }
 
-s .modal-section-4 {
+.textfield {
+    height: 50px;
+    border-radius: 12px;
+    border: var(--textfield-unfocused);
+    background-color: var(--textfield-background);
+    outline-color: var(--secondary);
+    padding-left: 15px;
+    font-size: 16px;
+    width: 80%;
+    margin-top: 5px;
+}
+
+.textfield::placeholder {
+    color: var(--text-secondary);
+    font-size: 16px;
+}
+
+.textfield:focus {
+    background-color: var(--secondary-light);
+}
+
+.textfield-modal {
+    height: 100px;
+    border-radius: 12px;
+    border: var(--textfield-unfocused);
+    background-color: var(--textfield-background);
+    outline-color: var(--secondary);
+    font-size: 16px;
+    width: 80%;
+    margin-top: 5px;
+    padding: 10px;
+}
+
+.textfield-modal::placeholder {
+    color: var(--text-secondary);
+    font-size: 16px;
+}
+
+.textfield-modal:focus {
+    background-color: var(--secondary-light);
+}
+
+
+/* .error {
+    border-color: var(--primary);
+    outline-color: var(--primary);
+    background-color: var(--primary-light);
+}
+
+.error_msg {
+    color: var(--primary);
+    text-align: left;
+    font-size: 14px;
+} */
+
+.aptmt-button-wrapper {
+    margin-top: 10px;
+}
+
+.modal-section-4 {
     display: flex;
+    margin-top: 10px;
+}
+
+.document-wrapper {
+    margin-right: 10px;
+    font-size: 15px;
+}
+
+.file-picker {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    padding: 10px;
+    border-radius: 8px;
+    font-weight: bold;
+    align-items: center;
+    background-color: #fff;
+    border: 1px solid #D9D9D9;
+    cursor: pointer;
+}
+
+.file-picker span {
+    color: #757575;
+    font-size: 15px;
 }
 
 

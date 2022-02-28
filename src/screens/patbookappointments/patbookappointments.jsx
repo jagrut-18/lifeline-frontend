@@ -1,6 +1,7 @@
 
 import { useEffect, useState } from 'react';
 import Modal from 'react-modal';
+import { useFilePicker } from 'use-file-picker';
 import './patbookappointments.css'
 import routes from '../../routing/routes';
 import { useNavigate } from 'react-router-dom';
@@ -12,7 +13,10 @@ import Doctor from '../../images/doctor.svg'
 import Star from '../../images/star.svg'
 import Close from '../../images/close.svg'
 import CheckCircle from '../../images/check_circle.svg'
-import { FlashAuto, SecurityUpdateSharp } from '@mui/icons-material';
+import AddBox from '../../images/add_box.svg'
+import DocumentComponent from '../../components/document/document';
+import Button from '../../components/button/button'
+import Searchfield from '../../components/searchfield/searchfield'
 
 const PatientBookAppointment = () => {
     const navigate = useNavigate();
@@ -26,6 +30,10 @@ const PatientBookAppointment = () => {
     const [currentSelectedDate, setCurrentSelectedDate] = useState([]);
     const [currentSelectedTime, setCurrentSelectedTime] = useState(timings[0]);
 
+    const [openFileSelector, { filesContent, loading }] = useFilePicker({
+        accept: '*'
+    });
+
     const customStyles = {
         content: {
             top: '50%',
@@ -34,7 +42,7 @@ const PatientBookAppointment = () => {
             bottom: 'auto',
             marginRight: '-50%',
             transform: 'translate(-50%, -50%)',
-            width: '60%'
+            width: '50%'
         },
     }
 
@@ -109,7 +117,10 @@ const PatientBookAppointment = () => {
         setModalStatus(false)
     }
 
-
+    const openFileSelectorTemp = () => {
+        console.log(filesContent)
+        openFileSelector()
+    }
 
     return (
         <div className="container-home">
@@ -121,11 +132,11 @@ const PatientBookAppointment = () => {
             // contentLabel="Example Modal"
             >
                 <div className="modal-section-1">
-                    <h3>Hello</h3>
+                    <h3>Book an appointment</h3>
                     <button onClick={closeModal}><img src={Close} alt="close" /></button>
                 </div>
                 <div className="partition" />
-                <h3 className="date-time-header">Pick a date and time:</h3>
+                <h3 className="sub-header">Pick a date and time:</h3>
                 <div className="modal-section-2">
                     {/* loop */}
                     <div className="dates-button-wrapper">
@@ -134,8 +145,8 @@ const PatientBookAppointment = () => {
                             dates.map((date, index) => (
                                 <button key={index} className={currentSelectedDate == (date[0] + ' ' + date[1] + ' ' + date[2]) ? "date-button-1" : "date-button"}
                                     onClick={() => { setCurrentSelectedDate(date[0] + ' ' + date[1] + ' ' + date[2]) }}>
-                                    <span>{date[2]}</span>
-                                    <span>{date[0]}</span>
+                                    <span className="date-span-1">{date[2]}</span>
+                                    <span className="date-span-1">{date[0]}</span>
                                     <span>{date[1]}</span>
                                 </button>
                             ))
@@ -161,32 +172,64 @@ const PatientBookAppointment = () => {
                         }
                     </div>
                 </div>
-                <span></span>
-
-                <input type="text" />
+                <h3 className="sub-header-1">Any comments for the doctor?</h3>
+                <textarea className="textfield-modal"/>
+                <h3 className="sub-header">Attach a Document?</h3>
                 <div className="modal-section-4">
-                    <h1></h1>
-                    <button />
-                    <button />
-                    <button />
+                    {
+                        filesContent.length > 0 ?
+                            <div className="document-wrapper">
+                                <DocumentComponent documentName={
+                                    filesContent[0].name.length > 20 ?
+                                        filesContent[0].name.substring(0, 20) + '...'
+                                        :
+                                        filesContent[0].name
+                                }
+                                />
+                            </div>
+                            :
+                            null
+                    }
+                    <button className="file-picker" onClick={() => openFileSelectorTemp()}>
+                        <img src={AddBox} alt="add" />
+                        <span>
+                            {
+                                filesContent.length > 0 ?
+                                    'Replace Document'
+                                    :
+                                    'Add Document'
+                            }
+                        </span>
+                    </button>
+                    {/* <button className="file-picker" onClick={() => openFileSelector()}>Select files</button> */}
+                    {/* {
+                        filesContent.map((file, index) => (
+                            <div key={index}>
+                                <h2>{file.name}</h2>
+                            </div>
+                        ))
+                    } */}
+                    {/* <DocumentComponent documentName="Covid Report" />
+                    <DocumentComponent documentName="Covid Report" /> */}
                 </div>
-
-
+                <div className="aptmt-button-wrapper">
+                    <Button text={"Book Appointment"} width={'50%'} />
+                </div>
             </Modal>
             <div className="main-div">
                 <h1 className="header">Search Doctors</h1>
                 <div className="search-filters">
                     <div className="filter-wrapper">
-                        <Textfield />
+                        <Textfield placeholder="Specialization"/>
                     </div>
                     <div className="filter-wrapper">
-                        <Textfield />
+                        <Textfield placeholder="Doctor Name"/>
                     </div>
                     <div className="filter-wrapper">
-                        <Textfield />
+                        <Searchfield placeholder="Location" options={["abc", "def"]}/>
                     </div>
                     <div className="filter-wrapper">
-                        <DropdownSelect />
+                        <DropdownSelect placeholder="Provides Covid Care" options={["Yes", "No"]}/>
                     </div>
                 </div>
                 <ButtonSimple text={"Search"} />
