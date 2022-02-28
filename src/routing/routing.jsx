@@ -12,6 +12,7 @@ import routes from "./routes";
 import UpdateProfileScreen from "../screens/update_profile/update_profile";
 import PatientBookAppointment from "../screens/patbookappointments/patbookappointments";
 import AppointmentDetailsScreen from "../screens/appointment_details/appointment_details_screen";
+import MyAppointmentsScreen from "../screens/my_appointments/my_appointments";
 
 function RouteStack() {
     return (
@@ -41,6 +42,7 @@ function LoggedInRouteStack() {
                 <Route path={routes.update_profile} element={<UpdateProfileScreen />} />
                 <Route path={routes.pat_book_appointment} element={<PatientBookAppointment />} />
                 <Route path={routes.appointment_details} element={<AppointmentDetailsScreen />} />
+                <Route path={routes.my_appointments} element={<MyAppointmentsScreen />} />
             </Routes>
         </div>
     )

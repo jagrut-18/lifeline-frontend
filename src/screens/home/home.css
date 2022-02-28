@@ -9,12 +9,11 @@
     /* overflow-x: scroll; */
     overflow: hidden;
     background-color: var(--background);
+    padding: 2% 8%;
 }
 
 .row {
     position: relative;
-    padding-left: 8%;
-    padding-right: 8%;
     padding-top: 50px;
     margin: 0;
     display: flex;
