@@ -3,6 +3,7 @@ import './card1.css'
 import Button  from '../button/button'
 import Heading from '../heading/heading'
 import Description from '../description/description'
+import Spacer from '../spacer'
 
 function Card1(props) {
     
@@ -14,6 +15,7 @@ function Card1(props) {
                 </div>
                 <Heading text={props.header} style={{fontSize: 20}} />
                 <Description text={props.description} />
+                <Spacer height={10} />
                 <Button onClick={props.onClick} text={props.buttonText} width={'100%'}/>
                 <div className="border" />
             </div>

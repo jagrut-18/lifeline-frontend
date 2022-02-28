@@ -1,21 +1,21 @@
 import './doctor_appointment.css';
-import Heading from '../../../components/heading/heading'
+import Heading from '../heading/heading'
 import { IoIosArrowForward } from 'react-icons/io';
-import Description from '../../../components/description/description';
-import Spacer from '../../../components/spacer';
+import Description from '../description/description';
+import Spacer from '../spacer';
 
 export default function DoctorAppointment(props) {
     return (
         <div className="appointment_container">
             <div className="date_container">
-                {props.appointmentTime}
+                {props.appointment.time}
                 <div className="arrow_container">
                     <IoIosArrowForward color='white'/>
                 </div>
             </div>
             <Spacer height={10}/>
-            <Heading text={props.patientName} style={{fontSize: 18}}/>
-            <Description text={`Age: ${props.patientAge}`} />
+            <Heading text={props.appointment.patient_name} style={{fontSize: 18}}/>
+            <Description text={`Age: ${props.appointment.patient_age}`} />
         </div>
     );
 }

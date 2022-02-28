@@ -79,7 +79,7 @@ const Menu = () => {
                             </div>
                             {openMenuFlag && 
                                     <div className="menu_options">
-                                        <div className="menu_option" onClick={() => navigate(routes.home)}>My Appointments</div>
+                                        <div className="menu_option" onClick={() => navigate(routes.my_appointments)}>My Appointments</div>
                                         <div className="menu_option" onClick={() => navigate(routes.update_profile)}>My Account</div>
                                         <div className="menu_option" onClick={onLogout}>Logout</div>
                                     </div>
