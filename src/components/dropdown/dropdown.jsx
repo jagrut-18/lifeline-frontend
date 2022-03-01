@@ -49,8 +49,8 @@ export default function DropdownSelect(props) {
             </div>
             {optionsVisible && 
                 <div className="dropdown_options">
-                {props.options.map(function(option) {
-                   return <div className="option" onClick={() => onOptionClick(option)}>{option}</div>
+                {props.options.map(function(option, index) {
+                   return <div key={index} className="option" onClick={() => onOptionClick(option)}>{option}</div>
                 })}
             </div>
             }
