@@ -8,10 +8,11 @@
     margin-top: 10px;
 }
 
-.heading {
+
+/* .heading {
     flex: 1;
     color: #535461
-}
+} */
 
 .ratings {
     display: flex;

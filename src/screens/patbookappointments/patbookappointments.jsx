@@ -17,6 +17,7 @@ import DocumentComponent from '../../components/document/document';
 import Button from '../../components/button/button'
 import Searchfield from '../../components/searchfield/searchfield'
 import PatientBookAppointmentCard from '../../components/patient_book_appointment_card/patient_book_appointment_card'
+import { API } from '../../api/api';
 
 var AWS = require('aws-sdk/global');
 
@@ -54,7 +55,8 @@ const PatientBookAppointment = () => {
     //filter vars
     const [specialization, setSpecialization] = useState("");
     const [doctorName, setDoctorName] = useState("");
-    const [location, setLocation] = useState("");
+    // const [location, setLocation] = useState("");
+    const [locationSuggestions, setLocationSuggestions] = useState([]);
     const [providesHealthCare, setProvidesHealthCare] = useState("");
 
     //res vars
@@ -99,6 +101,7 @@ const PatientBookAppointment = () => {
                 temp_arr.push(currentDate.getDate())
                 temp_arr.push(MonthAsString(currentDate.getMonth()))
                 aryDates.push(temp_arr)
+                console.log(aryDates)
                 // aryDates.push(DayAsString(currentDate.getDay()) + ", " + currentDate.getDate() + " " + MonthAsString(currentDate.getMonth()) + " " + currentDate.getFullYear());
             }
 
@@ -144,6 +147,13 @@ const PatientBookAppointment = () => {
         setCurrentSelectedDate(aryDates[0][0] + ' ' + aryDates[0][1] + ' ' + aryDates[0][2])
 
     }, [])
+
+    async function getLocationSuggestions(query) {
+        const response = await API.locationAutocomplete(query);
+        if (response.success) {
+            setLocationSuggestions(response.data);
+        }
+    }
 
     const closeModal = () => {
         setModalStatus(false)
@@ -257,7 +267,14 @@ const PatientBookAppointment = () => {
 
         setDoctorSearchData(api_res.data.doctors)
         setAllAppointments(api_res.data.all_appointments)
+
+        let allAppointmentsTemp = []
+
+        api_res.data.all_appointments.forEach(element => {
+            
+        });
         setCurrentSelectedTime(api_res.data.all_appointments[0])
+  
     }
 
     return (
@@ -359,7 +376,8 @@ const PatientBookAppointment = () => {
                         <Textfield placeholder="Doctor Name" value={doctorName} onChange={setDoctorName} />
                     </div>
                     <div className="filter-wrapper">
-                        <Searchfield placeholder="Location" options={["abc", "def"]} value={location} onChange={setLocation} />
+                        <Searchfield placeholder="Location" onChange={getLocationSuggestions} options={locationSuggestions} />
+                        {/* <Searchfield placeholder="Location" options={["abc", "def"]} value={location} onChange={setLocation} /> */}
                     </div>
                     <div className="filter-wrapper">
                         <DropdownSelect placeholder="Provides Covid Care" options={yesNo} onChange={setProvidesHealthCare} />

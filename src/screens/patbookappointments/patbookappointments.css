@@ -235,7 +235,8 @@
     width: 20px;
 }
 
-.textfield {
+
+/* .textfield {
     height: 50px;
     border-radius: 12px;
     border: var(--textfield-unfocused);
@@ -254,7 +255,7 @@
 
 .textfield:focus {
     background-color: var(--secondary-light);
-}
+} */
 
 .textfield-modal {
     height: 100px;
