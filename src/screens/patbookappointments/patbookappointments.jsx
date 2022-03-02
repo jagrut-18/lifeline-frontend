@@ -42,7 +42,7 @@ const PatientBookAppointment = () => {
     //     "12:30 PM - 01:00 PM", "01:30 PM - 02:00 PM", "02:30 PM - 03:00 PM", "03:00 PM - 03:30 PM",
     //     "03:30 PM - 04:00 PM", "04:00 PM - 04:30 PM", "04:30 PM - 05:00 PM"]
     const [dates, setDates] = useState([]);
-    const [currentSelectedDate, setCurrentSelectedDate] = useState([]);
+    const [currentSelectedDate, setCurrentSelectedDate] = useState(0);
     const yesNo = ['Yes', 'No']
     const navigate = useNavigate();
 
@@ -65,8 +65,9 @@ const PatientBookAppointment = () => {
     //req vars
     const [currentSelectedTime, setCurrentSelectedTime] = useState("");
     const [allAppointments, setAllAppointments] = useState([]);
-    const [availableAppointments, setAvailableAppointments] = useState([]);
+    const [availableAppointments, setAvailableAppointments] = useState(null);
     const [ratingsReviews, setRatingsReviews] = useState([]);
+    const [temp, setTemp] = useState(5);
 
     const customStyles = {
         content: {
@@ -144,7 +145,7 @@ const PatientBookAppointment = () => {
         var aryDates = GetDates(startDate, 4);
         setDates(aryDates)
         console.log(aryDates[0][0] + ' ' + aryDates[0][1] + ' ' + aryDates[0][2])
-        setCurrentSelectedDate(aryDates[0][0] + ' ' + aryDates[0][1] + ' ' + aryDates[0][2])
+        setCurrentSelectedDate(aryDates[0][1])
 
     }, [])
 
@@ -159,10 +160,81 @@ const PatientBookAppointment = () => {
         setModalStatus(false)
     }
 
-    const bookSlot = (userReviewsRatings, appointments) => {
+    function bookSlot(userReviewsRatings, appointments) {
+        console.log(temp)
+        // console.log(userReviewsRatings, appointments)
+        console.log({allAppointments})
         setRatingsReviews(userReviewsRatings)
-        setAvailableAppointments(appointments)
-        setModalStatus(true)
+
+        let dict = {}
+
+        //filter out the book appointments according to the date
+        appointments.forEach(element => {
+            let key = parseInt(element.date.split("-")[1])
+            // const key = element.date;
+            if (key in dict){
+                dict[key].push(element.booked_appointment);
+            }
+            else {
+                dict[key] = [element.booked_appointment];
+
+            }
+            // console.log(key)
+            // if (!(key in dict)) {
+            //     let arr = []
+            //     arr.push(element.booked_appointment)
+
+            //     Object.assign(dict, { [key]: arr });
+            // } else {
+            //     dict[key].push(element.booked_appointment)
+            // }
+        })
+
+        //assign blank array where no appointments are booked
+        // dates.forEach(element => {
+        //     console.log(element[1])
+        //     if (!(element[1] in dict)) {
+        //         let arr = []
+        //         Object.assign(dict, { [element[1]]: arr });
+        //     }
+        // });
+
+
+        //Fill in all the avaible appointments considering the booked appointments
+        for (const key in dict) {
+            const slots = allAppointments.filter((element) => !dict[key].includes(element));
+            // let tempAvailableSlots = [...allAppointments]
+
+            // dict[key].forEach(element => {
+            //     if (tempAvailableSlots.includes(element)) {
+            //         const index = tempAvailableSlots.indexOf(element);
+            //         tempAvailableSlots.splice(index, 1)
+            //     }
+            // });
+
+            // console.log("Key: " + key + "tempAvailableSlots: " + tempAvailableSlots + '\n')
+            
+            // dict[key] = tempAvailableSlots
+
+            setAvailableAppointments({...availableAppointments, [key]: slots})
+            // console.log(availableAppointments)
+            console.log(slots)
+            console.log(dict[key])
+            console.log(key)
+        }
+
+        console.log({availableAppointments})
+
+        // let tempDict = dict
+
+        // console.log(tempDict)
+
+        // setAvailableAppointments(tempDict)
+        // // console.log(typeof dict)
+        setTimeout(() => {
+            console.log(availableAppointments)
+        }, 4000);
+        // setModalStatus(true)
     }
 
     const uploadFile = async () => {
@@ -249,17 +321,17 @@ const PatientBookAppointment = () => {
                             { user_name: "John Doe", review: "good doctor", rating: "4" }
                         ],
                         appointments: [
-                            { date: "02-21-2022", booked_appointment: "10:00 AM - 10:30 AM" },
-                            { date: "02-21-2022", booked_appointment: "10:30 AM - 11:00 AM" },
-                            { date: "02-22-2022", booked_appointment: "10:00 AM - 10:30 AM" },
-                            { date: "02-23-2022", booked_appointments: "10:00 AM - 10:30 AM" },
-                            { date: "02-24-2022", booked_appointments: "10:00 AM - 10:30 AM" },
-                            { date: "02-25-2022", booked_appointments: "10:00 AM - 10:30 AM" }
+                            { date: "03-03-2022", booked_appointment: "10:00 AM - 10:30 AM" },
+                            { date: "03-03-2022", booked_appointment: "10:30 AM - 11:00 AM" },
+                            { date: "03-04-2022", booked_appointment: "11:00 AM - 11:30 AM" },
+                            { date: "03-05-2022", booked_appointment: "10:00 AM - 10:30 AM" },
+                            { date: "03-07-2022", booked_appointment: "10:00 AM - 10:30 AM" },
+                            { date: "03-07-2022", booked_appointment: "12:00 PM - 12:30 PM" }
 
                         ]
                     }
                 ],
-                all_appointments: ["10:30 AM - 11:00 AM", "11:00 AM - 11:30 AM", "11:30 AM - 12:00 PM", "12:00 PM - 12:30 PM",
+                all_appointments: ["10:00 AM - 10:30 AM", "10:30 AM - 11:00 AM", "11:00 AM - 11:30 AM", "11:30 AM - 12:00 PM", "12:00 PM - 12:30 PM",
                     "12:30 PM - 01:00 PM", "01:30 PM - 02:00 PM", "02:30 PM - 03:00 PM", "03:00 PM - 03:30 PM",
                     "03:30 PM - 04:00 PM", "04:00 PM - 04:30 PM", "04:30 PM - 05:00 PM"]
             }
@@ -267,14 +339,8 @@ const PatientBookAppointment = () => {
 
         setDoctorSearchData(api_res.data.doctors)
         setAllAppointments(api_res.data.all_appointments)
-
-        let allAppointmentsTemp = []
-
-        api_res.data.all_appointments.forEach(element => {
-            
-        });
         setCurrentSelectedTime(api_res.data.all_appointments[0])
-  
+
     }
 
     return (
@@ -299,8 +365,8 @@ const PatientBookAppointment = () => {
                         {/* setCurrentSelectedDate(date[0] + date[1]) */}
                         {
                             dates.map((date, index) => (
-                                <button key={index} className={currentSelectedDate == (date[0] + ' ' + date[1] + ' ' + date[2]) ? "date-button-1" : "date-button"}
-                                    onClick={() => { setCurrentSelectedDate(date[0] + ' ' + date[1] + ' ' + date[2]) }}>
+                                <button key={index} className={currentSelectedDate == date[1] ? "date-button-1" : "date-button"}
+                                    onClick={() => { setCurrentSelectedDate(date[1]) }}>
                                     <span className="date-span-1">{date[2]}</span>
                                     <span className="date-span-1">{date[0]}</span>
                                     <span>{date[1]}</span>
@@ -312,7 +378,28 @@ const PatientBookAppointment = () => {
                 <div className="modal-section-3">
                     {/* loop */}
                     <div className="time-button-wrapper">
-                        {
+                        {/* {
+                            currentSelectedDate != 0 ?
+                                availableAppointments[currentSelectedDate] != [] ?
+                                    availableAppointments[currentSelectedDate].map((data, index) => (
+                                        <button key={index} className={currentSelectedTime == data ? "time-button-1" : "time-button"}
+                                            onClick={() => { setCurrentSelectedTime(data) }}>
+                                            <span>{data}</span>
+                                            {
+                                                currentSelectedTime == data ?
+                                                    <img src={CheckCircle} alt="Tick" />
+                                                    :
+                                                    null
+                                            }
+                                        </button>
+                                    ))
+                                    :
+                                    <div>Sorry no dates avaible</div>
+                                :
+                                null
+
+                        } */}
+                        {/* {
                             allAppointments != [] ?
                                 allAppointments.map((data, index) => (
                                     <button key={index} className={currentSelectedTime == data ? "time-button-1" : "time-button"}
@@ -328,7 +415,7 @@ const PatientBookAppointment = () => {
                                 ))
                                 :
                                 null
-                        }
+                        } */}
                     </div>
                 </div>
                 <h3 className="sub-header-1">Any comments for the doctor?</h3>

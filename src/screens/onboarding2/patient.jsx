@@ -46,7 +46,7 @@ export default function PatientOnboarding() {
 
         onboardingData = {
             ...onboardingData,
-            'birth_date': `${dob.month}-${dob.day}-${dob.year}`,
+            'birth_date': `${dob.year}-${dob.month}-${dob.day}`,
             'sex': gender.toLowerCase(),
             'height': parseInt(height),
             'weight': parseInt(weight),

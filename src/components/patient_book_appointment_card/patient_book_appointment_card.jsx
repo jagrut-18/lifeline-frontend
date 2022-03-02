@@ -35,7 +35,7 @@ function PatientBookAppointmentCard(props) {
                     </div>
                     <div className="section-3-button">
                         <div className="button-wrapper">
-                            <button className="button" onClick={() => { props.bookSlot(props.data.reviews_rating, props.data.appointments) }}>
+                            <button className="button" onClick={(e) => { props.bookSlot(e ,props.data.reviews_rating, props.data.appointments) }}>
                                 {/* <button className='button' style={style} onClick={props.onClick}> */}
                                 View Slots
                             </button>

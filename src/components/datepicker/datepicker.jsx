@@ -5,10 +5,12 @@ import DatePicker, { utils } from "react-modern-calendar-datepicker";
 import { useState } from 'react';
 
 export default function DateSelector(props) {
-    
+
   const [selectedDay, setSelectedDay] = useState(null);
 
-  function onChange(value){
+  function onChange(value) {
+    // let tempValue = value.split("-")
+    console.log(value)
     setSelectedDay(value);
     props.onChange(value);
   }
@@ -18,7 +20,7 @@ export default function DateSelector(props) {
       readOnly
       ref={ref}
       placeholder={props.placeholder}
-      value={selectedDay ? `${selectedDay.month.toString().padStart(2, '0')}-${selectedDay.day.toString().padStart(2, '0')}-${selectedDay.year}` : ''}
+      value={selectedDay ?  `${selectedDay.month.toString().padStart(2, '0')}-${selectedDay.day.toString().padStart(2, '0')}-${selectedDay.year}` : ''}
       style={{
         textAlign: 'left',
         paddingLeft: '15px',
@@ -33,17 +35,17 @@ export default function DateSelector(props) {
     />
   )
 
-    return (
-      <div>
-        <DatePicker
-                    value={selectedDay}
-                    onChange={onChange}
-                    renderInput={renderCustomInput}
-                    maximumDate={utils().getToday()}
-                    shouldHighlightWeekends
-                    />
-        {props.errorMsg && <div className="error_msg">{props.errorMsg}</div>}
-      </div>
-        
-    )
+  return (
+    <div>
+      <DatePicker
+        value={selectedDay}
+        onChange={onChange}
+        renderInput={renderCustomInput}
+        maximumDate={utils().getToday()}
+        shouldHighlightWeekends
+      />
+      {props.errorMsg && <div className="error_msg">{props.errorMsg}</div>}
+    </div>
+
+  )
 }
