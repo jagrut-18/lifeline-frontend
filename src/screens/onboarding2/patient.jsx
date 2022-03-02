@@ -72,10 +72,11 @@ export default function PatientOnboarding() {
                 </div>
                 <Spacer height={15} />
                 <div className="onboarding_row">
-                    <Textfield type="number" value={height} onChange={setHeight} placeholder="Height" style={{ width: 100 }} />
-                    <Textfield type="number" value={weight} onChange={setWeight} placeholder="Weight" style={{ width: 100 }} />
-                    <DropdownSelect placeholder="Blood Group" options={bloodGroups} onChange={setBloodGroup} />
+                    <Textfield type="number" value={height} onChange={setHeight} placeholder="Height (cm)" />
+                    <Textfield type="number" value={weight} onChange={setWeight} placeholder="Weight (lbs)"/>
                 </div>
+                <Spacer height={15} />
+                <DropdownSelect placeholder="Blood Group" options={bloodGroups} onChange={setBloodGroup} />
                 <Spacer height={15} />
                 <div className="onboarding_row onboarding_row2">
                     Do you smoke?

@@ -24,7 +24,8 @@ export default function Searchfield(props){
     }
 
     function onOptionClick(option){
-        setValue(option);
+        setValue(props.parseObjectFunction(option) ?? option);
+        props.onOptionChange(option);
         setOptionVisibility(false);
     }
 
@@ -36,13 +37,17 @@ export default function Searchfield(props){
         }
     }
 
+    const style = {
+        ...props.style,
+    }
+
     return (
         <div ref={ref} className="dropdown_wrapper">
-            <Textfield placeholder={props.placeholder} value={selectedValue} onChange={onTextfieldChange} />
+            <Textfield placeholder={props.placeholder} value={selectedValue} onChange={onTextfieldChange} style={style}/>
             {optionsVisible && 
                 <div className="dropdown_options">
                 {props.options.map(function(option) {
-                   return <div key={option} className="option" onClick={() => onOptionClick(option)}>{option}</div>
+                   return <div key={props.parseObjectFunction(option) ?? option} className="option" onClick={() => onOptionClick(option)}>{props.parseObjectFunction(option) ?? option}</div>
                 })}
             </div>
             }
