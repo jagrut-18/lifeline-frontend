@@ -114,6 +114,7 @@ function SignupScreen() {
     formData.append('user_type_id', localStorage.getItem('user_type_id'));
     
     axios.post('http://3.220.183.182:5000/signup', formData).then(function (response) {
+      console.log(response.data);
       if (response.data.response_code == "200") {
         saveLoginDetails(email, response.data.data.user_id, response.data.data.token);
         navigate(routes.onboarding1);

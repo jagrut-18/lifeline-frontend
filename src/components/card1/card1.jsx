@@ -17,7 +17,6 @@ function Card1(props) {
                 <Description text={props.description} />
                 <Spacer height={10} />
                 <Button onClick={props.onClick} text={props.buttonText} width={'100%'}/>
-                <div className="border" />
             </div>
         </div>
     )

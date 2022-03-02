@@ -32,6 +32,7 @@ const HomeScreen = () => {
             <div className="appointments_container">
                 <PatientAppointment appointment={data} />
             </div>
+            <Spacer height={30}/>
             <div className="row">
                 <div className="col-1">
                     <h2>LifeLine.</h2>

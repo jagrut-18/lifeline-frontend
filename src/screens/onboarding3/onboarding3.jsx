@@ -3,6 +3,7 @@ import Card from '../../components/card/card';
 import Heading from '../../components/heading/heading';
 import Description from '../../components/description/description';
 import Spacer from '../../components/spacer';
+import Searchfield from '../../components/searchfield/searchfield';
 import Textfield from '../../components/textfield/textfield';
 import Button from '../../components/button/button';
 import { useContext, useState } from 'react';
@@ -14,17 +15,20 @@ import { LoginStateContext } from '../../contexts';
 
 export default function OnboardingScreen3(props) {
     // field hooks
+    const [hospitals, setHospitals] = useState([]);
+    const [selectedHospital, setSelectedHospital] = useState(null);
     const [address, setAddress] = useState('');
     const [city, setCity] = useState('');
     const [state, setState] = useState('');
     const [zipcode, setZipcode] = useState('');
     const [error, setError] = useState();
-    const [userTypeId, setUserTypeId] = useState(localStorage.getItem('user_type_id'))
     const { isLoggedIn, setIsLoggedIn } = useContext(LoginStateContext);
     const navigate = useNavigate();
 
+    const isDoctor = localStorage.getItem("user_type_id") == "2";
+
     function validate() {
-        const fields = [address, city, state, zipcode]
+        const fields = isDoctor ? [selectedHospital] : [address, city, state, zipcode];
         if (fields.some((field) => field == '')) {
             setError("Please fill all the details");
             return false;
@@ -39,15 +43,28 @@ export default function OnboardingScreen3(props) {
         let formData = new FormData();
         const userId = localStorage.getItem('user_id');
 
-        onboardingData = {
+        if (isDoctor){
+            onboardingData = {
+                ...onboardingData,
+                ...selectedHospital,
+                'user_id': parseInt(userId),
+                'user_type_id': parseInt(localStorage.getItem("user_type_id"))
+            }
+        }
+        else {
+            onboardingData = {
                 ...onboardingData,
                 'address': address,
                 'city': city,
                 'state': state,
                 'zipcode': zipcode,
                 'user_id': userId,
+                'user_type_id': parseInt(localStorage.getItem("user_type_id"))
+            }
         }
-         
+
+        console.log(onboardingData);
+
         for (var key in onboardingData) {
             formData.append(key, onboardingData[key]);
         }
@@ -55,22 +72,34 @@ export default function OnboardingScreen3(props) {
         var response = await API.onboarding(formData);
         if (response.success){
             setIsLoggedIn(true);
-            navigate(routes.home, {replace: true});
+            // navigate(routes.home, {replace: true});
         }
         else {
             setError(response.error);
         }
     }
 
+    async function getHospitals(query){
+        const response = await API.hospitalsAutocomplete(query);
+        if (response.success){
+            setHospitals(response.data);
+        }
+    }
+
+
     return (
         <div className="container">
             {
                 <Card>
-                    <Heading text={userTypeId == "3" ? "Where is you company located?" : "Where do you live?"} fontSize={24} />
+                    <Heading text={"What is your address?"} fontSize={24} />
                     <Description text={"Let us know your address so that we can share important details with you in timely manner."} />
                     <Spacer height={30} />
                     <div className="form">
-                        <Textfield placeholder="Address" value={address} onChange={setAddress} />
+                        {
+                            isDoctor
+                            ? <Searchfield placeholder="Search your address" onChange={getHospitals} onOptionChange={setSelectedHospital} options={hospitals} parseObjectFunction={(object) => object.address} />
+                            : <div>
+                                <Textfield placeholder="Address" value={address} onChange={setAddress} />
                         <Spacer height={15} />
                         <div className="onboarding_row">
                             <Textfield placeholder="City" value={city} onChange={setCity} />
@@ -78,6 +107,8 @@ export default function OnboardingScreen3(props) {
                         </div>
                         <Spacer height={15} />
                         <Textfield type="number" placeholder="Zipcode" style={{ width: "calc(50% - 5px)" }} value={zipcode} onChange={setZipcode} />
+                            </div>
+                        }
                         <Spacer height={20} />
                         {error && <ErrorComponent message={error} />}
                         <Button text="Next" onClick={onSubmit} />
