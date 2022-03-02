@@ -5,7 +5,7 @@ import { login } from "./apis/login";
 import { onboarding } from "./apis/onboarding";
 
 export const API = {
-    login: (email, password) => login(email, password),
+    login: (formData) => login(formData),
     onboarding: (formData) => onboarding(formData),
     locationAutocomplete: (query) => locationAutoComplete(query),
     hospitalsAutocomplete: (query) => hospitalsAutoComplete(query),
