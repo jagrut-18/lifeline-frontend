@@ -18,6 +18,10 @@ import Button from '../../components/button/button'
 import Searchfield from '../../components/searchfield/searchfield'
 import PatientBookAppointmentCard from '../../components/patient_book_appointment_card/patient_book_appointment_card'
 import { API } from '../../api/api';
+import ErrorComponent from '../../components/error/error';
+import { maxHeight } from '@mui/system';
+import { BsStarFill } from 'react-icons/bs';
+import { BsStar } from 'react-icons/bs';
 
 var AWS = require('aws-sdk/global');
 
@@ -38,13 +42,12 @@ const myBucket = new AWS.S3({
 
 const PatientBookAppointment = () => {
     const [modalStatus, setModalStatus] = useState(false);
-    // const timings = ["10:30 AM - 11:00 AM", "11:00 AM - 11:30 AM", "11:30 AM - 12:00 PM", "12:00 PM - 12:30 PM",
-    //     "12:30 PM - 01:00 PM", "01:30 PM - 02:00 PM", "02:30 PM - 03:00 PM", "03:00 PM - 03:30 PM",
-    //     "03:30 PM - 04:00 PM", "04:00 PM - 04:30 PM", "04:30 PM - 05:00 PM"]
+    const [modalState, setModalState] = useState(0);
     const [dates, setDates] = useState([]);
     const [currentSelectedDate, setCurrentSelectedDate] = useState(0);
     const yesNo = ['Yes', 'No']
     const navigate = useNavigate();
+    const [error, setError] = useState();
 
     //document upload vars
     const [documentName, setdocumentName] = useState("");
@@ -65,9 +68,9 @@ const PatientBookAppointment = () => {
     //req vars
     const [currentSelectedTime, setCurrentSelectedTime] = useState("");
     const [allAppointments, setAllAppointments] = useState([]);
-    const [availableAppointments, setAvailableAppointments] = useState(null);
-    const [ratingsReviews, setRatingsReviews] = useState([]);
-    const [temp, setTemp] = useState(5);
+    const [availableAppointments, setAvailableAppointments] = useState({});
+    const [comments, setComments] = useState("");
+    const [reviewsRatings, setReviewsRatings] = useState([]);
 
     const customStyles = {
         content: {
@@ -77,7 +80,8 @@ const PatientBookAppointment = () => {
             bottom: 'auto',
             marginRight: '-50%',
             transform: 'translate(-50%, -50%)',
-            width: '50%'
+            width: '50%',
+            maxHeight: '80%'
         },
     }
 
@@ -103,6 +107,7 @@ const PatientBookAppointment = () => {
                 temp_arr.push(MonthAsString(currentDate.getMonth()))
                 aryDates.push(temp_arr)
                 console.log(aryDates)
+                console.log(DayAsString(currentDate.getDay()) + ", " + currentDate.getDate() + " " + MonthAsString(currentDate.getMonth()) + " " + currentDate.getFullYear())
                 // aryDates.push(DayAsString(currentDate.getDay()) + ", " + currentDate.getDate() + " " + MonthAsString(currentDate.getMonth()) + " " + currentDate.getFullYear());
             }
 
@@ -144,9 +149,8 @@ const PatientBookAppointment = () => {
         var startDate = new Date();
         var aryDates = GetDates(startDate, 4);
         setDates(aryDates)
-        console.log(aryDates[0][0] + ' ' + aryDates[0][1] + ' ' + aryDates[0][2])
+        //set current selected date to tomorrow's date
         setCurrentSelectedDate(aryDates[0][1])
-
     }, [])
 
     async function getLocationSuggestions(query) {
@@ -156,85 +160,121 @@ const PatientBookAppointment = () => {
         }
     }
 
+    const openReviewsRatings = (reviewsRatings) => {
+        console.log(reviewsRatings)
+        setReviewsRatings(reviewsRatings)
+        setModalState(0)
+        setModalStatus(true)
+    }
+
     const closeModal = () => {
         setModalStatus(false)
     }
 
-    function bookSlot(userReviewsRatings, appointments) {
-        console.log(temp)
-        // console.log(userReviewsRatings, appointments)
-        console.log({allAppointments})
-        setRatingsReviews(userReviewsRatings)
 
+    const searchDoctors = () => {
+
+        let api_res = {
+            response_code: "200",
+            response_message: "Success",
+            data: {
+                doctors: [
+                    {
+                        doctor_id: 1,
+                        doctor_name: "John Doe",
+                        hospital_address: "4011 S Monroe Medical Park Blvd,Bloomington, IN 47403",
+                        hospital_name: "abc hospital",
+                        covid_care: "Yes",
+                        specialization: "ortho",
+                        profile_image_url: "http://adssa.png",
+                        total_rating: "5",
+                        reviews_rating: [
+                            { user_name: "John Doe", review: "good doctor", rating: "5" },
+                            { user_name: "John Doe", review: "good doctor", rating: "5" },
+                            { user_name: "John Doe", review: "good doctor", rating: "5" },
+                            { user_name: "John Doe", review: "good doctor", rating: "5" },
+                            { user_name: "John Doe", review: "good doctor", rating: "5" },
+                            { user_name: "John Doe", review: "good doctor", rating: "5" },
+                            { user_name: "John Doe", review: "good doctor", rating: "5" },
+                            { user_name: "John Doe", review: "good doctor", rating: "5" },
+                            { user_name: "John Doe", review: "good doctor", rating: "5" },
+                            { user_name: "John Doe", review: "good doctor", rating: "5" },
+                            { user_name: "John Doe", review: "good doctor", rating: "5" },
+                            { user_name: "John Doe", review: "good doctor", rating: "4" }
+                        ],
+                        appointments: [
+                            { date: "03-04-2022", booked_appointment: "10:00 AM - 10:30 AM" },
+                            { date: "03-04-2022", booked_appointment: "10:30 AM - 11:00 AM" },
+                            { date: "03-04-2022", booked_appointment: "11:00 AM - 11:30 AM" },
+                            { date: "03-04-2022", booked_appointment: "11:30 AM - 12:00 PM" },
+                            { date: "03-04-2022", booked_appointment: "12:00 PM - 12:30 PM" },
+                            { date: "03-05-2022", booked_appointment: "11:00 AM - 11:30 AM" },
+                            { date: "03-06-2022", booked_appointment: "10:00 AM - 10:30 AM" },
+                            { date: "03-07-2022", booked_appointment: "10:00 AM - 10:30 AM" },
+                            { date: "03-07-2022", booked_appointment: "12:00 PM - 12:30 PM" }
+
+                        ]
+                    }
+                ],
+                all_appointments: ["10:00 AM - 10:30 AM", "10:30 AM - 11:00 AM", "11:00 AM - 11:30 AM", "11:30 AM - 12:00 PM", "12:00 PM - 12:30 PM",
+                    "12:30 PM - 01:00 PM", "01:00 AM - 01:30 PM"]
+            }
+        }
+
+        setDoctorSearchData(api_res.data.doctors)
+        setAllAppointments(api_res.data.all_appointments)
+    }
+
+    function bookSlot(appointments) {
         let dict = {}
 
         //filter out the book appointments according to the date
         appointments.forEach(element => {
             let key = parseInt(element.date.split("-")[1])
             // const key = element.date;
-            if (key in dict){
+            if (key in dict) {
                 dict[key].push(element.booked_appointment);
             }
             else {
                 dict[key] = [element.booked_appointment];
 
             }
-            // console.log(key)
-            // if (!(key in dict)) {
-            //     let arr = []
-            //     arr.push(element.booked_appointment)
-
-            //     Object.assign(dict, { [key]: arr });
-            // } else {
-            //     dict[key].push(element.booked_appointment)
-            // }
         })
 
         //assign blank array where no appointments are booked
-        // dates.forEach(element => {
-        //     console.log(element[1])
-        //     if (!(element[1] in dict)) {
-        //         let arr = []
-        //         Object.assign(dict, { [element[1]]: arr });
-        //     }
-        // });
+        //we need this beacause we need to populate all the available appointments, and by setting the array to blank,
+        //in the next for loop, we would be able to populate all the available appointments
+        dates.forEach(element => {
+            console.log(element[1])
+            if (!(element[1] in dict)) {
+                let arr = []
+                Object.assign(dict, { [element[1]]: arr });
+            }
+        });
 
 
         //Fill in all the avaible appointments considering the booked appointments
         for (const key in dict) {
             const slots = allAppointments.filter((element) => !dict[key].includes(element));
-            // let tempAvailableSlots = [...allAppointments]
-
-            // dict[key].forEach(element => {
-            //     if (tempAvailableSlots.includes(element)) {
-            //         const index = tempAvailableSlots.indexOf(element);
-            //         tempAvailableSlots.splice(index, 1)
-            //     }
-            // });
-
-            // console.log("Key: " + key + "tempAvailableSlots: " + tempAvailableSlots + '\n')
-            
-            // dict[key] = tempAvailableSlots
-
-            setAvailableAppointments({...availableAppointments, [key]: slots})
-            // console.log(availableAppointments)
-            console.log(slots)
-            console.log(dict[key])
-            console.log(key)
+            dict[key] = slots
         }
 
-        console.log({availableAppointments})
+        setAvailableAppointments(dict)
 
-        // let tempDict = dict
+        if (dict[currentSelectedDate] != "") {
+            setCurrentSelectedTime(dict[currentSelectedDate][0])
+        }
 
-        // console.log(tempDict)
+        setModalState(1)
+        setModalStatus(true)
+    }
 
-        // setAvailableAppointments(tempDict)
-        // // console.log(typeof dict)
-        setTimeout(() => {
-            console.log(availableAppointments)
-        }, 4000);
-        // setModalStatus(true)
+    const onDateChange = (date) => {
+        setCurrentSelectedDate(date)
+
+        if (availableAppointments[date] != "") {
+            setCurrentSelectedTime(availableAppointments[date][0])
+        }
     }
 
     const uploadFile = async () => {
@@ -290,6 +330,24 @@ const PatientBookAppointment = () => {
     }
 
     const bookAppointment = () => {
+        var dateObj = new Date();
+        var finalDate = dateObj.getUTCMonth() + 1 + '-' + currentSelectedDate + '-' + dateObj.getUTCFullYear()
+
+        console.log(finalDate)
+        console.log(currentSelectedTime)
+        console.log(comments)
+
+        if (currentSelectedTime == "") {
+            setError("sorry can't book the appointment, as no slots are available")
+        } else {
+            setError("")
+            //start loader
+            if (documentName != "") {
+                uploadDocument()
+            }
+            //after uploading the document - API call
+            //end loader
+        }
         // {
         //     time: "8:00 AM",
         //     date: "2-21-2022",
@@ -298,49 +356,6 @@ const PatientBookAppointment = () => {
         //     document_url: "abc.pdf"
         //     patient_id: "asda"(token)
         // }
-    }
-
-    const searchDoctors = () => {
-
-        let api_res = {
-            response_code: "200",
-            response_message: "Success",
-            data: {
-                doctors: [
-                    {
-                        doctor_id: 1,
-                        doctor_name: "John Doe",
-                        hospital_address: "4011 S Monroe Medical Park Blvd,Bloomington, IN 47403",
-                        hospital_name: "abc hospital",
-                        covid_care: "Yes",
-                        specialization: "ortho",
-                        profile_image_url: "http://adssa.png",
-                        total_rating: "5",
-                        reviews_rating: [
-                            { user_name: "John Doe", review: "good doctor", rating: "5" },
-                            { user_name: "John Doe", review: "good doctor", rating: "4" }
-                        ],
-                        appointments: [
-                            { date: "03-03-2022", booked_appointment: "10:00 AM - 10:30 AM" },
-                            { date: "03-03-2022", booked_appointment: "10:30 AM - 11:00 AM" },
-                            { date: "03-04-2022", booked_appointment: "11:00 AM - 11:30 AM" },
-                            { date: "03-05-2022", booked_appointment: "10:00 AM - 10:30 AM" },
-                            { date: "03-07-2022", booked_appointment: "10:00 AM - 10:30 AM" },
-                            { date: "03-07-2022", booked_appointment: "12:00 PM - 12:30 PM" }
-
-                        ]
-                    }
-                ],
-                all_appointments: ["10:00 AM - 10:30 AM", "10:30 AM - 11:00 AM", "11:00 AM - 11:30 AM", "11:30 AM - 12:00 PM", "12:00 PM - 12:30 PM",
-                    "12:30 PM - 01:00 PM", "01:30 PM - 02:00 PM", "02:30 PM - 03:00 PM", "03:00 PM - 03:30 PM",
-                    "03:30 PM - 04:00 PM", "04:00 PM - 04:30 PM", "04:30 PM - 05:00 PM"]
-            }
-        }
-
-        setDoctorSearchData(api_res.data.doctors)
-        setAllAppointments(api_res.data.all_appointments)
-        setCurrentSelectedTime(api_res.data.all_appointments[0])
-
     }
 
     return (
@@ -354,103 +369,124 @@ const PatientBookAppointment = () => {
             // contentLabel="Example Modal"
             >
                 <div className="modal-section-1">
-                    <h3>Book an appointment</h3>
+                    <h3>{modalState == 1 ? 'Book an appointment' : "Reviews and Ratings"}</h3>
                     <button onClick={closeModal}><img src={Close} alt="close" /></button>
                 </div>
-                <div className="partition" />
-                <h3 className="sub-header">Pick a date and time:</h3>
-                <div className="modal-section-2">
-                    {/* loop */}
-                    <div className="dates-button-wrapper">
-                        {/* setCurrentSelectedDate(date[0] + date[1]) */}
-                        {
-                            dates.map((date, index) => (
-                                <button key={index} className={currentSelectedDate == date[1] ? "date-button-1" : "date-button"}
-                                    onClick={() => { setCurrentSelectedDate(date[1]) }}>
-                                    <span className="date-span-1">{date[2]}</span>
-                                    <span className="date-span-1">{date[0]}</span>
-                                    <span>{date[1]}</span>
-                                </button>
-                            ))
-                        }
-                    </div>
-                </div>
-                <div className="modal-section-3">
-                    {/* loop */}
-                    <div className="time-button-wrapper">
-                        {/* {
-                            currentSelectedDate != 0 ?
-                                availableAppointments[currentSelectedDate] != [] ?
-                                    availableAppointments[currentSelectedDate].map((data, index) => (
-                                        <button key={index} className={currentSelectedTime == data ? "time-button-1" : "time-button"}
-                                            onClick={() => { setCurrentSelectedTime(data) }}>
-                                            <span>{data}</span>
-                                            {
-                                                currentSelectedTime == data ?
-                                                    <img src={CheckCircle} alt="Tick" />
-                                                    :
-                                                    null
-                                            }
-                                        </button>
-                                    ))
-                                    :
-                                    <div>Sorry no dates avaible</div>
-                                :
-                                null
-
-                        } */}
-                        {/* {
-                            allAppointments != [] ?
-                                allAppointments.map((data, index) => (
-                                    <button key={index} className={currentSelectedTime == data ? "time-button-1" : "time-button"}
-                                        onClick={() => { setCurrentSelectedTime(data) }}>
-                                        <span>{data}</span>
+                <div className="main-modal-wrapper">
+                    {
+                        modalState == 1 ?
+                            <div>
+                                <div className="partition" />
+                                {error && <ErrorComponent message={error} />}
+                                <h3 className="sub-header">Pick a date and time:</h3>
+                                <div className="modal-section-2">
+                                    {/* loop */}
+                                    <div className="dates-button-wrapper">
+                                        {/* setCurrentSelectedDate(date[0] + date[1]) */}
                                         {
-                                            currentSelectedTime == data ?
-                                                <img src={CheckCircle} alt="Tick" />
+                                            dates.map((date, index) => (
+                                                <button key={index} className={currentSelectedDate == date[1] ? "date-button-1" : "date-button"}
+                                                    onClick={() => { onDateChange(date[1]) }}>
+                                                    <span className="date-span-1">{date[2]}</span>
+                                                    <span className="date-span-1">{date[0]}</span>
+                                                    <span>{date[1]}</span>
+                                                </button>
+                                            ))
+                                        }
+                                    </div>
+                                </div>
+                                <div className="modal-section-3">
+                                    {/* loop */}
+                                    <div className="time-button-wrapper">
+                                        {
+                                            // for the first time
+                                            currentSelectedDate in availableAppointments ?
+                                                availableAppointments[currentSelectedDate] != "" ?
+                                                    availableAppointments[currentSelectedDate].map((data, index) => (
+                                                        <button key={index} className={currentSelectedTime == data ? "time-button-1" : "time-button"}
+                                                            onClick={() => { setCurrentSelectedTime(data) }}>
+                                                            <span>{data}</span>
+                                                            {
+                                                                currentSelectedTime == data ?
+                                                                    <img src={CheckCircle} alt="Tick" />
+                                                                    :
+                                                                    null
+                                                            }
+                                                        </button>
+                                                    ))
+                                                    :
+                                                    <div className="no-data-view">No slots available</div>
                                                 :
                                                 null
                                         }
+                                    </div>
+                                </div>
+                                <h3 className="sub-header-1">Any comments for the doctor?</h3>
+                                <textarea className="textfield-modal" value={comments} onChange={(e) => { setComments(e.target.value) }} />
+                                <h3 className="sub-header">Attach a Document?</h3>
+                                <div className="modal-section-4">
+                                    {
+                                        documentName != "" ?
+                                            <div className="document-wrapper">
+                                                <DocumentComponent documentName={
+                                                    documentName.length > 20 ?
+                                                        documentName.substring(0, 20) + '...'
+                                                        :
+                                                        documentName
+                                                }
+                                                />
+                                            </div>
+                                            :
+                                            null
+                                    }
+                                    <button className="file-picker" >
+                                        <img src={AddBox} alt="add" />
+                                        <span>
+                                            {
+                                                documentName != "" ?
+                                                    'Replace Document'
+                                                    :
+                                                    'Add Document'
+                                            }
+                                        </span>
                                     </button>
-                                ))
-                                :
-                                null
-                        } */}
-                    </div>
-                </div>
-                <h3 className="sub-header-1">Any comments for the doctor?</h3>
-                <textarea className="textfield-modal" />
-                <h3 className="sub-header">Attach a Document?</h3>
-                <div className="modal-section-4">
-                    {
-                        documentName != "" ?
-                            <div className="document-wrapper">
-                                <DocumentComponent documentName={
-                                    documentName.length > 20 ?
-                                        documentName.substring(0, 20) + '...'
-                                        :
-                                        documentName
-                                }
-                                />
+                                </div>
+                                <div className="aptmt-button-wrapper">
+                                    <Button text={"Book Appointment"} width={'50%'} onClick={bookAppointment} />
+                                </div>
                             </div>
                             :
-                            null
+                            <div>
+                                <div className="reviews-ratings-header-wrapper">
+                                    <div className="reviews-ratings-header-1">{'Name'}</div>
+                                    <div className={"reviews-ratings-header-2"}>{'Review'}</div>
+                                    <div className="reviews-ratings-header-3">{'Rating'}</div>
+                                </div>
+                                {
+                                    reviewsRatings.map((data, index) => (
+                                        <div key={index} className="reviews-ratings">
+                                            <div className="reviews-ratings-1">{data.user_name}</div>
+                                            <div className="reviews-ratings-2">{data.review}</div>
+                                            <div className="reviews-ratings-3">
+                                                {
+                                                    [...Array(5)].map((e, i) =>
+                                                        (i+1) <= parseInt(data.rating) ?
+                                                            // <div key={i} className="reviews-ratings-3">{data.rating}</div>
+                                                            <BsStarFill color={"var(--primary)"}/>
+                                                            :
+                                                            <BsStar />
+                                                        // <div key={i} className="reviews-ratings-3">{data.rating}</div>
+                                                    )
+                                                }
+                                            </div>
+
+                                        </div>
+                                    ))
+                                }
+                            </div>
                     }
-                    <button className="file-picker" >
-                        <img src={AddBox} alt="add" />
-                        <span>
-                            {
-                                documentName != "" ?
-                                    'Replace Document'
-                                    :
-                                    'Add Document'
-                            }
-                        </span>
-                    </button>
                 </div>
-                <div className="aptmt-button-wrapper">
-                    <Button text={"Book Appointment"} width={'50%'} onClick={bookAppointment()} />
-                </div>
+
             </Modal>
             {/* Modal End */}
             <div className="main-div">
@@ -476,9 +512,9 @@ const PatientBookAppointment = () => {
                     {/* div for main scroll */}
                     <div className="doctor-view">
                         {
-                            doctorSearchData != [] ?
+                            doctorSearchData != "" ?
                                 doctorSearchData.map((data, index) => (
-                                    <PatientBookAppointmentCard key={index} data={data} bookSlot={bookSlot} />
+                                    <PatientBookAppointmentCard key={index} data={data} bookSlot={bookSlot} openReviewsRatings={openReviewsRatings} />
                                 ))
                                 :
                                 <div>No data found</div>

@@ -175,7 +175,7 @@
 }
 
 .modal-section-3 {
-    display: flex;
+    /* display: flex; */
     margin-top: 10px;
 }
 
@@ -322,6 +322,71 @@
     color: #757575;
     font-size: 15px;
 }
+
+.no-data-view {
+    font-size: 12px;
+    margin: 20px 0px;
+}
+
+.reviews-ratings-wrapper {
+    overflow: scroll;
+    overflow-x: hidden;
+}
+
+
+/* reviews and ratings start */
+
+.reviews-ratings-header-wrapper {
+    display: flex;
+    margin-bottom: 15px;
+}
+
+.reviews-ratings-header-1 {
+    font-weight: bold;
+    font-size: 15px;
+    max-width: 100px;
+    min-width: 100px;
+    margin-right: 10px;
+}
+
+.reviews-ratings-header-2 {
+    flex: 1;
+    font-weight: bold;
+    font-size: 15px;
+    margin-right: 10px;
+}
+
+.reviews-ratings-header-3 {
+    font-weight: bold;
+    font-size: 15px;
+    max-width: 100px;
+    min-width: 100px;
+}
+
+.reviews-ratings {
+    display: flex;
+}
+
+.reviews-ratings-1 {
+    margin-right: 10px;
+    max-width: 100px;
+    min-width: 100px;
+}
+
+.reviews-ratings-2 {
+    flex: 1;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.reviews-ratings-3 {
+    font-size: 15px;
+    max-width: 100px;
+    min-width: 100px;
+}
+
+
+/* reviews and ratings start */
 
 
 /* .search-box .doctor-info .doctor-info-section-1 .doctor-title {
