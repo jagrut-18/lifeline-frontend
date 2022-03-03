@@ -11,6 +11,7 @@ const routes = {
     pat_book_appointment: '/pat_book_appointment',
     appointment_details: '/appointment_details',
     my_appointments: '/my_appointments',
+    forgot_password: '/forgot_password',
 }
 
 export default routes;
