@@ -22,7 +22,7 @@ export default function OnboardingScreen3(props) {
     const [state, setState] = useState('');
     const [zipcode, setZipcode] = useState('');
     const [error, setError] = useState();
-    const { isLoggedIn, setIsLoggedIn } = useContext(LoginStateContext);
+    const { _, setIsLoggedIn } = useContext(LoginStateContext);
     const navigate = useNavigate();
 
     const isDoctor = localStorage.getItem("user_type_id") == "2";
@@ -72,7 +72,7 @@ export default function OnboardingScreen3(props) {
         var response = await API.onboarding(formData);
         if (response.success){
             setIsLoggedIn(true);
-            // navigate(routes.home, {replace: true});
+            navigate(routes.home);
         }
         else {
             setError(response.error);

@@ -54,8 +54,9 @@ function LoginScreen() {
         const response = await API.login(formData);
         if (response.success) {
             saveLoginDetails(email, response.data.user_id, response.data.token);
+            localStorage.setItem("user_type_id", response.data.user_type_id);
             setIsLoggedIn(true);
-            navigate(routes.home, { replace: true });
+            navigate(routes.home);
             setLoading(false);
         }
         else {
