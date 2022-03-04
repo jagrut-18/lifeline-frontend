@@ -127,7 +127,7 @@ function SignupScreen() {
         setError("Something went wrong")
         setLoading(false);
       }
-      // navigate(routes.onboarding1);
+      navigate(routes.onboarding1);
     })
     .catch(function (error) {
       setError("Something went wrong")
