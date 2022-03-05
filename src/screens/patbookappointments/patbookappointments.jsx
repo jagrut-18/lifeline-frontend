@@ -22,6 +22,7 @@ import ErrorComponent from '../../components/error/error';
 import { maxHeight } from '@mui/system';
 import { BsStarFill } from 'react-icons/bs';
 import { BsStar } from 'react-icons/bs';
+import axios from 'axios';
 
 var AWS = require('aws-sdk/global');
 
@@ -58,19 +59,22 @@ const PatientBookAppointment = () => {
     //filter vars
     const [specialization, setSpecialization] = useState("");
     const [doctorName, setDoctorName] = useState("");
-    // const [location, setLocation] = useState("");
+    const [location, setLocation] = useState("");
     const [locationSuggestions, setLocationSuggestions] = useState([]);
     const [providesHealthCare, setProvidesHealthCare] = useState("");
 
     //res vars
     const [doctorSearchData, setDoctorSearchData] = useState("");
+    const [totalSearches, setTotalSearches] = useState(0);
+    const [allAppointments, setAllAppointments] = useState([]);
 
     //req vars
     const [currentSelectedTime, setCurrentSelectedTime] = useState("");
-    const [allAppointments, setAllAppointments] = useState([]);
     const [availableAppointments, setAvailableAppointments] = useState({});
     const [comments, setComments] = useState("");
     const [reviewsRatings, setReviewsRatings] = useState([]);
+    const [doctorId, setDoctorId] = useState(0);
+
 
     const customStyles = {
         content: {
@@ -94,6 +98,10 @@ const PatientBookAppointment = () => {
     // }
 
     useEffect(() => {
+        setCurrentDate()
+    }, [])
+
+    const setCurrentDate = () => {
         //Api call
         function GetDates(startDate, daysToAdd) {
             var aryDates = [];
@@ -151,13 +159,18 @@ const PatientBookAppointment = () => {
         setDates(aryDates)
         //set current selected date to tomorrow's date
         setCurrentSelectedDate(aryDates[0][1])
-    }, [])
+    }
 
     async function getLocationSuggestions(query) {
+        console.log({ query })
         const response = await API.locationAutocomplete(query);
         if (response.success) {
             setLocationSuggestions(response.data);
         }
+    }
+
+    const onLocationSelect = (location) => {
+        setLocation(location)
     }
 
     const openReviewsRatings = (reviewsRatings) => {
@@ -174,62 +187,62 @@ const PatientBookAppointment = () => {
 
     const searchDoctors = () => {
 
-        let api_res = {
-            response_code: "200",
-            response_message: "Success",
-            data: {
-                doctors: [
-                    {
-                        doctor_id: 1,
-                        doctor_name: "John Doe",
-                        hospital_address: "4011 S Monroe Medical Park Blvd,Bloomington, IN 47403",
-                        hospital_name: "abc hospital",
-                        covid_care: "Yes",
-                        specialization: "ortho",
-                        profile_image_url: "http://adssa.png",
-                        total_rating: "5",
-                        reviews_rating: [
-                            { user_name: "John Doe", review: "good doctor", rating: "5" },
-                            { user_name: "John Doe", review: "good doctor", rating: "5" },
-                            { user_name: "John Doe", review: "good doctor", rating: "5" },
-                            { user_name: "John Doe", review: "good doctor", rating: "5" },
-                            { user_name: "John Doe", review: "good doctor", rating: "5" },
-                            { user_name: "John Doe", review: "good doctor", rating: "5" },
-                            { user_name: "John Doe", review: "good doctor", rating: "5" },
-                            { user_name: "John Doe", review: "good doctor", rating: "5" },
-                            { user_name: "John Doe", review: "good doctor", rating: "5" },
-                            { user_name: "John Doe", review: "good doctor", rating: "5" },
-                            { user_name: "John Doe", review: "good doctor", rating: "5" },
-                            { user_name: "John Doe", review: "good doctor", rating: "4" }
-                        ],
-                        appointments: [
-                            { date: "03-04-2022", booked_appointment: "10:00 AM - 10:30 AM" },
-                            { date: "03-04-2022", booked_appointment: "10:30 AM - 11:00 AM" },
-                            { date: "03-04-2022", booked_appointment: "11:00 AM - 11:30 AM" },
-                            { date: "03-04-2022", booked_appointment: "11:30 AM - 12:00 PM" },
-                            { date: "03-04-2022", booked_appointment: "12:00 PM - 12:30 PM" },
-                            { date: "03-05-2022", booked_appointment: "11:00 AM - 11:30 AM" },
-                            { date: "03-06-2022", booked_appointment: "10:00 AM - 10:30 AM" },
-                            { date: "03-07-2022", booked_appointment: "10:00 AM - 10:30 AM" },
-                            { date: "03-07-2022", booked_appointment: "12:00 PM - 12:30 PM" }
+        let formData = new FormData();
+        let requestData = {}
 
-                        ]
-                    }
-                ],
-                all_appointments: ["10:00 AM - 10:30 AM", "10:30 AM - 11:00 AM", "11:00 AM - 11:30 AM", "11:30 AM - 12:00 PM", "12:00 PM - 12:30 PM",
-                    "12:30 PM - 01:00 PM", "01:00 AM - 01:30 PM"]
+        if (locationSuggestions != "") {
+            let location = locationSuggestions[0].split(", ")
+            requestData = {
+                doctor_name: doctorName,
+                city: location[0],
+                state: location[1],
+                covid_care: providesHealthCare,
+                specialization: specialization
+            }
+        } else {
+            requestData = {
+                doctor_name: doctorName,
+                city: "",
+                state: "",
+                covid_care: providesHealthCare,
+                specialization: specialization
             }
         }
 
-        setDoctorSearchData(api_res.data.doctors)
-        setAllAppointments(api_res.data.all_appointments)
+        console.log(requestData)
+
+        for (var key in requestData) {
+            formData.append(key, requestData[key]);
+        }
+
+        axios.post('http://3.220.183.182:5000/doctorsearch', formData).then(function (response) {
+            console.log(response.data);
+            if (response.data.response_code == "200") {
+                setDoctorSearchData(response.data.data.doctors)
+                setTotalSearches(response.data.data.doctors.length)
+                setAllAppointments(response.data.data.all_appointments)
+            } else if (response.data.response_code == "230") {
+                // setError("Something went wrong")
+                // setLoading(false);
+                alert("Something went wrong")
+            }
+        })
+            .catch(function (error) {
+                // setError("Something went wrong")
+                // setLoading(false);
+                console.log(error);
+            })
+        // setAllAppointments(api_res.data.all_appointments)
     }
 
-    function bookSlot(appointments) {
+    function bookSlot(appointments, doctorId) {
+
         let dict = {}
 
         //filter out the book appointments according to the date
         appointments.forEach(element => {
+            console.log(element)
+
             let key = parseInt(element.date.split("-")[1])
             // const key = element.date;
             if (key in dict) {
@@ -240,6 +253,8 @@ const PatientBookAppointment = () => {
 
             }
         })
+
+        console.log({dict})
 
         //assign blank array where no appointments are booked
         //we need this beacause we need to populate all the available appointments, and by setting the array to blank,
@@ -266,6 +281,7 @@ const PatientBookAppointment = () => {
         }
 
         setModalState(1)
+        setDoctorId(doctorId)
         setModalStatus(true)
     }
 
@@ -330,32 +346,78 @@ const PatientBookAppointment = () => {
     }
 
     const bookAppointment = () => {
-        var dateObj = new Date();
-        var finalDate = dateObj.getUTCMonth() + 1 + '-' + currentSelectedDate + '-' + dateObj.getUTCFullYear()
 
-        console.log(finalDate)
-        console.log(currentSelectedTime)
-        console.log(comments)
-
-        if (currentSelectedTime == "") {
-            setError("sorry can't book the appointment, as no slots are available")
-        } else {
-            setError("")
-            //start loader
-            if (documentName != "") {
-                uploadDocument()
-            }
-            //after uploading the document - API call
-            //end loader
-        }
-        // {
-        //     time: "8:00 AM",
-        //     date: "2-21-2022",
-        //     doctor_id: "1",
-        //     comments: "",
-        //     document_url: "abc.pdf"
-        //     patient_id: "asda"(token)
+        // if (currentSelectedTime == "") {
+        //     setError("sorry can't book the appointment, as no slots are available")
+        // } else {
+        //     setError("")
+        //     //start loader
+        //     if (documentName != "") {
+        //         uploadDocument()
+        //     }
+        //     //after uploading the document - API call
+        //     //end loader
         // }
+
+        let dateObj = new Date();
+        let finalDate =  dateObj.getUTCFullYear() + '-' + (parseInt(dateObj.getUTCMonth()) + 1) + '-' + currentSelectedDate
+        console.log(finalDate)
+        let formData = new FormData();
+        let requestData = {}
+
+        requestData = {
+            time: currentSelectedTime,
+            date: finalDate,
+            doctor_id: doctorId,
+            patient_id: localStorage.getItem("user_id"),
+            document_url: documentName,
+            comments: comments
+        }
+
+        for (var key in requestData) {
+            formData.append(key, requestData[key]);
+        }
+
+        axios.post('http://3.220.183.182:5000/bookaptmt', formData).then(function (response) {
+            
+            if (response.data.response_code == "200") {
+                console.log(response.data.data);
+                alert("Appointment booked")
+                
+                setCurrentSelectedTime("")
+                setComments("")
+                setdocumentName("")
+                
+                setDoctorSearchData("")
+                setTotalSearches(0)
+                setAllAppointments([])
+
+                setSpecialization("")
+                setDoctorName("")
+                setLocation("")
+                setProvidesHealthCare("")
+                
+                setDoctorId(0)
+
+                setAvailableAppointments(null)
+                setModalState(0)
+                setModalStatus(false)
+                
+                setCurrentDate()
+            } else if (response.data.response_code == "230") {
+                alert("Appointment already booked")
+            } else if (response.data.response_code == "230") {
+                alert("Appointment already booked")
+                // setError("Something went wrong")
+                // setLoading(false);
+            }
+        })
+            .catch(function (error) {
+                alert(error)
+                // setError("Something went wrong")
+                // setLoading(false);
+                console.log(error);
+            })
     }
 
     return (
@@ -470,9 +532,9 @@ const PatientBookAppointment = () => {
                                             <div className="reviews-ratings-3">
                                                 {
                                                     [...Array(5)].map((e, i) =>
-                                                        (i+1) <= parseInt(data.rating) ?
+                                                        (i + 1) <= parseInt(data.rating) ?
                                                             // <div key={i} className="reviews-ratings-3">{data.rating}</div>
-                                                            <BsStarFill color={"var(--primary)"}/>
+                                                            <BsStarFill color={"var(--primary)"} />
                                                             :
                                                             <BsStar />
                                                         // <div key={i} className="reviews-ratings-3">{data.rating}</div>
@@ -499,7 +561,7 @@ const PatientBookAppointment = () => {
                         <Textfield placeholder="Doctor Name" value={doctorName} onChange={setDoctorName} />
                     </div>
                     <div className="filter-wrapper">
-                        <Searchfield placeholder="Location" onChange={getLocationSuggestions} options={locationSuggestions} />
+                        <Searchfield placeholder="Location" onChange={getLocationSuggestions} onOptionChange={onLocationSelect} options={locationSuggestions} />
                         {/* <Searchfield placeholder="Location" options={["abc", "def"]} value={location} onChange={setLocation} /> */}
                     </div>
                     <div className="filter-wrapper">
@@ -507,7 +569,7 @@ const PatientBookAppointment = () => {
                     </div>
                 </div>
                 <ButtonSimple text={"Search"} onClick={searchDoctors} />
-                <p>12 searches</p>
+                <p>{totalSearches} searches</p>
                 <div className="main-data-wrapper">
                     {/* div for main scroll */}
                     <div className="doctor-view">

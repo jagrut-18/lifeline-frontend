@@ -16,10 +16,15 @@ function PatientBookAppointmentCard(props) {
                     <div className="doctor-title">
                         <h3>{props.data.doctor_name}</h3>
                     </div>
-                    <button className="ratings" onClick={() => { props.openReviewsRatings(props.data.reviews_rating) }}>
-                        <span>{props.data.total_rating}</span>
-                        <img src={Star} alt="rating" />
-                    </button>
+                    {
+                        props.data.reviews_rating != "" ?
+                            <button className="ratings" onClick={() => { props.openReviewsRatings(props.data.reviews_rating) }}>
+                                <span>{props.data.total_rating}</span>
+                                <img src={Star} alt="rating" />
+                            </button>
+                            :
+                            null
+                    }
                 </div>
                 <div className="doctor-info-section-2">
                     <HighlightedContent backgroundColor={"rgba(184, 64, 94, 0.13)"} textColor={"#B8405E"} text={props.data.specialization} />
@@ -35,7 +40,7 @@ function PatientBookAppointmentCard(props) {
                     </div>
                     <div className="section-3-button">
                         <div className="button-wrapper">
-                            <button className="button" onClick={() => { props.bookSlot(props.data.appointments) }}>
+                            <button className="button" onClick={() => { props.bookSlot(props.data.appointments, props.data.doctor_id) }}>
                                 {/* <button className='button' style={style} onClick={props.onClick}> */}
                                 View Slots
                             </button>

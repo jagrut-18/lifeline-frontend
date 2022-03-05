@@ -24,8 +24,9 @@ export default function Searchfield(props){
     }
 
     function onOptionClick(option){
-        setValue(props.parseObjectFunction(option) ?? option);
+        setValue(props.parseObjectFunction ? props.parseObjectFunction(option) : option);
         props.onOptionChange(option);
+        props.onChange(option);
         setOptionVisibility(false);
     }
 
@@ -47,7 +48,7 @@ export default function Searchfield(props){
             {optionsVisible && 
                 <div className="dropdown_options">
                 {props.options.map(function(option) {
-                   return <div key={props.parseObjectFunction(option) ?? option} className="option" onClick={() => onOptionClick(option)}>{props.parseObjectFunction(option) ?? option}</div>
+                   return <div key={props.parseObjectFunction ? props.parseObjectFunction(option) : option} className="option" onClick={() => onOptionClick(option)}>{props.parseObjectFunction ? props.parseObjectFunction(option) : option}</div>
                 })}
             </div>
             }
