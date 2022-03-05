@@ -6,16 +6,19 @@ import DoctorHome from './doctor/doctor';
 import Heading from '../../components/heading/heading';
 import Spacer from '../../components/spacer';
 import PatientAppointment from '../../components/patient_appointment/patient_appointment';
+import { useEffect, useState } from 'react';
+import { API } from '../../api/api';
 
 const HomeScreen = () => {
     const navigate = useNavigate();
+    const [patientAppointments, setPatientAppointments] = useState([]);
     let user_type = JSON.parse(localStorage.getItem('user_type_id'))
 
-    const data = {
-        doctor_name: "Dr. John Doe",
-        date: "Feb 26, 2022",
-        time: "10:30 AM - 11:00 AM",
-    }
+    useEffect(() => {
+        if (user_type == "1"){
+            getPatientAppointments();
+        }
+    }, []);
 
     if (localStorage.getItem("user_type_id") == "2") {
         return (
@@ -25,12 +28,26 @@ const HomeScreen = () => {
         );
     }
 
+    async function getPatientAppointments() {
+        const response = await API.getPatientAppointments();
+        if (response.success) {
+            setPatientAppointments(response.data.scheduled_appointments);
+        }
+        else {
+            alert(response.error);
+        }
+    }
+
     return (
         <div className="container-home">
             <Heading text="Your upcoming appointments" />
             <Spacer height={10}/>
             <div className="appointments_container">
-                <PatientAppointment appointment={data} />
+                {
+                    patientAppointments.map((data, index) => {
+                        return <PatientAppointment key={index} appointment={data} />
+                    })
+                }
             </div>
             <Spacer height={30}/>
             <div className="row">

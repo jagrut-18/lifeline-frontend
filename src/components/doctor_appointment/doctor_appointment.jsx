@@ -3,13 +3,20 @@ import Heading from '../heading/heading'
 import { IoIosArrowForward } from 'react-icons/io';
 import Description from '../description/description';
 import Spacer from '../spacer';
+import { useNavigate } from 'react-router-dom';
 
 export default function DoctorAppointment(props) {
+    const navigate = useNavigate();
+
+    function goToAppointment() {
+        navigate(`/appointment_details/${props.appointment.id}`);
+    }
+
     return (
         <div className="appointment_container">
             <div className="date_container">
                 {props.appointment.time}
-                <div className="arrow_container">
+                <div onClick={goToAppointment} className="arrow_container">
                     <IoIosArrowForward color='white'/>
                 </div>
             </div>

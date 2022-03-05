@@ -17,7 +17,8 @@ export default function DoctorOnboarding() {
 	// error hook
 	const [error, setError] = useState(null);
 	// dropdown options
-	const yesNo = ['Yes', 'No']
+	const yesNo = ['Yes', 'No'];
+	const specializations = JSON.parse(localStorage.getItem("specializations"));
 	// field hooks
 	const [specialization, setSpecialization] = useState('');
 	const [hasCovidCare, setHasCovidCare] = useState('');
@@ -61,7 +62,7 @@ export default function DoctorOnboarding() {
 				<Spacer height={30} />
 				<DropdownSelect placeholder="Gender" options={genderOptions} onChange={setGender} />
 				<Spacer height={15} />
-				<Textfield value={specialization} onChange={setSpecialization} placeholder="Specialization" />
+				<DropdownSelect placeholder="Specialization" options={specializations} onChange={setSpecialization} />
 				<Spacer height={15} />
 				<div className="onboarding_row onboarding_row2">
 					Do you provide Covid Care?

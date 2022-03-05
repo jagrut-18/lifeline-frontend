@@ -2,52 +2,41 @@ import { AX } from '../axios';
 
 
 export async function getDoctorAppointments(){
+    var formData = new FormData();
+    formData.append("doctor_id", localStorage.getItem("user_id"));
+    return AX.post('/doct_aptmts', formData)
+    .then((response) => {
+        const resCode = response.data.response_code;
+        console.log(response.data);
+        if (resCode == "200"){ // success
+            const appointments = response.data.data.appointments;
 
-    await new Promise(res => setTimeout(res, 2000));
-    const appointments = [
-        {
-            appointment_id: "abcd",
-            time: "10:30 AM - 11:00 AM",
-            date: "2-27-2022",
-            patient_name: "John Doe",
-            patient_age: "22 Years"
-        },
-        {
-            appointment_id: "abcd",
-            time: "1:30 PM - 2:00 PM",
-            date: "2-27-2022",
-            patient_name: "Lionel Messi",
-            patient_age: "34 Years"
-        },
-        {
-            appointment_id: "abcd",
-            time: "10:30 AM - 11:00 AM",
-            date: "2-28-2022",
-            patient_name: "Cristiano Ronaldo",
-            patient_age: "35 Years"
-        },
-        {
-            appointment_id: "abcd",
-            time: "10:30 AM - 11:00 AM",
-            date: "3-1-2022",
-            patient_name: "Cristiano Ronaldo",
-            patient_age: "35 Years"
-        },
-    ];
+            var data = {};
+            appointments.forEach(appointment => {
+                if (appointment.date in data){
+                    data[appointment.date].push(appointment);
+                }
+                else {
+                    data[appointment.date] = [appointment];
+                }
+            });
 
-    var data = {};
-
-    appointments.forEach(appointment => {
-        if (appointment.date in data){
-            data[appointment.date].push(appointment);
+            return {
+                success: true,
+                data: data,
+            }
         }
         else {
-            data[appointment.date] = [appointment];
+            return {
+                success: false,
+                error: response.data.data.response_message
+            }
+        }
+    })
+    .catch((error) => {
+        return {
+            success: false,
+            error: error.toString()
         }
     });
-
-    return {
-        success: true,
-        data: data,
-    }
 }

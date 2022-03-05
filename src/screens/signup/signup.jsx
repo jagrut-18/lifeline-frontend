@@ -117,6 +117,7 @@ function SignupScreen() {
       console.log(response.data);
       if (response.data.response_code == "200") {
         saveLoginDetails(email, response.data.data.user_id, response.data.data.token);
+        localStorage.setItem("specializations", JSON.stringify(response.data.data.specialization));
         navigate(routes.onboarding1);
         setLoading(false);
       } else if (response.data.response_code == "210") {

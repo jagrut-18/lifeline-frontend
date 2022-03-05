@@ -19,6 +19,9 @@ export default function DoctorHome() {
         if (response.success) {
             setDays(response.data);
         }
+        else {
+            alert(response.error);
+        }
         setLoading(false);
         console.log(loading);
     }
@@ -46,13 +49,13 @@ export default function DoctorHome() {
             ? <div>
                 Loading...
             </div>
-            : Object.keys(days).map((day)=>{
+            : Object.keys(days).map((day, index)=>{
                 return (
-                    <div key={day}>
+                    <div key={index}>
                         <Heading text={getDateString(day)} />
                         <div className="doctor_appointments_container">
-                        {days[day].map((appointment) => {
-                            return <DoctorAppointment appointment={appointment} />
+                        {days[day].map((appointment, i) => {
+                            return <DoctorAppointment key={i} appointment={appointment} />
                         })}
                         </div>
                     </div>
