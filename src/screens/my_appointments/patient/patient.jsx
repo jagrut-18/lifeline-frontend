@@ -31,9 +31,12 @@ export default function PatientMyAppointments(props) {
             <Spacer height={10} />
             <div className="appointments_container">
                 {
-                    scheduled.map((data, index) => {
-                        return <PatientAppointment key={index} appointment={data} />
-                    })
+                    scheduled != "" ?
+                        scheduled.map((data, index) => {
+                            return <PatientAppointment key={index} appointment={data} />
+                        })
+                        :
+                        <div>No upcoming apointments scheduled</div>
                 }
             </div>
             <Spacer height={20} />
@@ -41,9 +44,12 @@ export default function PatientMyAppointments(props) {
             <Spacer height={10} />
             <div className="appointments_container">
                 {
-                    past.map((data, index) => {
-                        return <PatientAppointment key={index} appointment={data} />
-                    })
+                    past != "" ?
+                        past.map((data, index) => {
+                            return <PatientAppointment key={index} appointment={data} />
+                        })
+                        :
+                        <div>No past appointments to show</div>
                 }
             </div>
         </div>

@@ -78,7 +78,7 @@ const PatientBookAppointment = () => {
     const [comments, setComments] = useState("");
     const [reviewsRatings, setReviewsRatings] = useState([]);
     const [doctorId, setDoctorId] = useState(0);
-    
+
     const [loading, setLoading] = useState(true);
 
     const customStyles = {
@@ -231,11 +231,11 @@ const PatientBookAppointment = () => {
             }
             setLoading(false);
         })
-        .catch(function (error) {
-            // setError("Something went wrong")
-            // setLoading(false);
-            console.log(error);
-            setLoading(false);
+            .catch(function (error) {
+                // setError("Something went wrong")
+                // setLoading(false);
+                console.log(error);
+                setLoading(false);
             })
         // setAllAppointments(api_res.data.all_appointments)
     }
@@ -404,6 +404,7 @@ const PatientBookAppointment = () => {
                 setModalStatus(false)
 
                 setCurrentDate()
+                searchDoctors()
             } else if (response.data.response_code == "230") {
                 alert("Appointment already booked")
             } else if (response.data.response_code == "230") {
@@ -421,7 +422,7 @@ const PatientBookAppointment = () => {
     }
 
     if (loading) {
-        return  <Loader />
+        return <Loader />
     }
 
     return (
@@ -623,7 +624,12 @@ const PatientBookAppointment = () => {
                     </div>
                     {/* Div for maps */}
                     <div className="maps">
-                        <DoctorsMap latlongs={doctorSearchData.map((doctor) => [parseFloat(doctor.location_lat), parseFloat(doctor.location_long)])} />
+                        {
+                            doctorSearchData != "" ?
+                                <DoctorsMap latlongs={doctorSearchData.map((doctor) => [parseFloat(doctor.location_lat), parseFloat(doctor.location_long)])} />
+                                :
+                                null
+                        }
                     </div>
                 </div>
             </div>
