@@ -11,7 +11,11 @@ import { useState, useRef, useEffect } from 'react';
 
 export default function DropdownSelect(props) {
     const ref = useRef(null);
+    
     useEffect(() => {
+        if (props.default) {
+          setValue(props.default)
+        }
         const handleClickOutside = (event) => {
           if (ref.current && !ref.current.contains(event.target)) {
             onClickOutside && onClickOutside();

@@ -2,15 +2,31 @@ import './datepicker.css';
 
 import "react-modern-calendar-datepicker/lib/DatePicker.css";
 import DatePicker, { utils } from "react-modern-calendar-datepicker";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function DateSelector(props) {
 
   const [selectedDay, setSelectedDay] = useState(null);
+  let valueChange = false
+
+  useEffect(() => {
+    console.log("Useeffec")
+
+    if (props.default && !valueChange) {
+      setSelectedDay({
+        day: props.default.getDate(),
+        month: props.default.getMonth() + 1,
+        year: props.default.getFullYear()
+      })
+    }
+
+  }, [])
+
 
   function onChange(value) {
     // let tempValue = value.split("-")
-    console.log(value)
+    valueChange = true
+    console.log({ value })
     setSelectedDay(value);
     props.onChange(value);
   }
@@ -20,7 +36,7 @@ export default function DateSelector(props) {
       readOnly
       ref={ref}
       placeholder={props.placeholder}
-      value={selectedDay ?  `${selectedDay.month.toString().padStart(2, '0')}-${selectedDay.day.toString().padStart(2, '0')}-${selectedDay.year}` : ''}
+      value={selectedDay ? `${selectedDay.month.toString().padStart(2, '0')}-${selectedDay.day.toString().padStart(2, '0')}-${selectedDay.year}` : ''}
       style={{
         textAlign: 'left',
         paddingLeft: '15px',
