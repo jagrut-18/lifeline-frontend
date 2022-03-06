@@ -58,7 +58,7 @@ const Menu = () => {
     function renderButton() {
         if (location.pathname == routes.login) {
             return (
-                <button type="button" className="login-button" onClick={() => navigate(routes.signup)}>Signup</button>
+                <button type="button" className="login-button" onClick={() => navigate(routes.user_type)}>Signup</button>
             );
         }
         return (

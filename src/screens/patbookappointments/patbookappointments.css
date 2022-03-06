@@ -135,12 +135,15 @@
 }
 
 .modal-section-2 .dates-button-wrapper .date-button {
+    display: flex;
+    flex-direction: column;
     flex: 1;
     border: none;
     height: 70px;
     border-radius: 15px;
     background-color: #F9F9F9;
     cursor: pointer;
+    justify-content: center;
     align-items: center;
 }
 
@@ -156,12 +159,15 @@
 }
 
 .modal-section-2 .dates-button-wrapper .date-button-1 {
+    display: flex;
+    flex-direction: column;
     flex: 1;
     border: none;
     height: 70px;
     border-radius: 15px;
     background-color: #1976D2;
     cursor: pointer;
+    justify-content: center;
     align-items: center;
 }
 
@@ -193,6 +199,7 @@
 
 .modal-section-3 .time-button-wrapper .time-button {
     border: 1px solid #D9D9D9;
+    display: flex;
     height: 40px;
     border-radius: 8px;
     background-color: #F9F9F9;
