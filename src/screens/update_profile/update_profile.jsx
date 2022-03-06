@@ -194,6 +194,20 @@ export default function UpdateProfileScreen(props) {
                 user_id: localStorage.getItem('user_id'),
                 user_type_id: userTypeId
             }
+        } else if (userTypeId == "3") {
+
+            requestData = {
+                first_name: first,
+                last_name: last,
+                phone_number: phone,
+                address: address,
+                city: city,
+                state: state,
+                zipcode: zipcode,
+                company_name: companyName,
+                user_id: localStorage.getItem('user_id'),
+                user_type_id: userTypeId
+            }
         }
 
         console.log({ requestData })
@@ -225,9 +239,9 @@ export default function UpdateProfileScreen(props) {
                             <div className="profile_row">
                                 {
                                     dob != null ?
-                                    <DateSelector placeholder="Date of Birth" onChange={setDob} default={new Date(getDateString(dob))} />
-                                    :
-                                    null
+                                        <DateSelector placeholder="Date of Birth" onChange={setDob} default={new Date(getDateString(dob))} />
+                                        :
+                                        null
                                 }
                                 <Spacer width={15} />
                                 <DropdownSelect placeholder="Gender" options={genderOptions} onChange={setGender} default={gender} />
