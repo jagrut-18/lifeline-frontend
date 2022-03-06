@@ -13,6 +13,7 @@ const Menu = () => {
     const location = useLocation();
     const {isLoggedIn, setIsLoggedIn} = useContext(LoginStateContext);
     const [openMenuFlag, setOpenMenu] = useState(false);
+    const isPatient = localStorage.getItem("user_type_id") == "1";
     const navigate = useNavigate();
 
     // to close the menu when clicked outside
@@ -35,15 +36,22 @@ const Menu = () => {
     }
     // -----------------------------------------
 
-
-    const myAccount = () => {
-        navigate(routes.update_profile);
+    const onOptionClick = (option) => {
+        if (option == 'account'){
+            navigate(routes.my_appointments);
+        }
+        else if (option == 'appointments') {
+            navigate(routes.update_profile);
+        }
+        else if (option == 'logout') {
+            onLogout();
+        }
+        setOpenMenu(false);
     }
 
     const onLogout = () => {
         logout();
         setIsLoggedIn(false);
-        setOpenMenu(false);
         navigate(routes.login);
     }
 
@@ -64,13 +72,12 @@ const Menu = () => {
             {
                 isLoggedIn
                 ? <div className="nav-wrapper">
-                        <nav>
+                        { isPatient && <nav>
                             <ul>
-                                <li><Link className="link" to={routes.login}>Doctor</Link></li>
-                                <li><Link className="link" to={routes.login}>Insurance</Link></li>
-                                <li><Link className="link" to={routes.login}>Patient</Link></li>
+                                <li><Link className="link" to={routes.pat_book_appointment}>Doctor</Link></li>
+                                <li><Link className="link" to={routes.home}>Insurance</Link></li>
                             </ul>
-                        </nav>
+                        </nav>}
                         <div ref={ref} className='menu_wrapper'>
                             
                             <div className="avatar" onClick={() => setOpenMenu(!openMenuFlag)}>
@@ -79,9 +86,9 @@ const Menu = () => {
                             </div>
                             {openMenuFlag && 
                                     <div className="menu_options">
-                                        <div className="menu_option" onClick={() => navigate(routes.my_appointments)}>My Appointments</div>
-                                        <div className="menu_option" onClick={() => navigate(routes.update_profile)}>My Account</div>
-                                        <div className="menu_option" onClick={onLogout}>Logout</div>
+                                        <div className="menu_option" onClick={() => onOptionClick('account')}>My Appointments</div>
+                                        <div className="menu_option" onClick={() => onOptionClick('appointments')}>My Account</div>
+                                        <div className="menu_option" onClick={() => onOptionClick('logout')}>Logout</div>
                                     </div>
                                 }
                         </div>

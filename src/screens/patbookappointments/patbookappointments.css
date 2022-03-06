@@ -13,8 +13,8 @@
 
 .main-div {
     position: relative;
-    padding-left: 8%;
-    padding-right: 8%;
+    /* padding-left: 8%;
+    padding-right: 8%; */
 }
 
 .main-div .header {
@@ -24,7 +24,7 @@
 .main-div .search-filters {
     position: relative;
     display: flex;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .main-div .search-filters .filter-wrapper {
@@ -39,7 +39,7 @@
 
 .main-data-wrapper .doctor-view {
     position: relative;
-    flex-basis: 60%;
+    width: 100%;
     height: 400px;
     overflow: scroll;
     overflow-x: hidden;
@@ -59,7 +59,9 @@
 }
 
 .main-data-wrapper .maps {
-    flex-basis: 40%;
+    display: flex;
+    flex-direction: row;
+    width: 40%;
 }
 
 .loader {
