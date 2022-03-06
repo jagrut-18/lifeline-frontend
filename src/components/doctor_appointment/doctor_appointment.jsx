@@ -9,6 +9,7 @@ export default function DoctorAppointment(props) {
     const navigate = useNavigate();
 
     function goToAppointment() {
+        console.log(props.appointment.id)
         navigate(`/appointment_details/${props.appointment.id}`);
     }
 

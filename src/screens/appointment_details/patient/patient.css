@@ -8,6 +8,10 @@
     margin-top: 10px;
 }
 
+.heading_wraper {
+    flex: 1;
+}
+
 
 /* .heading {
     flex: 1;

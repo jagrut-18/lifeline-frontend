@@ -305,6 +305,10 @@
     font-size: 15px;
 }
 
+.select-document {
+    display: none;
+}
+
 .file-picker {
     display: flex;
     flex-direction: row;

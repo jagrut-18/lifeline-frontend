@@ -5,7 +5,7 @@ import PatientAppointment from '../../../components/patient_appointment/patient_
 import Spacer from '../../../components/spacer';
 import './patient.css';
 
-export default function PatientMyAppointments(props){
+export default function PatientMyAppointments(props) {
     const [scheduled, setScheduled] = useState([]);
     const [past, setPast] = useState([]);
 
@@ -15,6 +15,8 @@ export default function PatientMyAppointments(props){
 
     async function getPatientAppointments() {
         const response = await API.getPatientAppointments();
+        console.log({ response })
+
         if (response.success) {
             setScheduled(response.data.scheduled_appointments);
             setPast(response.data.past_appointments);
@@ -26,19 +28,19 @@ export default function PatientMyAppointments(props){
     return (
         <div className="my_appointments_container">
             <Heading text="Your upcoming appointments" />
-            <Spacer height={10}/>
+            <Spacer height={10} />
             <div className="appointments_container">
-            {
+                {
                     scheduled.map((data, index) => {
                         return <PatientAppointment key={index} appointment={data} />
                     })
                 }
             </div>
-            <Spacer height={20}/>
+            <Spacer height={20} />
             <Heading text="Your past appointments" />
-            <Spacer height={10}/>
+            <Spacer height={10} />
             <div className="appointments_container">
-            {
+                {
                     past.map((data, index) => {
                         return <PatientAppointment key={index} appointment={data} />
                     })

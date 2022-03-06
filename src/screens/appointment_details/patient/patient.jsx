@@ -1,5 +1,6 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import './patient.css';
 import DocumentComponent from '../../../components/document/document'
 import Heading from '../../../components/heading/heading';
@@ -9,6 +10,8 @@ import Spacer from '../../../components/spacer';
 import Star from '../../../images/star.svg'
 import AddBox from '../../../images/add_box.svg'
 import HighlightedContent from '../../../components/highlighted_content/highlighted_content';
+import { API } from '../../../api/api';
+import getDateString from '../../../utilities/date_string';
 
 // import AWS from 'aws-sdk'
 var AWS = require('aws-sdk/global');
@@ -31,11 +34,47 @@ const myBucket = new AWS.S3({
 export default function PatientAppointmentView(props) {
     const [documentName, setdocumentName] = useState("");
     const [progress, setProgress] = useState(0);
+    const [doctorDetails, setDoctorDetails] = useState({});
     const [userId, setUserId] = useState(localStorage.getItem('user_id'))
+    const { appointment_id } = useParams();
+
     const uploadFile = async () => {
         // openFileSelector()
         document.getElementById("select-file").click();
     }
+
+    useEffect(async () => {
+        const formData = new FormData();
+        formData.append("appointment_id", appointment_id);
+        const response = await API.getPatientAppointmentDetails(formData);
+        
+        if (response.success) {
+            const data = response.data;
+            console.log("res: ", data.date)
+            // setDetails(data);
+
+            setDoctorDetails({
+                time: data.time,
+                date: data.date,
+                doctorName: data.doctor_name,
+                specialization: data.specialization,
+                hospitalName: data.hospital_name,
+                hospitalAddress: data.hospital_address,
+                providesCovidCare: data.provides_covid_care,
+                rating: "", //yet to get from the api
+                comments: data.comments
+            });
+
+            console.log(doctorDetails)
+
+            // setdocumentName(data.document_url)
+        }
+        else {
+            alert(response.error);
+        }
+        // setLoading(false);
+    }, [])
+
 
     const uploadToS3 = () => {
 
@@ -84,10 +123,17 @@ export default function PatientAppointmentView(props) {
             uploadToS3()
         }
     }
-
+    // time: data.time,
+    // date: data.date,
+    // doctorName: data.doctor_name,
+    // specialization: data.specialization,
+    // hospitalName: data.hospital_name,
+    // hospitalAddress: data.hospital_address,
+    // rating: "", //yet to get from the api
+    // comments: data.comments
     return (
         <div>
-            <Heading text="Appointment: Feb 26th, 2020 - 10:30 AM to 11:00 AM" />
+            <Heading text={`Appointment: ${getDateString(doctorDetails.date)} ${doctorDetails.time}`} />
             <Spacer height={10} />
             <div className="app_details_wrapper">
                 <div className="app_details">
@@ -95,28 +141,40 @@ export default function PatientAppointmentView(props) {
                         <Heading text="Doctor Details" style={{ fontSize: 18, fontWeight: 700, color: '#000' }} />
                         <div className="patient_avatar">
                             <img src={Doctor} alt="Patient" className="patient_img" />
-                            <Heading text="Dr. John Doe" style={{ fontSize: 16 }} />
-                            <div className="ratings">
-                                <span>5</span>
-                                <img src={Star} alt="rating" />
+                            <div className="heading_wraper">
+                                <Heading text="Dr. John Doe" style={{ fontSize: 16 }} />
                             </div>
+                            {
+                                doctorDetails.rating != "" ?
+                                    <div className="ratings">
+                                        <span>{doctorDetails.rating}</span>
+                                        <img src={Star} alt="rating" />
+                                    </div>
+                                    :
+                                    null
+                            }
                         </div>
                         <div className="doctor_info_section_1">
-                            <HighlightedContent backgroundColor={"rgba(184, 64, 94, 0.13)"} textColor={"#B8405E"} text={"Dentist"} />
-                            <div className="seperator"/>
-                            <HighlightedContent backgroundColor={"rgba(76, 175, 80, 0.13)"} textColor={"#4CAF50"} text={"Covid Care"} />
+                            <HighlightedContent backgroundColor={"rgba(184, 64, 94, 0.13)"} textColor={"#B8405E"} text={doctorDetails.specialization} />
+                            <div className="seperator" />
+                            <HighlightedContent backgroundColor={"rgba(76, 175, 80, 0.13)"} textColor={"#4CAF50"} text={doctorDetails.providesCovidCare} />
                             {/* <div className="display_info"><span>Dentist</span></div>
                             <div className="display_info_2"><span>Covid Care</span></div> */}
                         </div>
                         <div className="doctor_info_section_1">
                             <div className="section_3_description">
-                                <h3>Monroe hospital</h3>
-                                <p>4011 S Monroe Medical Park Blvd, Bloomington, IN 47403</p>
+                                <h3>{doctorDetails.hospitalName}</h3>
+                                <p>{doctorDetails.hospitalAddress}</p>
                             </div>
                         </div>
                     </div>
                     <Spacer height={10} />
-                    <Description text={`Comments: Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s`} style={{ fontSize: 16, fontWeight: "bold", marginTop: 40 }} />
+                    {
+                        doctorDetails.rating != "" ?
+                            <Description text={`Comments: ${doctorDetails.comments}`} style={{ fontSize: 16, fontWeight: "bold", marginTop: 40 }} />
+                            :
+                            null
+                    }
                     <Spacer height={10} />
                     <Heading text="Patient Details" />
                     <Spacer height={5} />

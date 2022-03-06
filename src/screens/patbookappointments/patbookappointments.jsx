@@ -114,8 +114,8 @@ const PatientBookAppointment = () => {
                 temp_arr.push(currentDate.getDate())
                 temp_arr.push(MonthAsString(currentDate.getMonth()))
                 aryDates.push(temp_arr)
-                console.log(aryDates)
-                console.log(DayAsString(currentDate.getDay()) + ", " + currentDate.getDate() + " " + MonthAsString(currentDate.getMonth()) + " " + currentDate.getFullYear())
+                // console.log(aryDates)
+                // console.log(DayAsString(currentDate.getDay()) + ", " + currentDate.getDate() + " " + MonthAsString(currentDate.getMonth()) + " " + currentDate.getFullYear())
                 // aryDates.push(DayAsString(currentDate.getDay()) + ", " + currentDate.getDate() + " " + MonthAsString(currentDate.getMonth()) + " " + currentDate.getFullYear());
             }
 
@@ -157,12 +157,12 @@ const PatientBookAppointment = () => {
         var startDate = new Date();
         var aryDates = GetDates(startDate, 4);
         setDates(aryDates)
+        console.log(aryDates[0][1])
         //set current selected date to tomorrow's date
         setCurrentSelectedDate(aryDates[0][1])
     }
 
     async function getLocationSuggestions(query) {
-        console.log({ query })
         const response = await API.locationAutocomplete(query);
         if (response.success) {
             setLocationSuggestions(response.data);
@@ -174,7 +174,6 @@ const PatientBookAppointment = () => {
     }
 
     const openReviewsRatings = (reviewsRatings) => {
-        console.log(reviewsRatings)
         setReviewsRatings(reviewsRatings)
         setModalState(0)
         setModalStatus(true)
@@ -209,14 +208,12 @@ const PatientBookAppointment = () => {
             }
         }
 
-        console.log(requestData)
-
         for (var key in requestData) {
             formData.append(key, requestData[key]);
         }
 
         axios.post('http://3.220.183.182:5000/doctorsearch', formData).then(function (response) {
-            console.log(response.data);
+            // console.log(response.data);
             if (response.data.response_code == "200") {
                 setDoctorSearchData(response.data.data.doctors)
                 setTotalSearches(response.data.data.doctors.length)
@@ -239,28 +236,27 @@ const PatientBookAppointment = () => {
 
         let dict = {}
 
+        // console.log(appointments)
+
         //filter out the book appointments according to the date
         appointments.forEach(element => {
-            console.log(element)
+            let key = parseInt(element.date.split(" ")[1])
 
-            let key = parseInt(element.date.split("-")[1])
-            // const key = element.date;
             if (key in dict) {
                 dict[key].push(element.booked_appointment);
-            }
-            else {
+            } else {
                 dict[key] = [element.booked_appointment];
 
             }
         })
 
-        console.log({dict})
+        // console.log({dict})
 
         //assign blank array where no appointments are booked
         //we need this beacause we need to populate all the available appointments, and by setting the array to blank,
         //in the next for loop, we would be able to populate all the available appointments
         dates.forEach(element => {
-            console.log(element[1])
+            // console.log(element[1])
             if (!(element[1] in dict)) {
                 let arr = []
                 Object.assign(dict, { [element[1]]: arr });
@@ -269,12 +265,14 @@ const PatientBookAppointment = () => {
 
 
         //Fill in all the avaible appointments considering the booked appointments
+        const new_dict = {};
         for (const key in dict) {
-            const slots = allAppointments.filter((element) => !dict[key].includes(element));
-            dict[key] = slots
+            const slots = allAppointments.filter((element) => !dict[key].includes(element))
+            new_dict[key] = slots
         }
 
-        setAvailableAppointments(dict)
+        // console.table(new_dict);
+        setAvailableAppointments(new_dict)
 
         if (dict[currentSelectedDate] != "") {
             setCurrentSelectedTime(dict[currentSelectedDate][0])
@@ -297,7 +295,8 @@ const PatientBookAppointment = () => {
         document.getElementById("select-file").click();
     }
 
-    const uploadToS3 = () => {
+    const uploadToS3 = async () => {
+        console.log("In upload S3")
 
         if (document.getElementById("select-file").files[0]) {
             setdocumentName(userId + document.getElementById("select-file").files[0].name)
@@ -313,6 +312,7 @@ const PatientBookAppointment = () => {
                 .on('httpUploadProgress', (evt) => {
                     if (Math.round((evt.loaded / evt.total) * 100) == 100) {
                         setProgress(0)
+                        bookAppointment()
                         //API call to update the Img URL
                         return
                     }
@@ -321,11 +321,14 @@ const PatientBookAppointment = () => {
                 .send((err) => {
                     if (err) console.log(err)
                 })
+        } else {
+            bookAppointment()
         }
 
     }
 
-    const uploadDocument = () => {
+    const uploadDocument = async () => {
+        console.log("In upload document")
 
         if (documentName != "" && document.getElementById("select-file").files[0]) {
             const params = {
@@ -333,7 +336,7 @@ const PatientBookAppointment = () => {
                 Key: documentName,
             };
 
-            myBucket.deleteObject(params, function (err, data) {
+            myBucket.deleteObject(params, async function (err, data) {
                 if (err) {
                     console.log(err, err.stack)  // error
                 } else {
@@ -346,22 +349,11 @@ const PatientBookAppointment = () => {
     }
 
     const bookAppointment = () => {
-
-        // if (currentSelectedTime == "") {
-        //     setError("sorry can't book the appointment, as no slots are available")
-        // } else {
-        //     setError("")
-        //     //start loader
-        //     if (documentName != "") {
-        //         uploadDocument()
-        //     }
-        //     //after uploading the document - API call
-        //     //end loader
-        // }
+        console.log("file uploaded")
 
         let dateObj = new Date();
-        let finalDate =  dateObj.getUTCFullYear() + '-' + (parseInt(dateObj.getUTCMonth()) + 1) + '-' + currentSelectedDate
-        console.log(finalDate)
+        let finalDate = dateObj.getUTCFullYear() + '-' + (parseInt(dateObj.getUTCMonth()) + 1) + '-' + currentSelectedDate
+        // console.log(finalDate)
         let formData = new FormData();
         let requestData = {}
 
@@ -379,15 +371,15 @@ const PatientBookAppointment = () => {
         }
 
         axios.post('http://3.220.183.182:5000/bookaptmt', formData).then(function (response) {
-            
+
             if (response.data.response_code == "200") {
-                console.log(response.data.data);
+                // console.log(response.data.data);
                 alert("Appointment booked")
-                
+
                 setCurrentSelectedTime("")
                 setComments("")
                 setdocumentName("")
-                
+
                 setDoctorSearchData("")
                 setTotalSearches(0)
                 setAllAppointments([])
@@ -396,13 +388,13 @@ const PatientBookAppointment = () => {
                 setDoctorName("")
                 setLocation("")
                 setProvidesHealthCare("")
-                
+
                 setDoctorId(0)
 
-                setAvailableAppointments(null)
+                setAvailableAppointments([])
                 setModalState(0)
                 setModalStatus(false)
-                
+
                 setCurrentDate()
             } else if (response.data.response_code == "230") {
                 alert("Appointment already booked")
@@ -501,6 +493,37 @@ const PatientBookAppointment = () => {
                                             :
                                             null
                                     }
+                                    <input type="file" className="select_document" id="select-file" onChange={() => setdocumentName(document.getElementById("select-file").files[0] ? document.getElementById("select-file").files[0].name : "")} />
+                                    <button className="file-picker" onClick={() => uploadFile()}>
+                                        {
+                                            progress != 0 ?
+                                                <div className="loader"></div>
+                                                :
+                                                <img src={AddBox} alt="add" />
+                                        }
+                                        <span>
+                                            {
+                                                documentName != "" ?
+                                                    'Replace Document'
+                                                    :
+                                                    'Add Document'
+                                            }
+                                        </span>
+                                    </button>
+                                    {/* {
+                                        documentName != "" ?
+                                            <div className="document-wrapper">
+                                                <DocumentComponent documentName={
+                                                    documentName.length > 20 ?
+                                                        documentName.substring(0, 20) + '...'
+                                                        :
+                                                        documentName
+                                                }
+                                                />
+                                            </div>
+                                            :
+                                            null
+                                    }
                                     <button className="file-picker" >
                                         <img src={AddBox} alt="add" />
                                         <span>
@@ -511,10 +534,10 @@ const PatientBookAppointment = () => {
                                                     'Add Document'
                                             }
                                         </span>
-                                    </button>
+                                    </button> */}
                                 </div>
                                 <div className="aptmt-button-wrapper">
-                                    <Button text={"Book Appointment"} width={'50%'} onClick={bookAppointment} />
+                                    <Button text={"Book Appointment"} width={'50%'} onClick={uploadDocument} />
                                 </div>
                             </div>
                             :
