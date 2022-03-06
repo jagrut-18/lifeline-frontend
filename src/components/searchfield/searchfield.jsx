@@ -26,7 +26,7 @@ export default function Searchfield(props){
     function onOptionClick(option){
         setValue(props.parseObjectFunction ? props.parseObjectFunction(option) : option);
         props.onOptionChange(option);
-        props.onChange(option);
+        props.onChange(props.parseObjectFunction ? props.parseObjectFunction(option) : option);
         setOptionVisibility(false);
     }
 

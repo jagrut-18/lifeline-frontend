@@ -15,7 +15,6 @@ const Map = (props) => {
     const map = new mapboxgl.Map({
       container: mapContainerRef.current,
       style: 'mapbox://styles/mapbox/streets-v11',
-
     });
 
     latlongs.forEach(latlong => {
