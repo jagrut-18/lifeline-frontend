@@ -62,26 +62,7 @@ export default function UpdateProfileScreen(props) {
 
     function getProfile2() {
         let userTypeId = localStorage.getItem('user_type_id')
-        // if (false) { // Doctor
-        //     return (
-        //         <div className='profile_wrapper'>
-        //             <Textfield value={specialization} onChange={setSpecialization} placeholder="Specialization" />
-        //             <Spacer height={10} />
-        //             <div className="profile_row">
-        //                 Do you provide Covid Care?
-        //                 <Spacer width={15} />
-        //                 <DropdownSelect options={yesNo} onChange={setHasCovidCare} width={100} />
-        //             </div>
-        //         </div>
-        //     );
-        // }
-        // if (true) { // Insurance
-        //     return (
-        //         <div className='profile_wrapper'>
-        //             <Textfield placeholder="Company Name" value={companyName} onChange={setCompanyName} />
-        //         </div>
-        //     );
-        // }
+
         return (
             <div>
                 {

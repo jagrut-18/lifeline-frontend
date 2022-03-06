@@ -12,6 +12,7 @@ import AddBox from '../../../images/add_box.svg'
 import HighlightedContent from '../../../components/highlighted_content/highlighted_content';
 import { API } from '../../../api/api';
 import getDateString from '../../../utilities/date_string';
+import Loader from '../../../components/loader/loader'
 
 // import AWS from 'aws-sdk'
 var AWS = require('aws-sdk/global');
@@ -37,7 +38,7 @@ export default function PatientAppointmentView(props) {
     const [doctorDetails, setDoctorDetails] = useState({});
     const [userId, setUserId] = useState(localStorage.getItem('user_id'))
     const { appointment_id } = useParams();
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(true)
 
     const uploadFile = async () => {
         // openFileSelector()
@@ -45,10 +46,12 @@ export default function PatientAppointmentView(props) {
     }
 
     useEffect(async () => {
+        setLoading(true)
+
         const formData = new FormData();
         formData.append("appointment_id", appointment_id);
         const response = await API.getPatientAppointmentDetails(formData);
-        
+
         if (response.success) {
             const data = response.data;
             console.log("res: ", data.date)
@@ -68,12 +71,11 @@ export default function PatientAppointmentView(props) {
 
             console.log(doctorDetails)
 
-            // setdocumentName(data.document_url)
-        }
-        else {
+            setdocumentName(data.document_url)
+        } else {
             alert(response.error);
         }
-        // setLoading(false);
+        setLoading(false);
     }, [])
 
 
@@ -132,6 +134,10 @@ export default function PatientAppointmentView(props) {
     // hospitalAddress: data.hospital_address,
     // rating: "", //yet to get from the api
     // comments: data.comments
+    if (loading) {
+        return <Loader />
+    }
+
     return (
         <div>
             <Heading text={`Appointment: ${getDateString(doctorDetails.date)} ${doctorDetails.time}`} />
