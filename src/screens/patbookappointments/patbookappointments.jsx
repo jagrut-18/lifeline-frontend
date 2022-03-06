@@ -23,6 +23,10 @@ import { maxHeight } from '@mui/system';
 import { BsStarFill } from 'react-icons/bs';
 import { BsStar } from 'react-icons/bs';
 import axios from 'axios';
+import DoctorsMap from '../../components/map/map';
+import Loader from '../../components/loader/loader';
+import Heading from '../../components/heading/heading';
+import Spacer from '../../components/spacer';
 
 var AWS = require('aws-sdk/global');
 
@@ -74,7 +78,8 @@ const PatientBookAppointment = () => {
     const [comments, setComments] = useState("");
     const [reviewsRatings, setReviewsRatings] = useState([]);
     const [doctorId, setDoctorId] = useState(0);
-
+    
+    const [loading, setLoading] = useState(true);
 
     const customStyles = {
         content: {
@@ -99,6 +104,7 @@ const PatientBookAppointment = () => {
 
     useEffect(() => {
         setCurrentDate()
+        searchDoctors()
     }, [])
 
     const setCurrentDate = () => {
@@ -185,7 +191,7 @@ const PatientBookAppointment = () => {
 
 
     const searchDoctors = () => {
-
+        setLoading(true);
         let formData = new FormData();
         let requestData = {}
 
@@ -213,7 +219,7 @@ const PatientBookAppointment = () => {
         }
 
         axios.post('http://3.220.183.182:5000/doctorsearch', formData).then(function (response) {
-            // console.log(response.data);
+            console.log(response.data.data.doctors);
             if (response.data.response_code == "200") {
                 setDoctorSearchData(response.data.data.doctors)
                 setTotalSearches(response.data.data.doctors.length)
@@ -223,11 +229,13 @@ const PatientBookAppointment = () => {
                 // setLoading(false);
                 alert("Something went wrong")
             }
+            setLoading(false);
         })
-            .catch(function (error) {
-                // setError("Something went wrong")
-                // setLoading(false);
-                console.log(error);
+        .catch(function (error) {
+            // setError("Something went wrong")
+            // setLoading(false);
+            console.log(error);
+            setLoading(false);
             })
         // setAllAppointments(api_res.data.all_appointments)
     }
@@ -412,6 +420,10 @@ const PatientBookAppointment = () => {
             })
     }
 
+    if (loading) {
+        return  <Loader />
+    }
+
     return (
         <div className="container-home">
             {/* Modal Start */}
@@ -575,7 +587,8 @@ const PatientBookAppointment = () => {
             </Modal>
             {/* Modal End */}
             <div className="main-div">
-                <h1 className="header">Search Doctors</h1>
+                <Heading text="Search doctors" />
+                <Spacer height={10} />
                 <div className="search-filters">
                     <div className="filter-wrapper">
                         <Textfield placeholder="Specialization" value={specialization} onChange={setSpecialization} />
@@ -592,7 +605,9 @@ const PatientBookAppointment = () => {
                     </div>
                 </div>
                 <ButtonSimple text={"Search"} onClick={searchDoctors} />
+                <Spacer height={20} />
                 <p>{totalSearches} searches</p>
+                <Spacer height={5} />
                 <div className="main-data-wrapper">
                     {/* div for main scroll */}
                     <div className="doctor-view">
@@ -608,7 +623,7 @@ const PatientBookAppointment = () => {
                     </div>
                     {/* Div for maps */}
                     <div className="maps">
-                        Maps
+                        <DoctorsMap latlongs={doctorSearchData.map((doctor) => [parseFloat(doctor.location_lat), parseFloat(doctor.location_long)])} />
                     </div>
                 </div>
             </div>
