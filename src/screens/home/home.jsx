@@ -48,7 +48,7 @@ const HomeScreen = () => {
 
     return (
         <div className="container-home">
-            <Heading text="Your upcoming appointments" />
+            {patientAppointments && <Heading text="Your upcoming appointments" />}
             <Spacer height={10}/>
             <div className="appointments_container">
                 {

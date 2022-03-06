@@ -12,6 +12,6 @@ export default function Textfield(props) {
         ...props.style,
     }
     return (
-            <input className={`textfield ${props.errorMsg == null ? '' : 'error'}`} {...props.register} type={props.type ?? "text"} style={style} value={props.value} onChange={e => props.onChange(e.target.value)} placeholder={props.placeholder}/>
+            <input className={`textfield ${props.errorMsg == null ? '' : 'error'}`} {...props.register} type={props.type ?? "text"} style={style} value={props.value} onChange={e => props.onChange(e.target.value)} placeholder={props.placeholder} disabled={props.disabled ?? false}/>
     )
 }

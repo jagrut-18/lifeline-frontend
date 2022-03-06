@@ -103,6 +103,7 @@ const PatientBookAppointment = () => {
     // }
 
     useEffect(() => {
+        console.log('useffect');
         setCurrentDate()
         searchDoctors()
     }, [])

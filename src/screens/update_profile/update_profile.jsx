@@ -59,7 +59,7 @@ export default function UpdateProfileScreen(props) {
                     setHeight(response.data.data.height)
                     setLast(response.data.data.last_name)
                     setPhone(response.data.data.phone_number)
-                    setGender(response.data.data.sex)
+                    setGender(response.data.data.sex.toLowerCase() == genderOptions[0].toLowerCase() ? genderOptions[0] : genderOptions[1])
                     setSmoke(response.data.data.smoking_preference)
                     setState(response.data.data.state)
                     setZipcode(response.data.data.zipcode)
@@ -83,7 +83,7 @@ export default function UpdateProfileScreen(props) {
                     setCity(response.data.data.city)
                     setState(response.data.data.state)
                     setZipcode(response.data.data.zipcode)
-                    setGender(response.data.data.sex)
+                    setGender(response.data.data.sex.toLowerCase() == genderOptions[0].toLowerCase() ? genderOptions[0] : genderOptions[1])
                     setDob(response.data.data.birth_date)
                     setHasCovidCare(response.data.data.has_covid_care)
                     setSpecialization(response.data.data.specialization)
@@ -274,7 +274,7 @@ export default function UpdateProfileScreen(props) {
                 {
                     userTypeId == "2" ?
                         <div className='profile_wrapper'>
-                            <Textfield value={specialization} onChange={setSpecialization} placeholder="Specialization" />
+                            <Textfield value={specialization} onChange={setSpecialization} placeholder="Specialization" disabled={true}/>
                             <Spacer height={10} />
                             <div className="profile_row">
                                 Do you provide Covid Care?

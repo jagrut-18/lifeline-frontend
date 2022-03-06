@@ -29,7 +29,10 @@ function PatientBookAppointmentCard(props) {
                 <div className="doctor-info-section-2">
                     <HighlightedContent backgroundColor={"rgba(184, 64, 94, 0.13)"} textColor={"#B8405E"} text={props.data.specialization} />
                     <div className="seperator" />
-                    <HighlightedContent backgroundColor={"rgba(76, 175, 80, 0.13)"} textColor={"#4CAF50"} text={props.data.covid_care} />
+                    {
+                        props.data.covid_care == "Yes"
+                        && <HighlightedContent backgroundColor={"rgba(76, 175, 80, 0.13)"} textColor={"#4CAF50"} text={"Covid Care"} />
+                    }
                     {/* <div className="display-info"><span>{props.data.specialization}</span></div>
                     <div className="display-info-2"><span>{props.data.covid_care}</span></div> */}
                 </div>

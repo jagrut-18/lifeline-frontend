@@ -69,15 +69,15 @@ const Menu = () => {
     return (
         <div className="navbar">
             <img src={Logo} alt="logo" className="logo" onClick={() => navigate(routes.home)}/>
-            {
-                isLoggedIn
-                ? <div className="nav-wrapper">
-                        { isPatient && <nav>
+            { isPatient && <nav>
                             <ul>
                                 <li><Link className="link" to={routes.pat_book_appointment}>Doctor</Link></li>
                                 <li><Link className="link" to={routes.home}>Insurance</Link></li>
                             </ul>
                         </nav>}
+            {
+                isLoggedIn
+                ? <div className="nav-wrapper">
                         <div ref={ref} className='menu_wrapper'>
                             
                             <div className="avatar" onClick={() => setOpenMenu(!openMenuFlag)}>
