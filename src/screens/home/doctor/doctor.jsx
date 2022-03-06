@@ -3,6 +3,7 @@ import { API } from '../../../api/api';
 import DoctorAppointment from '../../../components/doctor_appointment/doctor_appointment';
 import Heading from '../../../components/heading/heading';
 import './doctor.css';
+import Loader from '../../../components/loader/loader';
 
 export default function DoctorHome() {
     const [loading, setLoading] = useState(false);
@@ -23,7 +24,6 @@ export default function DoctorHome() {
             alert(response.error);
         }
         setLoading(false);
-        console.log(loading);
     }
 
     function getDateString(date){
@@ -43,24 +43,27 @@ export default function DoctorHome() {
         return `${date2.toLocaleString('default', { month: 'short' })} ${date2.getDate()}, ${date2.getFullYear()}`;
     }
 
+    if (loading) {
+        return (
+            <Loader />
+        );
+    } 
+
     return (
         <div className="doctor_home_container">
-            {loading
-            ? <div>
-                Loading...
-            </div>
-            : Object.keys(days).map((day, index)=>{
-                return (
-                    <div key={index}>
-                        <Heading text={getDateString(day)} />
-                        <div className="doctor_appointments_container">
-                        {days[day].map((appointment, i) => {
-                            return <DoctorAppointment key={i} appointment={appointment} />
-                        })}
+            {
+                Object.keys(days).map((day, index)=>{
+                    return (
+                        <div key={index}>
+                            <Heading text={getDateString(day)} />
+                            <div className="doctor_appointments_container">
+                            {days[day].map((appointment, i) => {
+                                return <DoctorAppointment key={i} appointment={appointment} />
+                            })}
+                            </div>
                         </div>
-                    </div>
-                );
-            })
+                    );
+                })
             }
             
         </div>

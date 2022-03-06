@@ -8,10 +8,12 @@ import Spacer from '../../components/spacer';
 import PatientAppointment from '../../components/patient_appointment/patient_appointment';
 import { useEffect, useState } from 'react';
 import { API } from '../../api/api';
+import Loader from '../../components/loader/loader';
 
 const HomeScreen = () => {
     const navigate = useNavigate();
     const [patientAppointments, setPatientAppointments] = useState([]);
+    const [loading, setLoading] = useState(false);
     let user_type = JSON.parse(localStorage.getItem('user_type_id'))
 
     useEffect(() => {
@@ -29,6 +31,7 @@ const HomeScreen = () => {
     }
 
     async function getPatientAppointments() {
+        setLoading(true);
         const response = await API.getPatientAppointments();
         if (response.success) {
             setPatientAppointments(response.data.scheduled_appointments);
@@ -36,6 +39,11 @@ const HomeScreen = () => {
         else {
             alert(response.error);
         }
+        setLoading(false);
+    }
+
+    if (loading) {
+        return <Loader />
     }
 
     return (
