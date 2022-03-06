@@ -37,6 +37,7 @@ export default function PatientAppointmentView(props) {
     const [doctorDetails, setDoctorDetails] = useState({});
     const [userId, setUserId] = useState(localStorage.getItem('user_id'))
     const { appointment_id } = useParams();
+    const [loading, setLoading] = useState(false)
 
     const uploadFile = async () => {
         // openFileSelector()
