@@ -10,8 +10,7 @@ export default function DateSelector(props) {
   let valueChange = false
 
   useEffect(() => {
-    console.log("Useeffec")
-
+    console.log()
     if (props.default && !valueChange) {
       setSelectedDay({
         day: props.default.getDate(),
@@ -26,7 +25,7 @@ export default function DateSelector(props) {
   function onChange(value) {
     // let tempValue = value.split("-")
     valueChange = true
-    console.log({ value })
+    console.log("valuee:", value)
     setSelectedDay(value);
     props.onChange(value);
   }

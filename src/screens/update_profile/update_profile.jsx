@@ -46,7 +46,7 @@ export default function UpdateProfileScreen(props) {
         formData.append("user_id", localStorage.getItem('user_id'));
 
         axios.post('http://3.220.183.182:5000/fetch_data', formData).then(function (response) {
-            console.log(response.data);
+            console.log("res", response.data);
             if (response.data.response_code == "200") {
                 if (userTypeId == "1") {
                     setWeight(response.data.data.Weight)
@@ -223,7 +223,12 @@ export default function UpdateProfileScreen(props) {
                         <div className='profile_wrapper'>
                             {/* 05-02-200 */}
                             <div className="profile_row">
-                                <DateSelector placeholder="Date of Birth" onChange={setDob} default={new Date(getDateString(dob))} />
+                                {
+                                    dob != null ?
+                                    <DateSelector placeholder="Date of Birth" onChange={setDob} default={new Date(getDateString(dob))} />
+                                    :
+                                    null
+                                }
                                 <Spacer width={15} />
                                 <DropdownSelect placeholder="Gender" options={genderOptions} onChange={setGender} default={gender} />
                             </div>
