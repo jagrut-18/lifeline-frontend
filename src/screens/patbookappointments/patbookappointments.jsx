@@ -190,9 +190,8 @@ const PatientBookAppointment = () => {
         setModalStatus(false)
     }
 
-
     const searchDoctors = () => {
-        setLoading(true);
+        // setLoading(true);
         let formData = new FormData();
         let requestData = {}
 

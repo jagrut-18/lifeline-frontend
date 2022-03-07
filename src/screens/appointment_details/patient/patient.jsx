@@ -69,7 +69,7 @@ export default function PatientAppointmentView(props) {
                 comments: data.comments
             });
 
-            console.log(doctorDetails)
+            console.log(data.document_url)
 
             setdocumentName(data.document_url)
         } else {
@@ -164,7 +164,12 @@ export default function PatientAppointmentView(props) {
                         <div className="doctor_info_section_1">
                             <HighlightedContent backgroundColor={"rgba(184, 64, 94, 0.13)"} textColor={"#B8405E"} text={doctorDetails.specialization} />
                             <div className="seperator" />
-                            <HighlightedContent backgroundColor={"rgba(76, 175, 80, 0.13)"} textColor={"#4CAF50"} text={doctorDetails.providesCovidCare} />
+                            {
+                                doctorDetails.providesCovidCare == "Yes" ?
+                                    <HighlightedContent backgroundColor={"rgba(76, 175, 80, 0.13)"} textColor={"#4CAF50"} text={'Covid Care'} />
+                                    :
+                                    null
+                            }
                             {/* <div className="display_info"><span>Dentist</span></div>
                             <div className="display_info_2"><span>Covid Care</span></div> */}
                         </div>
@@ -187,7 +192,7 @@ export default function PatientAppointmentView(props) {
                     <Spacer height={5} />
                     <div className="document_section">
                         {
-                            documentName != "" ?
+                            documentName?
                                 <div className="document_wrapper">
                                     <DocumentComponent documentName={
                                         documentName.length > 20 ?
