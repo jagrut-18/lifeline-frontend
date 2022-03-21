@@ -9,15 +9,18 @@ import routes from '../../routing/routes.js';
 function HomePatient() {
     const navigate = useNavigate();
 
-    const onClick = () => {
-        console.log("his")
-        navigate(routes.pat_book_appointment);
+    const onClick = (routeName) => {
+        if (routeName == "pat_book_appointment") {
+            navigate(routes.pat_book_appointment);
+        } else if (routeName == "search_package_patient") {
+            navigate(routes.search_package_patient);
+        }
     }
 
     return (
         <div className="row-boxes">
-            <Box onClick={onClick} image={Doctor} header={"Patients"} description={"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard"} buttonText={"Find Appointments"} />
-            <Box image={Insurance} header={"Insurance Packages"} description={"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard"} buttonText={"Explore Plans"} />
+            <Box onClick={onClick} routeName={"pat_book_appointment"} image={Doctor} header={"Patients"} description={"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard"} buttonText={"Find Appointments"} />
+            <Box onClick={onClick} routeName={"search_package_patient"} image={Insurance} header={"Insurance Packages"} description={"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard"} buttonText={"Explore Plans"} />
             <div className="box-display-none" />
         </div>
     )

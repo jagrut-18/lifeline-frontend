@@ -16,7 +16,7 @@ function Card1(props) {
                 <Heading text={props.header} style={{fontSize: 20}} />
                 <Description text={props.description} />
                 <Spacer height={10} />
-                <Button onClick={props.onClick} text={props.buttonText} width={'100%'}/>
+                <Button onClick={() => props.onClick(props.routeName)} text={props.buttonText} width={'100%'}/>
             </div>
         </div>
     )

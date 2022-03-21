@@ -12,6 +12,8 @@ const routes = {
     appointment_details: '/appointment_details/:appointment_id',
     my_appointments: '/my_appointments',
     forgot_password: '/forgot_password',
+    search_package_patient: '/search_package_patient',
+    create_insurance_package: '/create_insurance_package'
 }
 
 export default routes;

@@ -14,6 +14,8 @@ import PatientBookAppointment from "../screens/patbookappointments/patbookappoin
 import AppointmentDetailsScreen from "../screens/appointment_details/appointment_details_screen";
 import MyAppointmentsScreen from "../screens/my_appointments/my_appointments";
 import ForgotPasswordScreen from "../screens/forgot_password/forgot_password";
+import SearchPackagePatient from "../screens/search_package_patient/searchpackagepatient";
+import CreateInsurancePackage from "../screens/create_insurance_package/create_insurance_package";
 
 function RouteStack() {
     return (
@@ -45,6 +47,8 @@ function LoggedInRouteStack() {
                 <Route path={routes.appointment_details} element={<AppointmentDetailsScreen />} />
                 <Route path={routes.my_appointments} element={<MyAppointmentsScreen />} />
                 <Route path={routes.forgot_password} element={<ForgotPasswordScreen />} />
+                <Route path={routes.search_package_patient} element={<SearchPackagePatient />} />
+                <Route path={routes.create_insurance_package} element={<CreateInsurancePackage />} />
             </Routes>
         </div>
     )
