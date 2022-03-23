@@ -9,6 +9,8 @@ import getPatientAppointments from "./apis/patient_appointments";
 import { doctorSearch } from "./apis/doctor_search";
 import { bookAppointment } from "./apis/book_appointment";
 import { uploadFile } from "./apis/aws";
+import {createPackage} from './apis/create_package';
+import { filterPackages } from "./apis/filter_packages";
 
 
 export const API = {
@@ -23,4 +25,6 @@ export const API = {
     doctorSearch: (formData) => doctorSearch(formData),
     bookAppointment: (formData) => bookAppointment(formData),
     uploadFile: (file) => uploadFile(file),
+    createPackage: (formData) => createPackage(formData),
+    filterPackages: (formData) => filterPackages(formData),
 };

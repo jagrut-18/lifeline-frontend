@@ -10,6 +10,7 @@ import Button from '../../components/button/button';
 import Multiselect from '../../components/multiselect/multiselect';
 import ErrorComponent from '../../components/error/error';
 import DropdownSelect from '../../components/dropdown/dropdown';
+import { API } from '../../api/api';
 
 function CreateInsurancePackage() {
 	const navigate = useNavigate()
@@ -31,7 +32,7 @@ function CreateInsurancePackage() {
 		setBenefits(benefits)
 	}
 
-	const createPackage = () => {
+	const createPackage = async () => {
 		//Validations
 		//Object.keys(benefits).length == 0 or all values in the object have "No" value then throw error
 		//Api call to create a package
@@ -48,25 +49,29 @@ function CreateInsurancePackage() {
 
 		if (packageName == "" || policyNumber == "" || premium == "" || deductible == "" || Object.keys(benefits).length == 0 || benefitsCount == 3 || timePeriod == "" || isPlanDisabled == "") {
 			setError("Please check if all the fields are filled!")
-		} else{
-			setError("")
-			// plan_name (varchar)
-			// premium (int)
-			// policy_number (varchar)
-			// deductible/coverage (int)
-			// Includes_medical (Yes/No)
-			// includes_dental  (Yes/No)
-			// includes_vision (Yes/No)
-			// insurance_provider_id (fk) (user id)
-			// time_period (float)
-			// is_disabled (Yes/No)
-			
-			//API call using above params
-			
-			// navigate(-1)
-			
+			return;
 		}
+		setError("");
 
+		const formData = new FormData();
+		formData.append("plan_name", packageName);
+		formData.append("premium", parseInt(premium));
+		formData.append("policy_number", policyNumber);
+		formData.append("deductible", parseInt(deductible));
+		formData.append("time_period", parseFloat(timePeriod));
+		formData.append("is_disabled", isPlanDisabled);
+		formData.append("includes_medical", benefits["Dental"]);
+		formData.append("includes_dental", benefits["Medical"]);
+		formData.append("includes_vision", benefits["Vision"]);
+		formData.append("insurance_provider_id", 46);
+		
+		const response = await API.createPackage(formData);
+		if (response.success) {
+			navigate(-1);
+		}
+		else {
+			setError(response.error);
+		}
 	}
 
 	return (
