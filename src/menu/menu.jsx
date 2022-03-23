@@ -71,7 +71,7 @@ const Menu = () => {
             <img src={Logo} alt="logo" className="logo" onClick={() => navigate(routes.home)}/>
             { isPatient && <nav>
                             <ul>
-                                <li><Link className="link" to={routes.pat_book_appointment}>Doctor</Link></li>
+                                <li><Link className="link" to={routes.book_appointment}>Doctor</Link></li>
                                 <li><Link className="link" to={routes.home}>Insurance</Link></li>
                             </ul>
                         </nav>}

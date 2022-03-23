@@ -6,6 +6,9 @@ import { locationAutoComplete } from "./apis/location_autocomplete";
 import { login } from "./apis/login";
 import { onboarding } from "./apis/onboarding";
 import getPatientAppointments from "./apis/patient_appointments";
+import { doctorSearch } from "./apis/doctor_search";
+import { bookAppointment } from "./apis/book_appointment";
+import { uploadFile } from "./apis/aws";
 
 
 export const API = {
@@ -16,5 +19,8 @@ export const API = {
     getDoctorAppointments: () => getDoctorAppointments(),
     getPatientAppointments: () => getPatientAppointments(),
     getDoctorAppointmentDetails: (formData) => getDoctorAppointmentDetails(formData),
-    getPatientAppointmentDetails: (formData) => getPatientAppointmentDetails(formData)
+    getPatientAppointmentDetails: (formData) => getPatientAppointmentDetails(formData),
+    doctorSearch: (formData) => doctorSearch(formData),
+    bookAppointment: (formData) => bookAppointment(formData),
+    uploadFile: (file) => uploadFile(file),
 };
