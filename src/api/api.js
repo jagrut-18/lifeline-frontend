@@ -11,6 +11,7 @@ import { bookAppointment } from "./apis/book_appointment";
 import { uploadFile } from "./apis/aws";
 import {createPackage} from './apis/create_package';
 import { filterPackages } from "./apis/filter_packages";
+import { fetchInsurancePackages } from "./apis/fetch_insurance_packages";
 
 
 export const API = {
@@ -27,4 +28,5 @@ export const API = {
     uploadFile: (file) => uploadFile(file),
     createPackage: (formData) => createPackage(formData),
     filterPackages: (formData) => filterPackages(formData),
+    fetchInsurancePackages: (formData) => fetchInsurancePackages(formData),
 };
