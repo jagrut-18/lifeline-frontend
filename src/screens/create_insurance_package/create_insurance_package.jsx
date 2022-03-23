@@ -59,14 +59,15 @@ function CreateInsurancePackage() {
 		formData.append("policy_number", policyNumber);
 		formData.append("deductible", parseInt(deductible));
 		formData.append("time_period", parseFloat(timePeriod));
-		formData.append("is_disabled", isPlanDisabled);
+		formData.append("is_disabled", isPlanDisabled == "Yes" ? 1 : 0);
 		formData.append("includes_medical", benefits["Dental"]);
 		formData.append("includes_dental", benefits["Medical"]);
 		formData.append("includes_vision", benefits["Vision"]);
-		formData.append("insurance_provider_id", 46);
+		formData.append("insurance_provider_id", parseInt(localStorage.getItem("user_id")));
 		
 		const response = await API.createPackage(formData);
 		if (response.success) {
+			alert("Your Package has been created");
 			navigate(-1);
 		}
 		else {

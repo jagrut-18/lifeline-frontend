@@ -2,7 +2,6 @@ import { AX } from '../axios';
 
 
 export async function createPackage(formData){
-    console.log(formData);
     return AX.post('/create_package', formData)
     .then((response) => {
         const resCode = response.data.response_code;
