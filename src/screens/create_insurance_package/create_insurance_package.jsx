@@ -8,6 +8,8 @@ import Card from '../../components/card/card';
 import Description from '../../components/description/description';
 import Button from '../../components/button/button';
 import Multiselect from '../../components/multiselect/multiselect';
+import ErrorComponent from '../../components/error/error';
+import DropdownSelect from '../../components/dropdown/dropdown';
 
 function CreateInsurancePackage() {
 	const navigate = useNavigate()
@@ -17,6 +19,8 @@ function CreateInsurancePackage() {
 	const[deductible, setDeductible] = useState("")
 	const[benefits, setBenefits] = useState({})
 	const[timePeriod, setTimePeriod] = useState("")
+	const[isPlanDisabled, setIsPlanDisabled] = useState("")
+	const[error, setError] = useState("")
 
 	useEffect(() => {
 	  console.log(benefits)
@@ -31,9 +35,39 @@ function CreateInsurancePackage() {
 		//Validations
 		//Object.keys(benefits).length == 0 or all values in the object have "No" value then throw error
 		//Api call to create a package
-		navigate(-1)
+		let benefitsCount = 0
+		for (var benefit in benefits) {
+			if (benefits[benefit] == "No") {
+				benefitsCount += 1
+			}
+		}
+
+		console.log(premium, typeof premium)
+		console.log(deductible, typeof deductible)
+		console.log(timePeriod, typeof timePeriod)
+
+		if (packageName == "" || policyNumber == "" || premium == "" || deductible == "" || Object.keys(benefits).length == 0 || benefitsCount == 3 || timePeriod == "" || isPlanDisabled == "") {
+			setError("Please check if all the fields are filled!")
+		} else{
+			setError("")
+			// plan_name (varchar)
+			// premium (int)
+			// policy_number (varchar)
+			// deductible/coverage (int)
+			// Includes_medical (Yes/No)
+			// includes_dental  (Yes/No)
+			// includes_vision (Yes/No)
+			// insurance_provider_id (fk) (user id)
+			// time_period (float)
+			// is_disabled (Yes/No)
+			
+			//API call using above params
+			
+			// navigate(-1)
+			
+		}
+
 	}
-	
 
 	return (
 		<div className="container">
@@ -46,9 +80,9 @@ function CreateInsurancePackage() {
                 <Textfield placeholder="Policy Number" value={policyNumber} onChange={setPolicyNumber} />
                 <Spacer height={10} />
 				<div className="profile_row">
-                    <Textfield placeholder="Premium in $" value={premium} onChange={setPremium} />
+                    <Textfield placeholder="Premium in $" value={premium} type={'number'} onChange={setPremium} />
                     <Spacer width={15} />
-                    <Textfield placeholder="Deductible" value={deductible} onChange={setDeductible} />
+                    <Textfield placeholder="Deductible" value={deductible} type={'number'} onChange={setDeductible} />
                 </div>
 				<Spacer height={15} />
 				<Description text={'What does the package cover?'} />
@@ -56,7 +90,13 @@ function CreateInsurancePackage() {
 				<Multiselect options={['Medical', 'Dental', 'Vision']} onChange={setBenefitsFunc}/>
 				<Textfield placeholder="Time in years" type={"number"} step={0.5} value={timePeriod} onChange={setTimePeriod} />
 				<Spacer height={15} />
-				<Button text={'Create'} onChange={createPackage}/>
+				<Description text="Plan Disabled?" />
+				<Spacer height={10} />
+				<DropdownSelect options={["Yes", "No"]} onChange={setIsPlanDisabled}/>
+				<Spacer height={20} />
+				<Button text={'Create'} onClick={createPackage}/>
+				<Spacer height={10} />
+				{error && <ErrorComponent message={error} />}
 			</Card>
 		</div>
 	)
