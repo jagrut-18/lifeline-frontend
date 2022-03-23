@@ -11,7 +11,7 @@ function HomePatient() {
 
     const onClick = (routeName) => {
         if (routeName == "pat_book_appointment") {
-            navigate(routes.pat_book_appointment);
+            navigate(routes.book_appointment);
         } else if (routeName == "search_package_patient") {
             navigate(routes.search_package_patient);
         }

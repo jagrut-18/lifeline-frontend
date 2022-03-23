@@ -8,6 +8,9 @@
     align-items: center;
     background-color: #fff;
     height: 80px; /* if this is changed, then the main container height should also be changed */
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0;
 }
 
 .logo {
