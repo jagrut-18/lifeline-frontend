@@ -2,6 +2,7 @@
     width: 100%;
     cursor: pointer;
     position: relative;
+    z-index: 100;
 }
 
 .dropdown_menu {
