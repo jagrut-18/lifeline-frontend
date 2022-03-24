@@ -60,7 +60,7 @@ function InsurancePackages(props) {
                             </div>
                         </div>
                         <Spacer height={20} />
-                        <div className="divider" />
+                        <div className="insurance-packages-divider" />
                         <ShowHideButton insuranceProviderDetails={{
                             company_name: data.company_name, insurance_provider: data.insurance_provider,
                             insurance_provider_contact: data.insurance_provider_contact,

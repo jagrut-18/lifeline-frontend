@@ -27,7 +27,7 @@ function ShowHideButton(props) {
                         <PatientPackageDescription text1={'Contact Number:\xa0'} text2={props.insuranceProviderDetails.insurance_provider_contact} />
                         <PatientPackageDescription text1={'Company Address:\xa0'} text2={props.insuranceProviderDetails.company_address} />
                         <Spacer height={15}/>
-                        <div className="divider" />
+                        <div className="insurance-packages-divider" />
                     </div>
                     :
                     null

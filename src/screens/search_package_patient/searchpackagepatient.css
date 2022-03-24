@@ -58,9 +58,9 @@
     align-items: flex-start;
 }
 
-.section-2 .section-2-box .divider {
+/* .section-2 .section-2-box .divider {
     border-top: 1px solid #C4C4C4
-}
+} */
 
 
 .main-data-wrapper .section-1 {
@@ -124,7 +124,7 @@
     -webkit-filter: brightness(90%);
 }
 
-.divider {
+.insurance-packages-divider {
     border-top: 1px solid #C4C4C4;
 }
 
