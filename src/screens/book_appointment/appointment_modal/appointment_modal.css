@@ -1,3 +1,7 @@
+.ReactModal__Overlay--after-open {
+    z-index: 200;
+}
+
 .modal_heading_row {
     display: flex;
     flex-direction: row;

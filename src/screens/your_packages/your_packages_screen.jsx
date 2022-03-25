@@ -16,7 +16,7 @@ export default function YourPackagesScreen() {
     async function fetchYourPackages() {
         setLoading(true);
         const formData = new FormData();
-        formData.append("user_id", 37)
+        formData.append("user_id", parseInt(localStorage.getItem("user_id")))
         const response = await API.fetchInsurancePackages(formData);
         console.log(response);
         if (response.success) {

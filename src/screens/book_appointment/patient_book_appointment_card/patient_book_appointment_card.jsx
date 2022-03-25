@@ -26,7 +26,7 @@ export default function PatientBookAppointmentCard(props) {
             {isAppointmentModalOpen && <AppointmentModal isOpen={isAppointmentModalOpen} setIsOpen={setIsAppointmentModalOpen} data={props.data} allAppointments={props.allAppointments} onAppointmentBooked={onAppointmentBooked}/>}
             {isReviewsModalOpen && <ReviewsModal isOpen={isReviewsModalOpen} setIsOpen={setIsReviewsModalOpen} reviewsRatings={reviews_rating} />}
             <div className="patient_book_appointment_container">
-                <div style={{ backgroundImage: `url(${Doctor})` }} className="doctor_image" />
+                <div style={{ backgroundImage: `url(${Doctor})` }} className="patient_book_appointment_doctor_image" />
                 <div className="appointment_doctor_details">
                     <div className="name_row">
                         <Heading text={doctor_name} style={{fontSize: 18}}/>

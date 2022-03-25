@@ -114,6 +114,10 @@ export default function UpdateProfileScreen(props) {
                 // setLoading(false);
                 alert("Something went wrong")
             }
+            else {
+                alert("Something went wrong")
+
+            }
             setIsLoading(false)
         })
             .catch(function (error) {

@@ -72,7 +72,7 @@ const Menu = () => {
             { isPatient && <nav>
                             <ul>
                                 <li><Link className="link" to={routes.book_appointment}>Doctor</Link></li>
-                                <li><Link className="link" to={routes.home}>Insurance</Link></li>
+                                <li><Link className="link" to={routes.search_package_patient}>Insurance</Link></li>
                             </ul>
                         </nav>}
             {
