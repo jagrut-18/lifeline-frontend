@@ -8,6 +8,7 @@ import Loader from '../../components/loader/loader'
 import Modal from 'react-modal';
 import ChooseInsurancePackModalContent from './choose_insurance_pack_modal_content'
 import { API } from '../../api/api';
+import changeDateFormat from '../../utilities/change_date_format'
 
 function SearchPackagePatient() {
     const [totalSearches, setTotalSearches] = useState(0)
@@ -31,20 +32,20 @@ function SearchPackagePatient() {
     }
 
     useEffect(() => {
-        fetchInsuranceDetails()
+        fetchInsuranceDetails(-1, -1, "", "")
     }, [])
 
-    const fetchInsuranceDetails = async () => {
+    const fetchInsuranceDetails = async (premiumStart, premiumEnd, insuranceProvider, packageType) => {
         setLoading(true);
 
         let userId = localStorage.getItem("user_id")
         console.log({ userId })
 
         const formData = new FormData();
-        formData.append("premium_start", -1);
-        formData.append("premium_end", -1);
-        formData.append("insurance_provider", "");
-        formData.append("package_type", "");
+        formData.append("premium_start", premiumStart);
+        formData.append("premium_end", premiumEnd);
+        formData.append("insurance_provider", insuranceProvider);
+        formData.append("package_type", packageType);
         formData.append("user_id", userId);
 
         const response = await API.filterPackages(formData);
@@ -55,8 +56,7 @@ function SearchPackagePatient() {
             // alert("Data fetched");
             setPatientInsurancePackage(response.data.data.my_package)
             setInsurancePackages(response.data.data.filtered_packages)
-            
-            // setTotalSearches(respose.data.all_packages.length)
+            setTotalSearches(response.data.data.filtered_packages.length)
         }
         else {
             alert("something went wrong!");
@@ -64,54 +64,9 @@ function SearchPackagePatient() {
     }
 
 
-    const searchInsurances = (packageTypeVal, insuranceProvider, premiumRangeStart, premiumRangeEnd) => {
+    const searchInsurances = (premiumStart, premiumEnd, insuranceProvider, packageType) => {
         //call API to get Insurance Details
-        console.log(packageTypeVal, insuranceProvider, premiumRangeStart, premiumRangeEnd)
-
-        let respose = {
-            response_code: "200",
-            response_message: "Success",
-            data: {
-                packages: [
-                    {
-                        package_id: 1,
-                        plan_name: "Middle budget package",
-                        premium: 100,
-                        policy_number: "asdAsdc33",
-                        deductible: 1000,
-                        includes_medical: "Yes",
-                        includes_dental: "No",
-                        includes_vision: "Yes",
-                        insurance_provider_id: 1,
-                        insurance_provider: "Suresh Gandhi",
-                        insurance_provider_contact: "7897897898",
-                        company_name: "Global Insurance Providers",
-                        company_address: "3209E 10th Street, Apt-R19, Indiana, Bloommington",
-                        time_period: "1.5",
-                        patient_count: "18"
-                    },
-                    {
-                        package_id: 2,
-                        plan_name: "High budget package",
-                        premium: 100,
-                        policy_number: "asdAsdc33",
-                        deductible: 1000,
-                        includes_medical: "Yes",
-                        includes_dental: "No",
-                        includes_vision: "Yes",
-                        insurance_provider_id: 1,
-                        insurance_provider: "Suresh Gandhi",
-                        insurance_provider_contact: "7897897898",
-                        company_name: "Global Insurance Providers",
-                        company_address: "3209E 10th Street, Apt-R19, Indiana, Bloommington",
-                        time_period: "1.5",
-                        patient_count: ""
-                    }
-                ]
-            }
-        }
-
-        setInsurancePackages(respose.data.packages)
+        fetchInsuranceDetails(premiumStart, premiumEnd, insuranceProvider, packageType)
         console.log(insurancePackages)
     }
 
@@ -126,73 +81,31 @@ function SearchPackagePatient() {
         setModalStatus(false)
     }
 
-    const makePayment = () => {
-        closeInsuranceModal(false)
+    const makePayment = async (packageId, timePeriod) => {
+        closeInsuranceModal()
         setLoading(true)
-        //Api call to get my insurace package
-        let respose = {
-            response_code: "200",
-            response_message: "Success",
-            data: {
-                my_package: {
-                    package_id: 1,
-                    plan_name: "Low budget package",
-                    premium: 100,
-                    policy_number: "asdAsdc33",
-                    deductible: 1000,
-                    includes_medical: "Yes",
-                    includes_dental: "No",
-                    includes_vision: "Yes",
-                    insurance_provider_id: 1,
-                    insurance_provider: "Suresh Gandhi",
-                    insurance_provider_contact: "7897897898",
-                    company_name: "Global Insurance Providers",
-                    company_address: "3209E 10th Street, Apt-R19, Indiana, Bloommington",
-                    time_period: "1.5",
-                    patient_count: "18"
-                },
-                all_packages: [
-                    {
-                        package_id: 2,
-                        plan_name: "Middle budget package",
-                        premium: 100,
-                        policy_number: "asdAsdc33",
-                        deductible: 1000,
-                        includes_medical: "Yes",
-                        includes_dental: "No",
-                        includes_vision: "Yes",
-                        insurance_provider_id: 1,
-                        insurance_provider: "Suresh Gandhi",
-                        insurance_provider_contact: "7897897898",
-                        company_name: "Global Insurance Providers",
-                        company_address: "3209E 10th Street, Apt-R19, Indiana, Bloommington",
-                        time_period: "1.5",
-                        patient_count: "18"
-                    },
-                    {
-                        package_id: 2,
-                        plan_name: "High budget package",
-                        premium: 100,
-                        policy_number: "asdAsdc33",
-                        deductible: 1000,
-                        includes_medical: "Yes",
-                        includes_dental: "No",
-                        includes_vision: "Yes",
-                        insurance_provider_id: 1,
-                        insurance_provider: "Suresh Gandhi",
-                        insurance_provider_contact: "7897897898",
-                        company_name: "International Insurance Providers",
-                        company_address: "3209E 10th Street, Apt-R19, Indiana, Bloommington",
-                        time_period: "1.5",
-                        patient_count: ""
-                    }
-                ]
-            }
-        }
 
-        setPatientInsurancePackage(respose.data.my_package)
-        setInsurancePackages(respose.data.all_packages)
-        setTotalSearches(respose.data.all_packages.length)
+        let currentDate = new Date();
+        let finalCurrentDate = changeDateFormat(currentDate)
+        currentDate.setMonth(currentDate.getMonth() + 12 * parseFloat(timePeriod))
+        let finalExpiryDate = changeDateFormat(currentDate)
+        console.log({packageId})
+        const formData = new FormData();
+        formData.append("package_id", parseInt(packageId));
+        formData.append("payment_receipt", "dummy receipt"); //change later on
+        formData.append("purchase_date", finalCurrentDate);
+        formData.append("expiry_date", finalExpiryDate);
+        formData.append("user_id", parseInt(localStorage.getItem("user_id")));
+
+        const response = await API.makeInsurancePackagePayment(formData);
+        console.log(response.success)
+        if (response.success) {
+            alert("payment successful")
+            fetchInsuranceDetails(-1, -1, "", "")
+        }
+        else {
+            alert("something went wrong!");
+        }
 
         setLoading(false);
         console.log('In makePayment')

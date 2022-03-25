@@ -29,7 +29,7 @@ function ChooseInsurancePackModalContent(props) {
                 <PatientPackageDescription text1={'Start Date:\xa0'} text2={props.modalData.start_date} />
                 <PatientPackageDescription text1={'End Date:\xa0'} text2={props.modalData.end_date} />
                 <Spacer height={10} />
-                <div className="divider" />
+                <div className="insurance-packages-divider" />
                 <Spacer height={10} />
                 <Heading text={'Insurance Provider Details:'} style={{ fontSize: 16 }} />
                 <Spacer height={5} />
@@ -38,13 +38,13 @@ function ChooseInsurancePackModalContent(props) {
                 <PatientPackageDescription text1={'Contact Number:\xa0'} text2={props.modalData.insurance_provider_contact} />
                 <PatientPackageDescription text1={'Company Address:\xa0'} text2={props.modalData.company_address} />
                 <Spacer height={30} />
-                <div className="divider" />
+                <div className="insurance-packages-divider" />
                 <Spacer height={10} />
                 <Description text={"Total amount payable: " + '$' + props.modalData.premium} style={{ fontSize: 20, fontWeight: 700 }} />
                 <Spacer height={10} />
-                <div className="divider" />
+                <div className="insurance-packages-divider" />
                 <Spacer height={15} />
-                <Button text={'Purchase Plan'} onClick={() => { props.makePayment() }} />
+                <Button text={'Purchase Plan'} onClick={() => { props.makePayment(props.modalData.package_id, props.modalData.time_period) }} />
             </div>
         </div>
     )

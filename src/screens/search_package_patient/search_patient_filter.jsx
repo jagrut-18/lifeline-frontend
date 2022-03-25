@@ -67,7 +67,7 @@ function SearchPatientFilter(props) {
                     <DropdownSelect options={premiumRange} onChange={setPremiumRange}/>
                 </div>
             </div>
-            <ButtonSimple text={"Search"} onClick={() => props.searchInsurances(packageTypeVal, insuranceProvider, premiumRangeStart, premiumRangeEnd)} />
+            <ButtonSimple text={"Search"} onClick={() => props.searchInsurances(premiumRangeStart, premiumRangeEnd, insuranceProvider, packageTypeVal)} />
             <Spacer height={20} />
         </div>
     )

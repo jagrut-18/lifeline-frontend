@@ -12,6 +12,7 @@ import { uploadFile } from "./apis/aws";
 import {createPackage} from './apis/create_package';
 import { filterPackages } from "./apis/filter_packages";
 import { fetchInsurancePackages } from "./apis/fetch_insurance_packages";
+import { makeInsurancePackagePayment } from "./apis/make_insurance_package_payment";
 
 
 export const API = {
@@ -29,4 +30,5 @@ export const API = {
     createPackage: (formData) => createPackage(formData),
     filterPackages: (formData) => filterPackages(formData),
     fetchInsurancePackages: (formData) => fetchInsurancePackages(formData),
+    makeInsurancePackagePayment: (formData) => makeInsurancePackagePayment(formData)
 };
