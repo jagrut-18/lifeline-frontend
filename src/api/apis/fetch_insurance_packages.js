@@ -9,6 +9,7 @@ export async function fetchInsurancePackages(formData){
         if (resCode == "200"){ // success
             return {
                 success: true,
+                data: response.data,
             }
         }
         else {

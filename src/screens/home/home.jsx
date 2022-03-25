@@ -9,6 +9,7 @@ import PatientAppointment from '../../components/patient_appointment/patient_app
 import { useEffect, useState } from 'react';
 import { API } from '../../api/api';
 import Loader from '../../components/loader/loader';
+import YourPackagesScreen from '../your_packages/your_packages_screen';
 
 const HomeScreen = () => {
     const navigate = useNavigate();
@@ -29,6 +30,14 @@ const HomeScreen = () => {
             </div>
         );
     }
+    if (localStorage.getItem("user_type_id") == "3") {
+        return (
+            <div className="container-home">
+                <YourPackagesScreen />
+            </div>
+        );
+    }
+
 
     async function getPatientAppointments() {
         setLoading(true);
@@ -48,8 +57,8 @@ const HomeScreen = () => {
 
     return (
         <div className="container-home">
-            {patientAppointments && <Heading text="Your upcoming appointments" />}
-            <Spacer height={10}/>
+            {patientAppointments.length > 0 && <Heading text="Your upcoming appointments" />}
+            {patientAppointments.length > 0 && <Spacer height={10}/>}
             <div className="appointments_container">
                 {
                     patientAppointments.map((data, index) => {
@@ -60,8 +69,8 @@ const HomeScreen = () => {
             <Spacer height={30}/>
             <div className="row">
                 <div className="col-1">
-                    <h2>LifeLine.</h2>
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
+                    <h2>Find Doctors and Insurance Packages...</h2>
+                    <p>Whether finding a doctor, setting up an appointment, or just helping you get more from your plan, our platform provides everything. Plus, we’ve made it easier to talk to a doctor quickly. So, you can spend less time searching for answers and more time doing what you actually want. </p>
                 </div>
             </div>
             {
