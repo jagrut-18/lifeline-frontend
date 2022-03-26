@@ -64,7 +64,7 @@ function SearchPatientFilter(props) {
                     <Textfield placeholder="Premium Range End" type={"number"} value={premiumRangeEnd} onChange={setPremiumRangeEnd} step="100" min={(parseInt(premiumRangeStart) + 100) + ""} />
                 </div> */}
                 <div className="filter-wrapper">
-                    <DropdownSelect options={premiumRange} onChange={setPremiumRange}/>
+                    <DropdownSelect placeholder={'Select Premium Range'} options={premiumRange} onChange={setPremiumRange}/>
                 </div>
             </div>
             <ButtonSimple text={"Search"} onClick={() => props.searchInsurances(premiumRangeStart, premiumRangeEnd, insuranceProvider, packageTypeVal)} />

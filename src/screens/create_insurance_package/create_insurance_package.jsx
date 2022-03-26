@@ -64,6 +64,14 @@ function CreateInsurancePackage() {
 		formData.append("includes_dental", benefits["Medical"]);
 		formData.append("includes_vision", benefits["Vision"]);
 		formData.append("insurance_provider_id", parseInt(localStorage.getItem("user_id")));
+		console.log({packageName})
+		console.log({premium})
+		console.log({policyNumber})
+		console.log({deductible})
+		console.log({timePeriod})
+		console.log({isPlanDisabled})
+		console.log({benefits})
+		console.log(localStorage.getItem("user_id"))
 		
 		const response = await API.createPackage(formData);
 		if (response.success) {

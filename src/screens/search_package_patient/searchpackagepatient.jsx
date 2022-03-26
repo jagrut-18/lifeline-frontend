@@ -40,6 +40,8 @@ function SearchPackagePatient() {
 
         let userId = localStorage.getItem("user_id")
         console.log({ userId })
+        console.log({ premiumStart })
+        console.log({ premiumEnd })
 
         const formData = new FormData();
         formData.append("premium_start", premiumStart);
@@ -49,7 +51,7 @@ function SearchPackagePatient() {
         formData.append("user_id", userId);
 
         const response = await API.filterPackages(formData);
-        console.log(response.success)
+        console.log(response)
         if (response.success) {
             setLoading(false);
             // console.log(response.data)
@@ -65,6 +67,7 @@ function SearchPackagePatient() {
 
 
     const searchInsurances = (premiumStart, premiumEnd, insuranceProvider, packageType) => {
+        console.log({packageType})
         //call API to get Insurance Details
         fetchInsuranceDetails(premiumStart, premiumEnd, insuranceProvider, packageType)
         console.log(insurancePackages)
@@ -89,7 +92,7 @@ function SearchPackagePatient() {
         let finalCurrentDate = changeDateFormat(currentDate)
         currentDate.setMonth(currentDate.getMonth() + 12 * parseFloat(timePeriod))
         let finalExpiryDate = changeDateFormat(currentDate)
-        console.log({packageId})
+        console.log({ packageId })
         const formData = new FormData();
         formData.append("package_id", parseInt(packageId));
         formData.append("payment_receipt", "dummy receipt"); //change later on
@@ -111,10 +114,6 @@ function SearchPackagePatient() {
         console.log('In makePayment')
     }
 
-    if (loading) {
-        return <Loader />
-    }
-
     return (
         <div className="container-home">
             <Modal
@@ -129,14 +128,19 @@ function SearchPackagePatient() {
                 <SearchPatientFilter searchInsurances={searchInsurances} />
                 <p>{totalSearches} searches</p>
                 <Spacer height={5} />
-                <div className="main-data-wrapper">
-                    {/* Section 1 start */}
-                    <InsurancePackages insurancePackages={insurancePackages} chooseInsurancePackage={chooseInsurancePackage} />
-                    {/* Section 1 end */}
-                    {/* section 2 start */}
-                    <PatientPackage patientInsurancePackage={patientInsurancePackage} />
-                    {/* section 2 end */}
-                </div>
+                {
+                    loading ?
+                        <Loader />
+                        :
+                        <div className="main-data-wrapper">
+                            {/* Section 1 start */}
+                            <InsurancePackages insurancePackages={insurancePackages} chooseInsurancePackage={chooseInsurancePackage} />
+                            {/* Section 1 end */}
+                            {/* section 2 start */}
+                            <PatientPackage patientInsurancePackage={patientInsurancePackage} />
+                            {/* section 2 end */}
+                        </div>
+                }
             </div>
         </div>
     )
