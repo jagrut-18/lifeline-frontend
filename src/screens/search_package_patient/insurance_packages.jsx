@@ -35,7 +35,7 @@ function InsurancePackages(props) {
                                 <Description text={'Policy No:\xa0' + data.policy_number} style={{ fontSize: 14, color: '#757575' }} />
                             </div>
                             {
-                                data.patient_count != "" ?
+                                data.patient_count > 1 ?
                                     <div className="partition-2">
                                         <Description text={data.patient_count + ' patients'} style={{ color: '#FFC107' }} />
                                     </div>

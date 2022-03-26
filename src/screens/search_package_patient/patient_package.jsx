@@ -4,6 +4,7 @@ import Spacer from '../../components/spacer'
 import Description from '../../components/description/description'
 import PatientPackageDescription from './patient_package_description'
 import BenefitsAllPackages from './benefits_all_packages'
+import getDateString from '../../utilities/date_string'
 
 function PatientPackage(props) {
     return (
@@ -25,8 +26,8 @@ function PatientPackage(props) {
                                     dental={props.patientInsurancePackage.includes_dental} vision={props.patientInsurancePackage.includes_vision} />}
                             />
                             <PatientPackageDescription text1={'Time Period:\xa0'} text2={props.patientInsurancePackage.time_period + ' Years'} />
-                            <PatientPackageDescription text1={'Start Date:\xa0'} text2={props.patientInsurancePackage.start_date} />
-                            <PatientPackageDescription text1={'End Date:\xa0'} text2={props.patientInsurancePackage.end_date} />
+                            <PatientPackageDescription text1={'Start Date:\xa0'} text2={getDateString(props.patientInsurancePackage.start_date)} />
+                            <PatientPackageDescription text1={'End Date:\xa0'} text2={getDateString(props.patientInsurancePackage.end_date)} />
                             <Spacer height={10} />
                             <div className="divider" />
                             <Spacer height={10} />
