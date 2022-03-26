@@ -328,16 +328,16 @@ export default function UpdateProfileScreen(props) {
                 {/* ------------------------------------ */}
                 <Heading text="Address Details" />
                 <Spacer height={20} />
-                <Textfield placeholder="Address" value={address} onChange={setAddress} />
+                <Textfield placeholder="Address" value={address} onChange={setAddress} disabled={userTypeId == "2"}/>
                 <Spacer height={10} />
                 <div className="profile_row">
-                    <Textfield placeholder="City" value={city} onChange={setCity} />
+                    <Textfield placeholder="City" value={city} onChange={setCity} disabled={userTypeId == "2"}/>
 
                     <Spacer width={15} />
-                    <Textfield placeholder="State" value={state} onChange={setState} />
+                    <Textfield placeholder="State" value={state} onChange={setState} disabled={userTypeId == "2"}/>
                 </div>
                 <Spacer height={10} />
-                <Textfield type="number" placeholder="Zipcode" style={{ width: "calc(50% - 5px)" }} value={zipcode} onChange={setZipcode} />
+                <Textfield type="number" placeholder="Zipcode" style={{ width: "calc(50% - 5px)" }} value={zipcode} onChange={setZipcode} disabled={userTypeId == "2"}/>
                 {/* ------------------------------------ */}
                 <Spacer height={20} />
                 <Button text="Update" isLoading={isLoading} style={{ width: "30%" }} onClick={updateUserProfile} />

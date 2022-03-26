@@ -4,6 +4,7 @@ import DoctorAppointment from '../../../components/doctor_appointment/doctor_app
 import Heading from '../../../components/heading/heading';
 import './doctor.css';
 import Loader from '../../../components/loader/loader';
+import NoData from '../../../images/no_data.svg';
 
 export default function DoctorHome() {
     const [loading, setLoading] = useState(false);
@@ -51,6 +52,10 @@ export default function DoctorHome() {
 
     return (
         <div className="doctor_home_container">
+            {Object.keys(days).length === 0 && <div className='no_data_container'>
+                <img className='no_data_img' src={NoData} alt="No Data" />
+                No upcoming appointments!
+            </div> }
             {
                 Object.keys(days).map((day, index)=>{
                     return (
