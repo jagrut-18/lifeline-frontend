@@ -1,3 +1,5 @@
+import { useState } from 'react';
+import { API } from '../../../api/api';
 import Description from '../../../components/description/description';
 import Heading from '../../../components/heading/heading';
 import OutlineButton from '../../../components/outline_button/outline_button';
@@ -5,12 +7,25 @@ import Spacer from '../../../components/spacer';
 import './your_package.css';
 
 export default function YourPackage(props) {
-    const {plan_name, patient_count, policy_number, premium, deductible, includes_medical, includes_dental, includes_vision, time_period} = props.data;
+    const {package_id, plan_name, patient_count, policy_number, premium, deductible, includes_medical, includes_dental, includes_vision, time_period, is_disabled} = props.data;
+    
+    const [isDisabled, setIsDisabled] = useState(is_disabled == 1);
+    
     const includes = {
         Medical: includes_medical, 
         Dental: includes_dental, 
         Vision: includes_vision
     };
+
+    async function togglePackage() {
+        const formData = new FormData();
+        formData.append('package_id', package_id);
+        const response = await API.togglePackage(formData);
+        if (response.success) {
+            setIsDisabled(!isDisabled);
+        }
+    }
+
     return (
         <div className="your_package_container">
             <div className="package_name_row">
@@ -42,7 +57,9 @@ export default function YourPackage(props) {
                                     Includes:
                                 </div>
                                 <div className="package_detail_value">
-                                    {Object.keys(includes).map((element, index) => <>{includes[element] == "Yes" && element},</> )}
+                                    {
+                                        Object.keys(includes).filter((element) => includes[element] == "Yes").join(', ')
+                                    }
                                 </div>
                             </div>
                             <div className="package_details">
@@ -54,7 +71,7 @@ export default function YourPackage(props) {
                                 </div>
                             </div>
                 </div>
-                <OutlineButton text="Enable" />
+                <OutlineButton text={isDisabled ? "Enable" : "Disable"} onClick={() => togglePackage()}/>
             </div>
         </div>
     );
