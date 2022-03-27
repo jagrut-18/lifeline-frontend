@@ -50,12 +50,19 @@
     background-color: #fff;
     border-radius: 20px;
     margin-bottom: 20px;
-    padding: 20px 15px;
+}
+
+.search_package_details_container {
+    padding: 20px;
 }
 
 .description-wrapper {
     display: flex;
     align-items: flex-start;
+}
+
+.search_package_company_details {
+    margin: 0 20px;
 }
 
 /* .section-2 .section-2-box .divider {
@@ -134,7 +141,13 @@
     border: none;
     cursor: pointer;
     color: #757575;
-    padding-top: 20px;
+    padding: 15px 0;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+.section-box .show-hide-button:hover {
+    filter: brightness(90%);
+    -webkit-filter: brightness(90%);
 }
 
 .modal-section-1 {

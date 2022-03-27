@@ -48,7 +48,7 @@ export default function YourPackagesScreen() {
             </div>
             <div className="your_packages_container">
                 {
-                    packages.length
+                    packages.length > 0
                         ?
                         <>
                             <div className="your_packages_left">

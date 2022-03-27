@@ -59,7 +59,7 @@ function SearchPackagePatient() {
             // console.log(response.data)
             // alert("Data fetched");
             setPatientInsurancePackage(response.data.data.my_package)
-            setInsurancePackages(response.data.data.filtered_packages)
+            setInsurancePackages(response.data.data.filtered_packages.filter((filtered) => filtered.package_id != response.data.data.my_package.package_id))
             setTotalSearches(response.data.data.filtered_packages.length)
         }
         else {

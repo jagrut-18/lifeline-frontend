@@ -2,10 +2,10 @@ import React from 'react'
 import Heading from '../../components/heading/heading'
 import Description from '../../components/description/description'
 import PatientPackageDescription from './patient_package_description'
-import Button from '../../components/button/button'
 import BenefitsAllPackages from './benefits_all_packages'
 import Spacer from '../../components/spacer'
 import ShowHideButton from './show_hide_button'
+import OutlineButton from '../../components/outline_button/outline_button'
 
 // package_id: 1,
 // plan_name: "Low budget package",
@@ -29,6 +29,7 @@ function InsurancePackages(props) {
             {
                 props.insurancePackages.map((data, index) => (
                     <div key={data.package_id} className="section-box">
+                        <div className="search_package_details_container">
                         <div className="row">
                             <div className="partition-1">
                                 <Heading text={data.plan_name} style={{ fontSize: 16 }} />
@@ -52,14 +53,9 @@ function InsurancePackages(props) {
                                 <PatientPackageDescription text1={'Includes:\xa0'} text2={<BenefitsAllPackages medical={data.includes_medical} dental={data.includes_dental} vision={data.includes_vision} />} />
                                 <PatientPackageDescription text1={'Time Period:\xa0'} text2={data.time_period + ' Years'} />
                             </div>
-                            {/* Make a seperate component for the below button - Ask Jagrut if he has created one*/}
-                            <div className="button-wrapper">
-                                <button className="button" onClick={() => props.chooseInsurancePackage(data)}>
-                                    Choose
-                                </button>
-                            </div>
+                            <OutlineButton text="Choose" onClick={() => props.chooseInsurancePackage(data)} />
                         </div>
-                        <Spacer height={20} />
+                        </div>
                         <div className="insurance-packages-divider" />
                         <ShowHideButton insuranceProviderDetails={{
                             company_name: data.company_name, insurance_provider: data.insurance_provider,

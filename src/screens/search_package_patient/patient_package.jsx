@@ -9,7 +9,7 @@ import getDateString from '../../utilities/date_string'
 function PatientPackage(props) {
     return (
         <div className="section-2">
-            <div className="section-box">
+            <div className="section-box" style={{padding: 20}}>
                 <Heading text={"Your Current Package"} style={{ fontSize: 20 }} />
                 <Spacer height={5} />
                 {

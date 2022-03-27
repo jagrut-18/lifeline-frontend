@@ -22,10 +22,12 @@ function ShowHideButton(props) {
                 showHideButtonTextFlag == 1 ?
                     <div className="insurance-provider-details-wrapper">
                         <Spacer height={15}/>
-                        <PatientPackageDescription text1={'Company:\xa0'} text2={props.insuranceProviderDetails.company_name} />
-                        <PatientPackageDescription text1={'Contact Person:\xa0'} text2={props.insuranceProviderDetails.insurance_provider} />
-                        <PatientPackageDescription text1={'Contact Number:\xa0'} text2={props.insuranceProviderDetails.insurance_provider_contact} />
-                        <PatientPackageDescription text1={'Company Address:\xa0'} text2={props.insuranceProviderDetails.company_address} />
+                        <div className="search_package_company_details">
+                            <PatientPackageDescription text1={'Company:\xa0'} text2={props.insuranceProviderDetails.company_name} />
+                            <PatientPackageDescription text1={'Contact Person:\xa0'} text2={props.insuranceProviderDetails.insurance_provider} />
+                            <PatientPackageDescription text1={'Contact Number:\xa0'} text2={props.insuranceProviderDetails.insurance_provider_contact} />
+                            <PatientPackageDescription text1={'Company Address:\xa0'} text2={props.insuranceProviderDetails.company_address} />
+                        </div>
                         <Spacer height={15}/>
                         <div className="insurance-packages-divider" />
                     </div>
