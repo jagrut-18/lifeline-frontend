@@ -127,7 +127,7 @@ function SearchPackagePatient() {
             </Modal>
             <div className="main-div">
                 <SearchPatientFilter searchInsurances={searchInsurances} />
-                <p>{totalSearches} searches</p>
+                <p>{insurancePackages.length} searches</p>
                 <Spacer height={5} />
                 {
                     loading ?
