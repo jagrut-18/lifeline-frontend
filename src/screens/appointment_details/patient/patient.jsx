@@ -33,7 +33,7 @@ const myBucket = new AWS.S3({
 })
 
 export default function PatientAppointmentView(props) {
-    const [documentName, setdocumentName] = useState("");
+    const [documentUrl, setDocumentUrl] = useState("");
     const [progress, setProgress] = useState(0);
     const [doctorDetails, setDoctorDetails] = useState({});
     const [userId, setUserId] = useState(localStorage.getItem('user_id'))
@@ -71,7 +71,7 @@ export default function PatientAppointmentView(props) {
 
             console.log(data.document_url)
 
-            setdocumentName(data.document_url)
+            setDocumentUrl(data.document_url)
         } else {
             alert(response.error);
         }
@@ -82,7 +82,7 @@ export default function PatientAppointmentView(props) {
     const uploadToS3 = () => {
 
         if (document.getElementById("select-file").files[0]) {
-            setdocumentName(userId + document.getElementById("select-file").files[0].name)
+            setDocumentUrl(userId + document.getElementById("select-file").files[0].name)
 
             const params = {
                 ACL: 'public-read',
@@ -109,10 +109,10 @@ export default function PatientAppointmentView(props) {
 
     const uploadDocument = () => {
 
-        if (documentName != "" && document.getElementById("select-file").files[0]) {
+        if (documentUrl != "" && document.getElementById("select-file").files[0]) {
             const params = {
                 Bucket: S3_BUCKET,
-                Key: documentName,
+                Key: documentUrl,
             };
 
             myBucket.deleteObject(params, function (err, data) {
@@ -192,15 +192,9 @@ export default function PatientAppointmentView(props) {
                     <Spacer height={5} />
                     <div className="document_section">
                         {
-                            documentName?
+                            documentUrl?
                                 <div className="document_wrapper">
-                                    <DocumentComponent documentName={
-                                        documentName.length > 20 ?
-                                            documentName.substring(0, 20) + '...'
-                                            :
-                                            documentName
-                                    }
-                                    />
+                                    <DocumentComponent documentUrl={documentUrl}/>
                                 </div>
                                 :
                                 null
@@ -215,7 +209,7 @@ export default function PatientAppointmentView(props) {
                             }
                             <span>
                                 {
-                                    documentName != "" ?
+                                    documentUrl != "" ?
                                         'Replace Document'
                                         :
                                         'Add Document'

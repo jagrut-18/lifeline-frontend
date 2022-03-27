@@ -37,7 +37,7 @@ function InsurancePackages(props) {
                             {
                                 data.patient_count > 1 ?
                                     <div className="partition-2">
-                                        <Description text={data.patient_count + ' patients'} style={{ color: '#FFC107' }} />
+                                        <Description text={data.patient_count + ` patient${parseInt(data.patient_count) > 1 ? 's' : ''}`} style={{ color: '#FFC107' }} />
                                     </div>
                                     :
                                     null

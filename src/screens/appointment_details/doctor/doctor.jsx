@@ -27,6 +27,7 @@ export default function DoctorAppointmentView(props) {
         const response = await API.getDoctorAppointmentDetails(formData);
         if (response.success) {
             const data = response.data;
+            console.log(data);
             setDetails(data);
             setPatientDetails([
                 data.insurance_Provider,
@@ -81,7 +82,7 @@ export default function DoctorAppointmentView(props) {
                 <Heading text="Patient Details" />
                 <Spacer height={5}/>
                 <div className="app_documents_container">
-                    <DocumentComponent documentName="Document" />
+                    <DocumentComponent documentUrl={details.document_url} />
                 </div>
             </div>
             <div className="chat_container"></div>

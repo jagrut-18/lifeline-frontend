@@ -9,4 +9,5 @@
     align-items: center;
     background-color: var(--primary-light);
     border: 1px solid var(--primary);
+    cursor: pointer;
 }

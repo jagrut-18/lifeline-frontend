@@ -46,6 +46,7 @@ export default function BookAppointmentScreen(props) {
         formData.append("covid_care", covidCare);
         formData.append("specialization", specialization);
 
+
         const response = await API.doctorSearch(formData);
         if (response.success) {
             setDoctors(response.data.doctors);
@@ -98,7 +99,7 @@ export default function BookAppointmentScreen(props) {
                             </div>
                             {doctors &&
                                 <div className="book_appointment_maps">
-                                    <DoctorsMap latlongs={doctors.map((doctor) => [parseFloat(doctor.location_lat), parseFloat(doctor.location_long)])} />
+                                    {doctors.length > 0 && <DoctorsMap latlongs={doctors.map((doctor) => [parseFloat(doctor.location_lat), parseFloat(doctor.location_long)])} />}
                                 </div>
                             }
                         </div>

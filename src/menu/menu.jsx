@@ -14,6 +14,7 @@ const Menu = () => {
     const {isLoggedIn, setIsLoggedIn} = useContext(LoginStateContext);
     const [openMenuFlag, setOpenMenu] = useState(false);
     const isPatient = localStorage.getItem("user_type_id") == "1";
+    const isDoctor = localStorage.getItem("user_type_id") == "2";
     const navigate = useNavigate();
 
     // to close the menu when clicked outside
@@ -86,7 +87,7 @@ const Menu = () => {
                             </div>
                             {openMenuFlag && 
                                     <div className="menu_options">
-                                        <div className="menu_option" onClick={() => onOptionClick('account')}>My Appointments</div>
+                                        {!isDoctor && <div className="menu_option" onClick={() => onOptionClick('account')}>My Appointments</div>}
                                         <div className="menu_option" onClick={() => onOptionClick('appointments')}>My Account</div>
                                         <div className="menu_option" onClick={() => onOptionClick('logout')}>Logout</div>
                                     </div>

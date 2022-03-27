@@ -15,13 +15,17 @@ const myBucket = new AWS.S3({
 });
 
 export async function uploadFile(file){
+    console.log(file.type);
     const fileName = (new Date().getTime()) + "_" + localStorage.getItem("user_id") + "_" + file.name;
     const params = {
         ACL: 'public-read',
         Body: file,
         Bucket: S3_BUCKET,
-        Key: fileName
+        Key: fileName,
+        ContentDisposition:'inline',
+        ContentType: file.type,
     };
+
 
     try {
         const response = await myBucket.putObject(params).promise();

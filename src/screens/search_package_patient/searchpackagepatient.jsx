@@ -40,12 +40,14 @@ function SearchPackagePatient() {
 
         let userId = localStorage.getItem("user_id")
         console.log({ userId })
-        console.log({ premiumStart })
-        console.log({ premiumEnd })
+        console.log('s', premiumStart === '' ? -1 : premiumStart)
+        console.log('e', premiumEnd === '' ? -1 : premiumEnd)
+        console.log({packageType})
+        console.log({insuranceProvider})
 
         const formData = new FormData();
-        formData.append("premium_start", premiumStart);
-        formData.append("premium_end", premiumEnd);
+        formData.append("premium_start", premiumStart === '' ? -1 : premiumStart);
+        formData.append("premium_end", premiumEnd === '' ? -1 : premiumEnd);
         formData.append("insurance_provider", insuranceProvider);
         formData.append("package_type", packageType);
         formData.append("user_id", userId);
@@ -67,7 +69,6 @@ function SearchPackagePatient() {
 
 
     const searchInsurances = (premiumStart, premiumEnd, insuranceProvider, packageType) => {
-        console.log({packageType})
         //call API to get Insurance Details
         fetchInsuranceDetails(premiumStart, premiumEnd, insuranceProvider, packageType)
         console.log(insurancePackages)

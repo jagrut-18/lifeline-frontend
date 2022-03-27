@@ -11,6 +11,8 @@ import Multiselect from '../../components/multiselect/multiselect';
 import ErrorComponent from '../../components/error/error';
 import DropdownSelect from '../../components/dropdown/dropdown';
 import { API } from '../../api/api';
+import OutlineButton from '../../components/outline_button/outline_button';
+import { createUUID } from '../../utilities/create_uuid';
 
 function CreateInsurancePackage() {
 	const navigate = useNavigate()
@@ -91,7 +93,10 @@ function CreateInsurancePackage() {
 				<Spacer height={15} />
 				<Textfield placeholder="Package Name" value={packageName} onChange={setPackageName} />
                 <Spacer height={10} />
-                <Textfield placeholder="Policy Number" value={policyNumber} onChange={setPolicyNumber} />
+                <div className="policy_no_container">
+					<Textfield placeholder="Policy Number" value={policyNumber} onChange={setPolicyNumber} />
+					<OutlineButton text="Generate" onClick={() => setPolicyNumber(createUUID())}/>
+				</div>
                 <Spacer height={10} />
 				<div className="profile_row">
                     <Textfield placeholder="Premium in $" value={premium} type={'number'} onChange={setPremium} />

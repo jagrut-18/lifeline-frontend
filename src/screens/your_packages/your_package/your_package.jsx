@@ -30,7 +30,7 @@ export default function YourPackage(props) {
         <div className="your_package_container">
             <div className="package_name_row">
                 <Heading text={plan_name} style={{ fontSize: 18 }} />
-                <div className="patients_count">{patient_count} Patients</div>
+                <div className="patients_count">{patient_count} Patient{parseInt(patient_count) != 1 && <>s</>}</div>
             </div>
             <Description text={`Policy No.: ${policy_number}`} />
             <Spacer height={10} />
