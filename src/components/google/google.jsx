@@ -24,7 +24,6 @@ export default function Google(props) {
 
     function onFailure(res) {
         console.log(res);
-        alert(res);
     }
 
     return (

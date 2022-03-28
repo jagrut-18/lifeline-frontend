@@ -48,7 +48,7 @@ function SearchPatientFilter(props) {
 
     return (
         <div>
-            <Heading text="Search doctors" />
+            <Heading text="Search Insurance Packages" />
             <Spacer height={10} />
             <div className="search-filters">
                 <div className="filter-wrapper">

@@ -87,7 +87,7 @@ const Menu = () => {
                             </div>
                             {openMenuFlag && 
                                     <div className="menu_options">
-                                        {!isDoctor && <div className="menu_option" onClick={() => onOptionClick('account')}>My Appointments</div>}
+                                        {isPatient && <div className="menu_option" onClick={() => onOptionClick('account')}>My Appointments</div>}
                                         <div className="menu_option" onClick={() => onOptionClick('appointments')}>My Account</div>
                                         <div className="menu_option" onClick={() => onOptionClick('logout')}>Logout</div>
                                     </div>
