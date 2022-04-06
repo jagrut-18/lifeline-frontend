@@ -17,6 +17,7 @@ function SearchPackagePatient() {
     const [loading, setLoading] = useState(true);
     const [modalStatus, setModalStatus] = useState(false);
     const [modalData, setModalData] = useState(false);
+    const [recommendedPackage, setRecommendedPackage] = useState()
 
     const customModalStyles = {
         content: {
@@ -42,8 +43,8 @@ function SearchPackagePatient() {
         console.log({ userId })
         console.log('s', premiumStart === '' ? -1 : premiumStart)
         console.log('e', premiumEnd === '' ? -1 : premiumEnd)
-        console.log({packageType})
-        console.log({insuranceProvider})
+        console.log({ packageType })
+        console.log({ insuranceProvider })
 
         const formData = new FormData();
         formData.append("premium_start", premiumStart === '' ? -1 : premiumStart);
@@ -53,11 +54,31 @@ function SearchPackagePatient() {
         formData.append("user_id", userId);
 
         const response = await API.filterPackages(formData);
-        console.log(response)
+        console.log({ response })
+
         if (response.success) {
+            let recommendedPackage = [{
+                company_address: "5000 E, 16th Street",
+                company_name: "United Health Care",
+                deductible: 300,
+                includes_dental: "Yes",
+                includes_medical: "No",
+                includes_vision: "No",
+                insurance_provider: "Kella Johnson",
+                insurance_provider_contact: "8786546589",
+                insurance_provider_id: 58,
+                package_id: 20,
+                patient_count: "0",
+                plan_name: "UHC1",
+                policy_number: "3a9e5136-9b5c-4e6a-a0a9-c3655efc6af2",
+                premium: 90,
+                time_period: 1
+            }]
+
             setLoading(false);
             // console.log(response.data)
             // alert("Data fetched");
+            setRecommendedPackage(recommendedPackage)
             setPatientInsurancePackage(response.data.data.my_package)
             setInsurancePackages(response.data.data.filtered_packages.filter((filtered) => filtered.package_id != response.data.data.my_package.package_id))
             setTotalSearches(response.data.data.filtered_packages.length)
@@ -127,7 +148,6 @@ function SearchPackagePatient() {
             </Modal>
             <div className="main-div">
                 <SearchPatientFilter searchInsurances={searchInsurances} />
-                <p>{insurancePackages.length} searches</p>
                 <Spacer height={5} />
                 {
                     loading ?
@@ -135,7 +155,7 @@ function SearchPackagePatient() {
                         :
                         <div className="main-data-wrapper">
                             {/* Section 1 start */}
-                            <InsurancePackages insurancePackages={insurancePackages} chooseInsurancePackage={chooseInsurancePackage} />
+                            <InsurancePackages recommendedPackage={recommendedPackage} insurancePackages={insurancePackages} chooseInsurancePackage={chooseInsurancePackage} />
                             {/* Section 1 end */}
                             {/* section 2 start */}
                             <PatientPackage patientInsurancePackage={patientInsurancePackage} />

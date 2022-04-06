@@ -1,11 +1,6 @@
 import React from 'react'
-import Heading from '../../components/heading/heading'
-import Description from '../../components/description/description'
-import PatientPackageDescription from './patient_package_description'
-import BenefitsAllPackages from './benefits_all_packages'
+import Package from './package'
 import Spacer from '../../components/spacer'
-import ShowHideButton from './show_hide_button'
-import OutlineButton from '../../components/outline_button/outline_button'
 
 // package_id: 1,
 // plan_name: "Low budget package",
@@ -24,48 +19,25 @@ import OutlineButton from '../../components/outline_button/outline_button'
 // patient_count: "18"
 
 function InsurancePackages(props) {
+    console.log("recommendedPackage", props.recommendedPackage)
+    console.log("insurancePackages", props.insurancePackages)
     return (
-        <div className="section-1">
+        <div className="section-1-wrapper">
             {
-                props.insurancePackages.map((data, index) => (
-                    <div key={data.package_id} className="section-box">
-                        <div className="search_package_details_container">
-                        <div className="row">
-                            <div className="partition-1">
-                                <Heading text={data.plan_name} style={{ fontSize: 16 }} />
-                                <Description text={'Policy No:\xa0' + data.policy_number} style={{ fontSize: 14, color: '#757575' }} />
-                            </div>
-                            {
-                                data.patient_count > 1 ?
-                                    <div className="partition-2">
-                                        <Description text={data.patient_count + ` patient${parseInt(data.patient_count) > 1 ? 's' : ''}`} style={{ color: '#FFC107' }} />
-                                    </div>
-                                    :
-                                    null
-                            }
-
+                props.recommendedPackage != "" ?
+                    <div>
+                        <p>Recommended Package</p>
+                        <div className="section-1-recommended-package-wraper">
+                            <Package insurancePackages={props.recommendedPackage} chooseInsurancePackage={props.chooseInsurancePackage} />
                         </div>
-                        <Spacer height={5} />
-                        <div className="row row2">
-                            <div className="partition-1">
-                                <PatientPackageDescription text1={'Premium:\xa0'} text2={'$' + data.premium} />
-                                <PatientPackageDescription text1={'Deductible:\xa0'} text2={'$' + data.deductible} />
-                                <PatientPackageDescription text1={'Includes:\xa0'} text2={<BenefitsAllPackages medical={data.includes_medical} dental={data.includes_dental} vision={data.includes_vision} />} />
-                                <PatientPackageDescription text1={'Time Period:\xa0'} text2={data.time_period + ' Years'} />
-                            </div>
-                            <OutlineButton text="Choose" onClick={() => props.chooseInsurancePackage(data)} />
-                        </div>
-                        </div>
-                        <div className="insurance-packages-divider" />
-                        <ShowHideButton insuranceProviderDetails={{
-                            company_name: data.company_name, insurance_provider: data.insurance_provider,
-                            insurance_provider_contact: data.insurance_provider_contact,
-                            company_address: data.company_address
-                        }} />
-
                     </div>
-                ))
+                    :
+                    null
             }
+            <p>{props.insurancePackages.length} searches</p>
+            <div className="section-1">
+                <Package insurancePackages={props.insurancePackages} chooseInsurancePackage={props.chooseInsurancePackage} />
+            </div>
         </div>
     )
 }
