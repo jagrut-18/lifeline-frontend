@@ -1,6 +1,7 @@
 import React from 'react'
 import Package from './package'
 import Spacer from '../../components/spacer'
+import Description from '../../components/description/description'
 
 // package_id: 1,
 // plan_name: "Low budget package",
@@ -23,18 +24,12 @@ function InsurancePackages(props) {
     console.log("insurancePackages", props.insurancePackages)
     return (
         <div className="section-1-wrapper">
-            {
-                props.recommendedPackage != "" ?
-                    <div>
-                        <p>Recommended Package</p>
-                        <div className="section-1-recommended-package-wraper">
-                            <Package insurancePackages={props.recommendedPackage} chooseInsurancePackage={props.chooseInsurancePackage} />
-                        </div>
-                    </div>
-                    :
-                    null
-            }
-            <p>{props.insurancePackages.length} searches</p>
+            <div className="section-1 recommended-package-section">
+                <Spacer height={10}/>
+                <Package insurancePackages={props.recommendedPackage} chooseInsurancePackage={props.chooseInsurancePackage} />
+            </div>
+            <Description text={props.insurancePackages.length + " searches"}/>
+            <Spacer height={10}/>
             <div className="section-1">
                 <Package insurancePackages={props.insurancePackages} chooseInsurancePackage={props.chooseInsurancePackage} />
             </div>
