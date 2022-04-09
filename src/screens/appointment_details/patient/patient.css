@@ -1,5 +1,20 @@
+.app_details_wrapper {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.app_details {
+    width: 60%;
+}
+
+.chat_wrapper {
+    width: 40%;
+}
+
 .patient_details_container {
-    width: 80%;
+    /* width: 80%; */
+    width: 100%;
     min-height: 200px;
 }
 

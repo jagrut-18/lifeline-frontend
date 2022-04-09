@@ -94,7 +94,7 @@ function LoginScreen() {
                 <Spacer height={70} />
                 <Description text="Or continue with" style={{ alignSelf: "center" }} />
                 <Spacer height={30} />
-                <Google />
+                <Google isSignup={false} setLoading={setLoading} setError={setError}/>
             </Card>
         </div>
     )
