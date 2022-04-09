@@ -1,7 +1,7 @@
 import { AX } from '../axios';
 
-export async function forgotPassword(formData) {
-    return AX.post('/forgot_password', formData)
+export async function updatePassword(formData) {
+    return AX.post('/update_password', formData)
         .then((response) => {
             const resCode = response.data.response_code;
             console.log(response.data);

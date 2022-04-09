@@ -85,7 +85,7 @@ function LoginScreen() {
                         </div>
                     </div>
                     <Spacer height={7} />
-                    <ForgotPassword />
+                    <ForgotPassword onClick={() => navigate(routes.forgot_password)}/>
                     <Button text="Next" onClick={onNext} isLoading={loading}/>
                 </div>
                 <div className="error-wrapper">

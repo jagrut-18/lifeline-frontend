@@ -16,10 +16,14 @@ import { makeInsurancePackagePayment } from "./apis/make_insurance_package_payme
 import { togglePackage } from "./apis/toggle_package";
 import { getEnrolledPatients } from './apis/get_enrolled_patients'
 import { suggestPackage } from "./apis/suggest_package";
+import { forgotPassword } from "./apis/forgot_passord";
+import {updatePassword} from "./apis/update_password"
 
 
 export const API = {
     login: (formData) => login(formData),
+    forgotPassword: (formData) => forgotPassword(formData),
+    updatePassword: (formData) => updatePassword(formData),
     onboarding: (formData) => onboarding(formData),
     locationAutocomplete: (query) => locationAutoComplete(query),
     hospitalsAutocomplete: (query) => hospitalsAutoComplete(query),
