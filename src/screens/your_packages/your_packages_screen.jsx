@@ -53,7 +53,7 @@ export default function YourPackagesScreen() {
                         <>
                             <div className="your_packages_left">
                                 {
-                                    packages.map((data, index) => <YourPackage key={index} data={data} />)
+                                    packages.map((data, index) => <YourPackage key={index} data={data} setLoading={setLoading} />)
                                 }
                             </div>
                             <div className="your_packages_right">

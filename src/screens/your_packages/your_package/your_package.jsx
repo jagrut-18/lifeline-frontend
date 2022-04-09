@@ -5,6 +5,7 @@ import Heading from '../../../components/heading/heading';
 import OutlineButton from '../../../components/outline_button/outline_button';
 import Spacer from '../../../components/spacer';
 import Modal from 'react-modal';
+import Loader from '../../../components/loader/loader';
 import SuggestInsurancePackModalContent from './suggest_insurance_package_modal';
 import './your_package.css';
 
@@ -13,7 +14,7 @@ export default function YourPackage(props) {
     const [isDisabled, setIsDisabled] = useState(is_disabled == 1);
     const [suggestionModalFlag, setSuggestionModalFlag] = useState(false)
     const [modalData, setModalData] = useState(false);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
 
     const customModalStyles = {
         content: {
@@ -24,8 +25,9 @@ export default function YourPackage(props) {
             marginRight: '-50%',
             transform: 'translate(-50%, -50%)',
             width: '50%',
-            maxHeight: '80%'
-        },
+            maxHeight: '80%',
+            minHeight: '50%'
+        }
     }
 
     const includes = {
@@ -38,71 +40,39 @@ export default function YourPackage(props) {
         const formData = new FormData();
         formData.append('package_id', package_id);
         const response = await API.togglePackage(formData);
-        console.log({response})
+        console.log({ response })
+
         if (response.success) {
             setIsDisabled(!isDisabled);
         }
     }
 
-    const changeSuggestionModalFlag = () => {
+    const changeSuggestionModalFlag = async () => {
         if (suggestionModalFlag) {
             setSuggestionModalFlag(false)
         } else {
-
+            setSuggestionModalFlag(true)
+            setLoading(true)
             //send package_id and user_id from local storage
-            let tempObj = {
-                response_code: "200",
-                response_message: "Success",
-                data: {
-                    all_patients: [
-                        {
-                            patient_url: "",
-                            patient_id: 1,
-                            patient_name: "John Doe",
-                            packages_opted: 7,
-                            amount_spent: 500,
-                            all_packages: [
-                                {
-                                    package_id: 1,
-                                    plan_name: "abc"
-                                },
-                                {
-                                    package_id: 2,
-                                    plan_name: "def"
-                                }
-                            ]
-                        },
-                        {
-                            patient_url: "",
-                            patient_id: 2,
-                            patient_name: "John Doe",
-                            packages_opted: 7,
-                            amount_spent: 500,
-                            all_packages: [
-                                {
-                                    package_id: 1,
-                                    plan_name: "abc"
-                                },
-                                {
-                                    package_id: 2,
-                                    plan_name: "def"
-                                }
-                            ]
-                        }
-                    ]
-                }
+            const formData = new FormData();
+            formData.append('insurance_provider_id', localStorage.getItem("user_id"));
+            const response = await API.getEnrolledPatients(formData);
+            console.log(response.data.data)
+
+            if (response.success) {
+                setIsDisabled(!isDisabled)
+                setModalData(response.data.data)
+                setLoading(false)
             }
 
-            setModalData(tempObj.data.all_patients)
-
-            setSuggestionModalFlag(true)
         }
     }
 
     const suggestPackage = () => {
-        
+
+
     }
- 
+
     return (
         <div className="your_package_container">
             <Modal
@@ -110,7 +80,13 @@ export default function YourPackage(props) {
                 onRequestClose={changeSuggestionModalFlag}
                 style={customModalStyles}
             >
-                <SuggestInsurancePackModalContent patientsData={modalData} changeSuggestionModalFlag={changeSuggestionModalFlag}/>
+                {
+                    loading ?
+                        <Loader />
+                        :
+                        <SuggestInsurancePackModalContent patientsData={modalData} changeSuggestionModalFlag={changeSuggestionModalFlag} defaultSelectedValue={plan_name + " - " + package_id} />
+
+                }
             </Modal>
             <div className="package_name_row insurance-card-padding">
                 <Heading text={plan_name} style={{ fontSize: 18 }} />

@@ -15,7 +15,7 @@ function Dropdown(props) {
     }, [])
 
     return (
-        <DropdownSelect options={packages} onChange={(option) => props.setSelectedPackage(option)} />
+        <DropdownSelect options={packages} onChange={(option) => props.setSelectedPackage(option)}/>
     )
 }
 

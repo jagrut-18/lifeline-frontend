@@ -27,6 +27,7 @@ function RouteStack() {
                 <Route path={routes.user_type} element={<UserTypeScreen />} />
                 <Route path={routes.signup} element={<SignupScreen />} />
                 <Route path={routes.login} element={<LoginScreen />} />
+                <Route path={routes.forgot_password} element={<ForgotPasswordScreen />} />
                 <Route path={routes.onboarding1} element={<OnboardingScreen1 />} />
                 <Route path={routes.onboarding2} element={<OnboardingScreen2 />} />
                 <Route path={routes.onboarding3} element={<OnboardingScreen3 />} />
@@ -48,7 +49,6 @@ function LoggedInRouteStack() {
                 <Route path={routes.pat_book_appointment} element={<PatientBookAppointment />} />
                 <Route path={routes.appointment_details} element={<AppointmentDetailsScreen />} />
                 <Route path={routes.my_appointments} element={<MyAppointmentsScreen />} />
-                <Route path={routes.forgot_password} element={<ForgotPasswordScreen />} />
                 <Route path={routes.search_package_patient} element={<SearchPackagePatient />} />
                 <Route path={routes.create_insurance_package} element={<CreateInsurancePackage />} />
                 <Route path={routes.book_appointment} element={<BookAppointmentScreen />} />
