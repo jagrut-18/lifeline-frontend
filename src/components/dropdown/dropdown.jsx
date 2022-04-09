@@ -1,5 +1,5 @@
 import './dropdown.css';
-import {MdArrowDropDown} from 'react-icons/md';
+import { MdArrowDropDown } from 'react-icons/md';
 import { useState, useRef, useEffect } from 'react';
 
 /* props:
@@ -11,21 +11,21 @@ import { useState, useRef, useEffect } from 'react';
 
 export default function DropdownSelect(props) {
     const ref = useRef(null);
-    
+
     useEffect(() => {
         if (props.default) {
-          setValue(props.default)
+            setValue(props.default)
         }
         const handleClickOutside = (event) => {
-          if (ref.current && !ref.current.contains(event.target)) {
-            onClickOutside && onClickOutside();
-          }
+            if (ref.current && !ref.current.contains(event.target)) {
+                onClickOutside && onClickOutside();
+            }
         };
         document.addEventListener('click', handleClickOutside, true);
         return () => {
-          document.removeEventListener('click', handleClickOutside, true);
+            document.removeEventListener('click', handleClickOutside, true);
         };
-      }, [ onClickOutside ]);
+    }, [onClickOutside]);
 
     const [optionsVisible, setOptionVisibility] = useState(false);
     const [selectedValue, setValue] = useState(null);
@@ -35,13 +35,15 @@ export default function DropdownSelect(props) {
         ...props.styles,
     }
 
-    function onOptionClick(option){
-        setOptionVisibility(false);
+    function onOptionClick(option) {
         setValue(option);
+        console.log(props.options)
+        console.log("selected option", option)
+        setOptionVisibility(false);
         props.onChange(option);
     }
 
-    function onClickOutside(){
+    function onClickOutside() {
         setOptionVisibility(false);
     }
 
@@ -49,15 +51,15 @@ export default function DropdownSelect(props) {
         <div ref={ref} className="dropdown_wrapper" style={style} onClick={() => setOptionVisibility(!optionsVisible)}>
             <div className={`dropdown_menu ${selectedValue == null ? '' : 'selected'}`} >
                 {selectedValue == null ? (props.placeholder ?? "Select") : selectedValue}
-                <MdArrowDropDown size={22}/>
+                <MdArrowDropDown size={22} />
             </div>
-            {optionsVisible && 
+            {optionsVisible &&
                 <div className="dropdown_options">
-                {props.options.map(function(option, index) {
-                   return <div key={index} className="option" onClick={() => onOptionClick(option)}>{option}</div>
-                })}
-            </div>
+                    {props.options.map(function (option, index) {
+                        return <div key={index} className="option" onClick={() => onOptionClick(option)}>{option}</div>
+                    })}
+                </div>
             }
-        </div>  
+        </div>
     )
 }

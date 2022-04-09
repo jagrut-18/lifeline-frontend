@@ -4,6 +4,7 @@ import SearchPatientFilter from './search_patient_filter'
 import Spacer from '../../components/spacer'
 import PatientPackage from './patient_package'
 import InsurancePackages from './insurance_packages'
+import Description from '../../components/description/description'
 import Loader from '../../components/loader/loader'
 import Modal from 'react-modal';
 import ChooseInsurancePackModalContent from './choose_insurance_pack_modal_content'
@@ -17,7 +18,7 @@ function SearchPackagePatient() {
     const [loading, setLoading] = useState(true);
     const [modalStatus, setModalStatus] = useState(false);
     const [modalData, setModalData] = useState(false);
-    const [recommendedPackage, setRecommendedPackage] = useState()
+    const [recommendedPackage, setRecommendedPackage] = useState([])
 
     const customModalStyles = {
         content: {
@@ -75,13 +76,13 @@ function SearchPackagePatient() {
                 time_period: 1
             }]
 
-            setLoading(false);
             // console.log(response.data)
             // alert("Data fetched");
             setRecommendedPackage(recommendedPackage)
             setPatientInsurancePackage(response.data.data.my_package)
             setInsurancePackages(response.data.data.filtered_packages.filter((filtered) => filtered.package_id != response.data.data.my_package.package_id))
             setTotalSearches(response.data.data.filtered_packages.length)
+            setLoading(false);
         }
         else {
             alert("something went wrong!");
@@ -153,13 +154,21 @@ function SearchPackagePatient() {
                     loading ?
                         <Loader />
                         :
-                        <div className="main-data-wrapper">
-                            {/* Section 1 start */}
-                            <InsurancePackages recommendedPackage={recommendedPackage} insurancePackages={insurancePackages} chooseInsurancePackage={chooseInsurancePackage} />
-                            {/* Section 1 end */}
-                            {/* section 2 start */}
-                            <PatientPackage patientInsurancePackage={patientInsurancePackage} />
-                            {/* section 2 end */}
+                        <div>
+                            {
+                                recommendedPackage != "" ?
+                                    <Description text={"Recommended Package"} />
+                                    :
+                                    null
+                            }
+                            <div className="main-data-wrapper">
+                                {/* Section 1 start */}
+                                <InsurancePackages recommendedPackage={recommendedPackage} insurancePackages={insurancePackages} chooseInsurancePackage={chooseInsurancePackage} />
+                                {/* Section 1 end */}
+                                {/* section 2 start */}
+                                <PatientPackage patientInsurancePackage={patientInsurancePackage} />
+                                {/* section 2 end */}
+                            </div>
                         </div>
                 }
             </div>

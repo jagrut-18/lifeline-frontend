@@ -9,11 +9,13 @@ import getPatientAppointments from "./apis/patient_appointments";
 import { doctorSearch } from "./apis/doctor_search";
 import { bookAppointment } from "./apis/book_appointment";
 import { uploadFile } from "./apis/aws";
-import {createPackage} from './apis/create_package';
+import { createPackage } from './apis/create_package';
 import { filterPackages } from "./apis/filter_packages";
 import { fetchInsurancePackages } from "./apis/fetch_insurance_packages";
 import { makeInsurancePackagePayment } from "./apis/make_insurance_package_payment";
 import { togglePackage } from "./apis/toggle_package";
+import { getEnrolledPatients } from './apis/get_enrolled_patients'
+import { suggestPackage } from "./apis/suggest_package";
 
 
 export const API = {
@@ -33,4 +35,6 @@ export const API = {
     fetchInsurancePackages: (formData) => fetchInsurancePackages(formData),
     makeInsurancePackagePayment: (formData) => makeInsurancePackagePayment(formData),
     togglePackage: (formData) => togglePackage(formData),
+    getEnrolledPatients: (formData) => getEnrolledPatients(formData),
+    suggestPackage: (formData) => suggestPackage(formData),
 };

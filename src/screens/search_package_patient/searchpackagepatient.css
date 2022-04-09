@@ -38,8 +38,12 @@
     margin-right: 40px;
 }
 
+.main-data-wrapper .section-1-wrapper .recommended-package-section {
+    height: auto;
+}
+
 .main-data-wrapper .section-2 {
-    display: flex;
+    /* display: flex; */
     flex-direction: row;
     width: 40%;
 }
@@ -72,19 +76,13 @@
     width: 60%;
     margin-right: 40px;
 }
-
-.main-data-wrapper .section-1-wrapper .section-1-recommended-package-wraper {
-    position: relative;
-    width: 100%;
-}
-
-.main-data-wrapper .section-1-wrapper .section-1 {
+/* .main-data-wrapper .section-1-wrapper .section-1 {
     position: relative;
     width: 100%;
     height: 400px;
     overflow: scroll;
     overflow-x: hidden;
-}
+} */
 
 .section-1-wrapper .section-1 .row {
     display: flex;
