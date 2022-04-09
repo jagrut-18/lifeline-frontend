@@ -128,7 +128,6 @@ function SignupScreen() {
         setError("Something went wrong")
         setLoading(false);
       }
-      navigate(routes.onboarding1);
     })
     .catch(function (error) {
       setError("Something went wrong")
@@ -157,7 +156,7 @@ function SignupScreen() {
         <Spacer height={70} />
         <Description text="Or continue with" style={{ alignSelf: "center" }} />
         <Spacer height={30} />
-        <Google />
+        <Google isSignup={true} setLoading={setLoading} setError={setError} />
       </Card>
     </div>
   )

@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 import { API } from '../../../api/api';
 import getDateString from '../../../utilities/date_string';
 import { useParams } from 'react-router-dom';
+import Chat from '../../../components/chat/chat';
 
 export default function DoctorAppointmentView(props) {
     const [details, setDetails] = useState();
@@ -59,7 +60,6 @@ export default function DoctorAppointmentView(props) {
             <div className="app_details_wrapper">
             <div className="app_details">
                 {details.comments && <Description text={`Comments: ${details.comments}`} style={{fontSize: 16, fontWeight: "bold"}}/> }
-                <Spacer height={10}/>
                 <div className="patient_details_container">
                     <div className="patient_avatar">
                         <img src={Doctor} alt="Patient" className="patient_img" />
@@ -85,7 +85,10 @@ export default function DoctorAppointmentView(props) {
                     <DocumentComponent documentUrl={details.document_url} />
                 </div>
             </div>
-            <div className="chat_container"></div>
+            <div className="chat_wrapper">
+
+                <Chat receiverDetails={{id: details.patient_id.toString(), name: details.patient_name}} />
+            </div>
             </div>
         </div>
     );

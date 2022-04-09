@@ -13,6 +13,7 @@ import HighlightedContent from '../../../components/highlighted_content/highligh
 import { API } from '../../../api/api';
 import getDateString from '../../../utilities/date_string';
 import Loader from '../../../components/loader/loader'
+import Chat from '../../../components/chat/chat';
 
 // import AWS from 'aws-sdk'
 var AWS = require('aws-sdk/global');
@@ -60,6 +61,7 @@ export default function PatientAppointmentView(props) {
             setDoctorDetails({
                 time: data.time,
                 date: data.date,
+                doctorId: data.doctor_id,
                 doctorName: data.doctor_name,
                 specialization: data.specialization,
                 hospitalName: data.hospital_name,
@@ -149,7 +151,7 @@ export default function PatientAppointmentView(props) {
                         <div className="patient_avatar">
                             <img src={Doctor} alt="Patient" className="patient_img" />
                             <div className="heading_wraper">
-                                <Heading text="Dr. John Doe" style={{ fontSize: 16 }} />
+                                <Heading text={doctorDetails.doctorName} style={{ fontSize: 16 }} />
                             </div>
                             {
                                 doctorDetails.rating != "" ?
@@ -222,7 +224,9 @@ export default function PatientAppointmentView(props) {
                         <DocumentComponent documentName="Covid Report" />
                     </div> */}
                 </div>
-                <div className="chat_container"></div>
+                <div className="chat_wrapper">
+                    <Chat receiverDetails={{id: doctorDetails.doctorId, name: doctorDetails.doctorName}} />
+                </div>
             </div>
         </div>
     );
