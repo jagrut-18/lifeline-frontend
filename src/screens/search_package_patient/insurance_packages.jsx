@@ -26,7 +26,7 @@ function InsurancePackages(props) {
         <div className="section-1-wrapper">
             <div className="section-1 recommended-package-section">
                 <Spacer height={10}/>
-                <Package insurancePackages={props.recommendedPackage} chooseInsurancePackage={props.chooseInsurancePackage} />
+                {Object.keys(props.recommendedPackage).length != 0 && <Package insurancePackages={[props.recommendedPackage]} chooseInsurancePackage={props.chooseInsurancePackage} />}
             </div>
             <Description text={props.insurancePackages.length + " searches"}/>
             <Spacer height={10}/>

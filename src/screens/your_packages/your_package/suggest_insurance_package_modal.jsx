@@ -6,6 +6,7 @@ import Spacer from '../../../components/spacer'
 import Doctor from '../../../images/doctor.png';
 import Dropdown from './dropdown'
 import { API } from '../../../api/api';
+import DropdownSelect from '../../../components/dropdown/dropdown'
 
 function SuggestInsurancePackageModal(props) {
 

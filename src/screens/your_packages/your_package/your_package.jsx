@@ -84,7 +84,7 @@ export default function YourPackage(props) {
                     loading ?
                         <Loader />
                         :
-                        <SuggestInsurancePackModalContent patientsData={modalData} changeSuggestionModalFlag={changeSuggestionModalFlag} defaultSelectedValue={plan_name + " - " + package_id} />
+                        <SuggestInsurancePackModalContent patientsData={modalData} changeSuggestionModalFlag={changeSuggestionModalFlag} defaultSelectedValue={plan_name} />
 
                 }
             </Modal>
