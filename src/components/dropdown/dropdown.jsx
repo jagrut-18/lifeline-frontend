@@ -16,6 +16,9 @@ export default function DropdownSelect(props) {
         if (props.default) {
             setValue(props.default)
         }
+    }, []);
+
+    useEffect(() => {
         const handleClickOutside = (event) => {
             if (ref.current && !ref.current.contains(event.target)) {
                 onClickOutside && onClickOutside();
@@ -36,10 +39,8 @@ export default function DropdownSelect(props) {
     }
 
     function onOptionClick(option) {
-        setValue(option);
-        console.log(props.options)
-        console.log("selected option", option)
         setOptionVisibility(false);
+        setValue(option);
         props.onChange(option);
     }
 

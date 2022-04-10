@@ -12,7 +12,7 @@ function Package(props) {
     return (
         <div>
             {
-                props.insurancePackages.map((data, index) => (
+                props.insurancePackages.map((data) => (
                     <div key={data.package_id} className="section-box">
                         <div className="search_package_details_container">
                             <div className="row">
