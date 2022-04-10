@@ -76,9 +76,26 @@ function SearchPackagePatient() {
                 time_period: 1
             }]
 
+            // company_address: "5000 E, 16th Street"
+            // company_name: "United Health Care"
+            // deductible: 998
+            // includes_dental: "Yes"
+            // includes_medical: "Yes"
+            // includes_vision: "Yes"
+            // insurance_provider: "Kella Johnson"
+            // insurance_provider_contact: "8786546589"
+            // insurance_provider_id: 58
+            // package_id: 22
+            // patient_count: "0"
+            // plan_name: "UHC50"
+            // policy_number: "5b7c3e81-9f83-401a-a070-285553fc2af3"
+            // premium: 700
+            // time_period: 2
+
             // console.log(response.data)
             // alert("Data fetched");
-            setRecommendedPackage(recommendedPackage)
+            console.log(response.data.data, "hi")
+            setRecommendedPackage([response.data.data.suggested_package])
             setPatientInsurancePackage(response.data.data.my_package)
             setInsurancePackages(response.data.data.filtered_packages.filter((filtered) => filtered.package_id != response.data.data.my_package.package_id))
             setTotalSearches(response.data.data.filtered_packages.length)

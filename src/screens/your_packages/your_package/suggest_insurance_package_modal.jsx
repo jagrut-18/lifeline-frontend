@@ -8,7 +8,6 @@ import Dropdown from './dropdown'
 import { API } from '../../../api/api';
 
 function SuggestInsurancePackageModal(props) {
-    console.log(props.patientsData, "hi")
 
     const [selectedPackage, setSelectedPackage] = useState("")
 
