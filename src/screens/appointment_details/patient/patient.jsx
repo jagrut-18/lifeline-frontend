@@ -147,7 +147,7 @@ export default function PatientAppointmentView(props) {
             <div className="app_details_wrapper">
                 <div className="app_details">
                     <div className="patient_details_container">
-                        <Heading text="Doctor Details" style={{ fontSize: 18, fontWeight: 700, color: '#000' }} />
+                        <Heading text="Doctor Details" style={{ fontSize: 18, fontWeight: 700, color: 'var(--text-secondary)' }} />
                         <div className="patient_avatar">
                             <img src={Doctor} alt="Patient" className="patient_img" />
                             <div className="heading_wraper">

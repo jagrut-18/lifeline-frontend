@@ -1,6 +1,6 @@
 .your_package_container {
-    background-color: #ffffff;
-    box-shadow: 0px 14px 19px 2px rgba(0, 0, 0, 0.10);
+    background-color: var(--background-secondary);
+    box-shadow: var(--shadow-medium);
     border-radius: 20px;
     padding-top: 20px;
 }
@@ -49,12 +49,12 @@
 }
 
 .insurance_packages_divider {
-    border-top: 1px solid #C4C4C4;
+    border-top: 1px solid var(--divider-color);
 }
 
 .your_package_container .show_hide_button {
     width: 100%;
-    background-color: #fff;
+    background-color: var(--background-secondary);
     border: none;
     cursor: pointer;
     color: #757575;
@@ -96,7 +96,7 @@
 }
 
 .suggest-insurance-packages-divider {
-    border-top: 1px solid #C4C4C4;
+    border-top: 1px solid var(--divider-color);
 }
 
 .suggest-ins-modal .partition-1 {

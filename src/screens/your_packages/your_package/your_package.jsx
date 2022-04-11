@@ -26,7 +26,8 @@ export default function YourPackage(props) {
             transform: 'translate(-50%, -50%)',
             width: '50%',
             maxHeight: '80%',
-            minHeight: '50%'
+            minHeight: '50%',
+            backgroundColor: 'var(--background-secondary)'
         }
     }
 

@@ -33,8 +33,8 @@ const LandingScreen = () => {
         <div className="container-landing">
             <div className="row">
                 <div className="col-1">
-                    <h2>LifeLine</h2>
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
+                    <Heading text="Find Doctors and Insurance Packages" style={{fontSize: 40}} />
+                    <p>Whether finding a doctor, setting up an appointment, or just helping you get more from your plan, our platform provides everything. Plus, we’ve made it easier to talk to a doctor quickly. So, you can spend less time searching for answers and more time doing what you actually want.</p>
                     <button type="button" onClick={navigateNext}>Get Started</button>
                 </div>
                 <div className="col-2">

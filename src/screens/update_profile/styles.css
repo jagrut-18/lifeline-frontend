@@ -18,4 +18,5 @@
     justify-content: start;
     align-items: center;
     width: 100%;
+    color: var(--text-secondary);
 }

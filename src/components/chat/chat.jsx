@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import Talk from 'talkjs';
 
 export default class Chat extends Component {

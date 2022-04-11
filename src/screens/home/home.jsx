@@ -10,6 +10,7 @@ import { useEffect, useState } from 'react';
 import { API } from '../../api/api';
 import Loader from '../../components/loader/loader';
 import YourPackagesScreen from '../your_packages/your_packages_screen';
+import Description from '../../components/description/description';
 
 const HomeScreen = () => {
     const navigate = useNavigate();
@@ -69,8 +70,8 @@ const HomeScreen = () => {
             <Spacer height={30}/>
             <div className="row">
                 <div className="col-1">
-                    <h2>Find Doctors and Insurance Packages...</h2>
-                    <p>Whether finding a doctor, setting up an appointment, or just helping you get more from your plan, our platform provides everything. Plus, we’ve made it easier to talk to a doctor quickly. So, you can spend less time searching for answers and more time doing what you actually want. </p>
+                    <Heading text="Find Doctors and Insurance Packages..." style={{fontSize: 28}}/> 
+                    <Description text="Whether finding a doctor, setting up an appointment, or just helping you get more from your plan, our platform provides everything. Plus, we’ve made it easier to talk to a doctor quickly. So, you can spend less time searching for answers and more time doing what you actually want." style={{fontSize: 16}}/>
                 </div>
             </div>
             {

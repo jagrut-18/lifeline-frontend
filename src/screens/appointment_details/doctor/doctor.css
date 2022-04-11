@@ -1,5 +1,7 @@
 .app_details_container {
     padding: 2% 8%;
+    background-color: var(--background);
+    height: calc(100vh - 80px);
 }
 
 .app_details_wrapper {

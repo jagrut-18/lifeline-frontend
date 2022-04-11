@@ -18,7 +18,7 @@ function Package(props) {
                             <div className="row">
                                 <div className="partition-1">
                                     <Heading text={data.plan_name} style={{ fontSize: 16 }} />
-                                    <Description text={'Policy No:\xa0' + data.policy_number} style={{ fontSize: 14, color: '#757575' }} />
+                                    <Description text={'Policy No:\xa0' + data.policy_number} style={{ fontSize: 14 }} />
                                 </div>
                                 {
                                     data.patient_count > 1 ?
