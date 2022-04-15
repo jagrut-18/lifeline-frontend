@@ -1,6 +1,6 @@
 import './menu.css'
 import React, { useState, useRef, useEffect, useContext } from 'react';
-import Logo from '../images/logo.png';
+import Logo from '../images/logo.svg';
 import Doctor from '../images/doctor.png';
 import {IoIosArrowDown} from 'react-icons/io';
 import routes from '../routing/routes';
@@ -9,12 +9,11 @@ import { Link } from "react-router-dom";
 import logout from '../auth/logout';
 import { LoginStateContext } from '../contexts';
 
-const Menu = () => {
+const Menu = (props) => {
     const location = useLocation();
     const {isLoggedIn, setIsLoggedIn} = useContext(LoginStateContext);
     const [openMenuFlag, setOpenMenu] = useState(false);
     const isPatient = localStorage.getItem("user_type_id") == "1";
-    const isDoctor = localStorage.getItem("user_type_id") == "2";
     const navigate = useNavigate();
 
     // to close the menu when clicked outside
@@ -47,6 +46,9 @@ const Menu = () => {
         else if (option == 'logout') {
             onLogout();
         }
+        else if (option == 'switch_theme'){
+            props.setTheme(props.theme == 'light' ? 'dark' : 'light');
+        }
         setOpenMenu(false);
     }
 
@@ -70,7 +72,7 @@ const Menu = () => {
     return (
         <div className="navbar">
             <img src={Logo} alt="logo" className="logo" onClick={() => navigate(routes.home)}/>
-            { isPatient && <nav>
+            { (isPatient && isLoggedIn) && <nav>
                             <ul>
                                 <li><Link className="link" to={routes.book_appointment}>Doctor</Link></li>
                                 <li><Link className="link" to={routes.search_package_patient}>Insurance</Link></li>
@@ -83,12 +85,13 @@ const Menu = () => {
                             
                             <div className="avatar" onClick={() => setOpenMenu(!openMenuFlag)}>
                                 <img src={Doctor} alt="avatar" className="profile_img" />
-                                <IoIosArrowDown size={14}/>
+                                <IoIosArrowDown size={14} color='var(--text-primary)'/>
                             </div>
                             {openMenuFlag && 
                                     <div className="menu_options">
                                         {isPatient && <div className="menu_option" onClick={() => onOptionClick('account')}>My Appointments</div>}
                                         <div className="menu_option" onClick={() => onOptionClick('appointments')}>My Account</div>
+                                        <div className="menu_option" onClick={() => onOptionClick('switch_theme')}>Light/Dark Mode</div>
                                         <div className="menu_option" onClick={() => onOptionClick('logout')}>Logout</div>
                                     </div>
                                 }

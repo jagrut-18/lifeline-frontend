@@ -8,7 +8,7 @@
     width: 100%;
     min-height: calc(100vh - 80px);
     overflow: hidden;
-    background-color: #fff;
+    background-color: var(--background);
 }
 
 .container-landing .row {
@@ -21,7 +21,7 @@
     /* justify-content: space-between; */
     /* text-align: left; because App.css sets it to center*/
     /* text-align: left; */
-    background-color: #F5F5F5;
+    background-color: var(--background);
 }
 
 .container-landing .row .col-1 {
@@ -38,7 +38,7 @@
 
 .container-landing .row .col-1 p {
     font-size: 16px;
-    color: #535461;
+    color: var(--text-secondary);
 }
 
 .container-landing .row .col-1 button {
@@ -46,7 +46,7 @@
     border: 0;
     padding: 20px 12px;
     outline: none;
-    color: #fff;
+    color: var(--text-primary);
     /* background: linear-gradient(to right, #fff, #B8405E); */
     background-color: #B8405E;
     border-radius: 7px;
@@ -68,8 +68,8 @@
     width: 84%;
     margin: 0 auto;
     display: flex;
-    background-color: #fff;
-    box-shadow: 0px 4px 27px 11px rgba(0, 0, 0, 0.20);
+    background-color: var(--background-secondary);
+    box-shadow: var(--shadow-large);
     border-radius: 9px;
     padding: 30px 100px;
     /* text-align: left; because App.css sets it to center*/

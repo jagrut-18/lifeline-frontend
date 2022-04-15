@@ -110,11 +110,12 @@
 
 .doctor_info_section_1 .section_3_description h3 {
     margin: 0px;
+    color: var(--text-secondary);
 }
 
 .doctor_info_section_1 .section_3_description p {
     margin: 0px;
-    color: #757575;
+    color: var(--text-secondary);
 }
 
 .modal_section_4 {
@@ -139,13 +140,13 @@
     border-radius: 8px;
     font-weight: bold;
     align-items: center;
-    background-color: #fff;
-    border: 1px solid #D9D9D9;
+    background-color: var(--background-secondary);
+    border: 1px solid var(--divider-color);
     cursor: pointer;
 }
 
 .file_picker span {
-    color: #757575;
+    color: var(--text-secondary);
     font-size: 15px;
 }
 

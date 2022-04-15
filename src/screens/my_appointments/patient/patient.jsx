@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { API } from '../../../api/api';
+import Description from '../../../components/description/description';
 import Heading from '../../../components/heading/heading';
 import PatientAppointment from '../../../components/patient_appointment/patient_appointment';
 import Spacer from '../../../components/spacer';
@@ -36,7 +37,7 @@ export default function PatientMyAppointments(props) {
                             return <PatientAppointment key={index} appointment={data} />
                         })
                         :
-                        <div>No upcoming apointments scheduled</div>
+                        <Description text='No upcoming apointments scheduled' />
                 }
             </div>
             <Spacer height={20} />
@@ -49,7 +50,7 @@ export default function PatientMyAppointments(props) {
                             return <PatientAppointment key={index} appointment={data} />
                         })
                         :
-                        <div>No past appointments to show</div>
+                        <Description text='No past appointments to show' />
                 }
             </div>
         </div>

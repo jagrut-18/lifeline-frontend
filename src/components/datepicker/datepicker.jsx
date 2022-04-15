@@ -45,6 +45,7 @@ export default function DateSelector(props) {
         outline: 'none',
         height: "50px",
         backgroundColor: 'var(--background)',
+        color: 'var(--text-primary)'
       }}
       className="my-custom-input-class"
     />
