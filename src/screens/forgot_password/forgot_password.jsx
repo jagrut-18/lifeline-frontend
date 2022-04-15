@@ -81,7 +81,7 @@ export default function ForgotPasswordScreen(props) {
         <div className="container">
             <Card>
                 <Heading text="Forgot your password?" fontSize={24} />
-                <Description text="Enter your email here and we will send you a code to change your password" />
+                <Description text={showPasswordCode ? "Enter your new password" :"Enter your email here and we will send you a code to change your password"} />
                 <Spacer height={10} />
                 <div className="form">
                     {
