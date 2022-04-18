@@ -3,7 +3,7 @@
     position: relative;
     flex: 1;
     background-color: var(--background-secondary);
-    box-shadow: var(--shadow-large);
+    box-shadow: var(--shadow-medium);
     border-radius: 12px;
     padding: 20px 20px;
     min-height: 300;
