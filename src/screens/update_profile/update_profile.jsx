@@ -200,8 +200,7 @@ export default function UpdateProfileScreen(props) {
 
             if (response.data.response_code == "200") {
                 alert("Record successfully updated")
-                localStorage.setItem('first_name', first);
-                localStorage.setItem('last_name', last);
+                localStorage.setItem('user_name', first + ' ' + last);
                 localStorage.setItem('profile_image', profileImageUrl);
                 getData()
             } else if (response.data.response_code == "230") {

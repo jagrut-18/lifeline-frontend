@@ -67,8 +67,7 @@ export default function OnboardingScreen1(props) {
                 'last_name': last,
                 'phone_number': phone
             }
-            localStorage.setItem('first_name', first);
-            localStorage.setItem('last_name', last);
+            localStorage.setItem('user_name', first + ' ' + last);
             localStorage.setItem('onboardingData', JSON.stringify(onboardingData))
             navigate(routes.onboarding2);
         }

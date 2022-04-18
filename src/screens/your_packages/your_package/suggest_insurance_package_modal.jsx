@@ -48,7 +48,7 @@ function SuggestInsurancePackageModal(props) {
                         <div className="partition-1">
                             <div className="profile-description">
                                 <div className="profile-description-wrapper">
-                                    <img src={Doctor} alt="avatar" className="profile-img" />
+                                    <img src={data.patient_url == null ? Doctor : data.patient_url} alt="avatar" className="your_package_profile_img" />
                                     <Description text={data.patient_name} style={{ fontSize: 16, fontWeight: 700 }} />
                                 </div>
                             </div>

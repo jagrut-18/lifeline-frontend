@@ -16,6 +16,7 @@ export default function BookAppointmentScreen(props) {
 
     const [doctors, setDoctors] = useState([]);
     const [allAppointments, setAllAppointments] = useState([]);
+    const [currentInsuranceDetails, setCurrentInsuranceDetails] = useState(null);
 
     // filter vars
     const [specialization, setSpecialization] = useState("");
@@ -45,12 +46,14 @@ export default function BookAppointmentScreen(props) {
         formData.append("state", splits[1] ?? "");
         formData.append("covid_care", covidCare);
         formData.append("specialization", specialization);
+        formData.append("patient_id", parseInt(localStorage.getItem('user_id')));
 
 
         const response = await API.doctorSearch(formData);
         if (response.success) {
             setDoctors(response.data.doctors);
             setAllAppointments(response.data.all_appointments);
+            setCurrentInsuranceDetails(response.data.current_patient_insurance_details);
             setLoading(false);
         }
         else {
@@ -63,8 +66,6 @@ export default function BookAppointmentScreen(props) {
         const index = doctors.findIndex(doctor => doctor.doctor_id == doctorId);
         let doctorsCopy = [...doctors];
         console.log(doctors);
-        console.log(doctorsCopy);
-        console.log(doctorsCopy[index]);
         doctorsCopy[index].appointments.push({date: bookedDate, booked_appointment: bookedSlot});
         setDoctors(doctorsCopy);
     }
@@ -94,7 +95,7 @@ export default function BookAppointmentScreen(props) {
                         <div className="book_appointment_content">
                             <div>
                                 {
-                                    doctors.map((doctor, index) => <PatientBookAppointmentCard key={index} data={doctor} allAppointments={allAppointments} onAppointmentBooked={onAppointmentBooked}/>)
+                                    doctors.map((doctor, index) => <PatientBookAppointmentCard key={index} data={doctor} allAppointments={allAppointments} onAppointmentBooked={onAppointmentBooked} currentInsuranceDetails={currentInsuranceDetails} />)
                                 }
                             </div>
                             {doctors &&
