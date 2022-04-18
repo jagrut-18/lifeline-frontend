@@ -8,9 +8,12 @@ import {BsFillCheckCircleFill} from 'react-icons/bs';
 import Textarea from '../../../components/textarea/textarea';
 import Button from '../../../components/button/button';
 import { API } from '../../../api/api';
+import PatientPackageDescription from '../../search_package_patient/patient_package_description';
 
 export default function AppointmentModal(props) {
     const bookedAppointments = props.data.appointments;
+    const fee = props.data.fee;
+    const deductible = props.currentInsuranceDetails.deductible;
 
     const [selectedDate, setSelectedDate] = useState(0);
     const [selectedSlot, setSelectedSlot] = useState();
@@ -151,6 +154,11 @@ export default function AppointmentModal(props) {
                     {selectedFile && <div style={{fontStyle: 'italic', marginTop: 5}}>{selectedFile.name}</div>}
                 </div>
             </div>
+            <Spacer height={10} />
+            <Heading text="Payment Details:" style={{fontSize: 16}}/>
+            <PatientPackageDescription text1="Total Amount: " text2={fee} />
+            <PatientPackageDescription text1="Deductible: " text2={deductible} />
+            <Heading text={`Amount to pay: ${Math.min(fee, deductible)}`} />
             <Spacer height={10} />
             <Button text="Book Appointment" isLoading={loading} width={250} onClick={bookAppointment}/>
         </Modal>

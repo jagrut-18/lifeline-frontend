@@ -7,13 +7,14 @@ import routes from '../routing/routes';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Link } from "react-router-dom";
 import logout from '../auth/logout';
-import { LoginStateContext } from '../contexts';
+import { LoginStateContext, ProfileImageContext } from '../contexts';
 
 const Menu = (props) => {
     const location = useLocation();
     const {isLoggedIn, setIsLoggedIn} = useContext(LoginStateContext);
     const [openMenuFlag, setOpenMenu] = useState(false);
     const isPatient = localStorage.getItem("user_type_id") == "1";
+    const {globalProfileImage, _} = useContext(ProfileImageContext);
     const navigate = useNavigate();
 
     // to close the menu when clicked outside
@@ -58,6 +59,15 @@ const Menu = (props) => {
         navigate(routes.login);
     }
 
+    const getUserInitials = () => {
+        const firstName = localStorage.getItem('first_name');
+        const lastName = localStorage.getItem('last_name');
+        if (firstName == null || lastName == null) {
+            return 'U';
+        }
+        return (firstName.charAt(0).toUpperCase() + lastName.charAt(0).toUpperCase());
+    }
+
     function renderButton() {
         if (location.pathname == routes.login) {
             return (
@@ -84,7 +94,8 @@ const Menu = (props) => {
                         <div ref={ref} className='menu_wrapper'>
                             
                             <div className="avatar" onClick={() => setOpenMenu(!openMenuFlag)}>
-                                <img src={Doctor} alt="avatar" className="profile_img" />
+                                {/* <div className="profile_img">{getUserInitials}</div> */}
+                                <img src={globalProfileImage == null ? Doctor : globalProfileImage} alt="avatar" className="profile_img" />
                                 <IoIosArrowDown size={14} color='var(--text-primary)'/>
                             </div>
                             {openMenuFlag && 

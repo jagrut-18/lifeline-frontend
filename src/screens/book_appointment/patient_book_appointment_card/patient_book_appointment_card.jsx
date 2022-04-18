@@ -23,7 +23,7 @@ export default function PatientBookAppointmentCard(props) {
 
     return (
         <>
-            {isAppointmentModalOpen && <AppointmentModal isOpen={isAppointmentModalOpen} setIsOpen={setIsAppointmentModalOpen} data={props.data} allAppointments={props.allAppointments} onAppointmentBooked={onAppointmentBooked}/>}
+            {isAppointmentModalOpen && <AppointmentModal isOpen={isAppointmentModalOpen} setIsOpen={setIsAppointmentModalOpen} data={props.data} allAppointments={props.allAppointments} onAppointmentBooked={onAppointmentBooked} currentInsuranceDetails={props.currentInsuranceDetails} />}
             {isReviewsModalOpen && <ReviewsModal isOpen={isReviewsModalOpen} setIsOpen={setIsReviewsModalOpen} reviewsRatings={reviews_rating} />}
             <div className="patient_book_appointment_container">
                 <div style={{ backgroundImage: `url(${Doctor})` }} className="patient_book_appointment_doctor_image" />

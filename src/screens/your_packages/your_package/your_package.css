@@ -116,12 +116,13 @@
     align-items: center;
 }
 
-.suggest-ins-modal .partition-1 .profile-description .profile-description-wrapper .profile-img {
+.suggest-ins-modal .partition-1 .profile-description .profile-description-wrapper .your_package_profile_img {
     width: 45px;
     height: 45px;
     background-color: var(--primary);
     border-radius: 50%;
     margin-right: 10px;
+    object-fit: cover;
 }
 
 .suggest-ins-modal .partition-1 .dropdown-wrapper {
