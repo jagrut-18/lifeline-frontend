@@ -14,6 +14,7 @@ import { API } from '../../../api/api';
 import getDateString from '../../../utilities/date_string';
 import Loader from '../../../components/loader/loader'
 import Chat from '../../../components/chat/chat';
+import ReviewsRatingsModal from './reviews_ratings_modal'
 
 // import AWS from 'aws-sdk'
 var AWS = require('aws-sdk/global');
@@ -40,6 +41,7 @@ export default function PatientAppointmentView(props) {
     const [userId, setUserId] = useState(localStorage.getItem('user_id'))
     const { appointment_id } = useParams();
     const [loading, setLoading] = useState(true)
+    const [reviewsRatingsModalFlag, setReviewsRatingsModalFlag] = useState(0)
 
     const uploadFile = async () => {
         // openFileSelector()
@@ -57,6 +59,9 @@ export default function PatientAppointmentView(props) {
             const data = response.data;
             console.log("res: ", data.date)
             // setDetails(data);
+
+            //open modal only if whether_reviews_ratings_given_flag is set to 1
+            setReviewsRatingsModalFlag(data.whether_reviews_ratings_given_flag)
 
             setDoctorDetails({
                 time: data.time,
@@ -142,6 +147,9 @@ export default function PatientAppointmentView(props) {
 
     return (
         <div>
+            {reviewsRatingsModalFlag == 0 ? <ReviewsRatingsModal doctorName={doctorDetails.doctorName} 
+            appointmentId={appointment_id} doctorId={doctorDetails.doctorId}
+            /> : null}
             <Heading text={`Appointment: ${getDateString(doctorDetails.date)} ${doctorDetails.time}`} />
             <Spacer height={10} />
             <div className="app_details_wrapper">
@@ -194,9 +202,9 @@ export default function PatientAppointmentView(props) {
                     <Spacer height={5} />
                     <div className="document_section">
                         {
-                            documentUrl?
+                            documentUrl ?
                                 <div className="document_wrapper">
-                                    <DocumentComponent documentUrl={documentUrl}/>
+                                    <DocumentComponent documentUrl={documentUrl} />
                                 </div>
                                 :
                                 null
@@ -225,7 +233,7 @@ export default function PatientAppointmentView(props) {
                     </div> */}
                 </div>
                 <div className="chat_wrapper">
-                    <Chat receiverDetails={{id: doctorDetails.doctorId, name: doctorDetails.doctorName}} />
+                    <Chat receiverDetails={{ id: doctorDetails.doctorId, name: doctorDetails.doctorName }} />
                 </div>
             </div>
         </div>

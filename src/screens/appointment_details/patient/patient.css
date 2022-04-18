@@ -168,6 +168,11 @@
     margin-right: 10px;
 }
 
+.ratings-wrapper {
+    display: flex;
+    gap: 5px;
+}
+
 @keyframes s7 {
     to {
         transform: rotate(.5turn)

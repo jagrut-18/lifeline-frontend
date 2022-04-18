@@ -17,7 +17,9 @@ import { togglePackage } from "./apis/toggle_package";
 import { getEnrolledPatients } from './apis/get_enrolled_patients'
 import { suggestPackage } from "./apis/suggest_package";
 import { forgotPassword } from "./apis/forgot_passord";
-import {updatePassword} from "./apis/update_password"
+import { updatePassword } from "./apis/update_password"
+import { updateAppointmentDoneFlag } from "./apis/update_appointment_done_flag"
+import { updateReviewsRatings } from "./apis/update_reviews_ratings"
 
 
 export const API = {
@@ -41,4 +43,6 @@ export const API = {
     togglePackage: (formData) => togglePackage(formData),
     getEnrolledPatients: (formData) => getEnrolledPatients(formData),
     suggestPackage: (formData) => suggestPackage(formData),
+    updateAppointmentDoneFlag: (formData) => updateAppointmentDoneFlag(formData),
+    updateReviewsRatings: (formData) => updateReviewsRatings(formData)
 };

@@ -108,8 +108,6 @@ export default function ForgotPasswordScreen(props) {
                                 <Spacer height={15} />
                                 <Button text="Change Password" style={{width: 250}} onClick={changePassword} isLoading={loading} />
                             </div>
-
-
                     }
                 </div>
                 <Spacer height={10} />

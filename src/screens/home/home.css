@@ -4,12 +4,25 @@
 
 .container-home {
     margin: 0;
+    display: flex;
     width: 100%;
     min-height: calc(100vh - 80px);
     /* overflow-x: scroll; */
     overflow: hidden;
     background-color: var(--background);
     padding: 2% 8%;
+}
+
+.container-home .home-screen-section-1 {
+    width: 70%;
+}
+
+.container-home .home-screen-section-2 {
+    width: 30%;
+}
+
+.container-home .home-screen-section-1 .home-screen-section-1-inner {
+    width: 100%;
 }
 
 .row {
@@ -23,7 +36,7 @@
 }
 
 .col-1 {
-    flex-basis: 40%;
+    flex-basis: 70%;
     position: relative;
     /* margin-left: 50px; */
 }

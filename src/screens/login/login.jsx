@@ -23,7 +23,10 @@ function LoginScreen() {
     const [showPassword, setShowPassword] = useState(false);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
-    const {_, setIsLoggedIn} = useContext(LoginStateContext);
+    const [verficationCode, setVerificationCode] = useState("")
+    const [validatedVerificationCode, setValidatedVerificationCode] = useState("")
+    const [userDetails, setUserDetails] = useState({})
+    const { _, setIsLoggedIn } = useContext(LoginStateContext);
     const navigate = useNavigate();
 
     //validate input
@@ -45,23 +48,37 @@ function LoginScreen() {
     }
 
     async function onNext() {
-        if (!validate()) return;
-        setLoading(true);
-        var formData = new FormData();
-        formData.append('email', email);
-        formData.append('password', password);
-        
-        const response = await API.login(formData);
-        if (response.success) {
-            saveLoginDetails(email, response.data.user_id, response.data.token);
-            localStorage.setItem("user_type_id", response.data.user_type_id);
-            setIsLoggedIn(true);
-            navigate(routes.home);
-            setLoading(false);
-        }
-        else {
-            setLoading(false);
-            setError(response.error);
+        if (verficationCode == "") {
+            if (!validate()) return;
+            setLoading(true);
+            var formData = new FormData();
+            formData.append('email', email);
+            formData.append('password', password);
+
+            const response = await API.login(formData);
+            if (response.success) {
+                console.log(response)
+                setVerificationCode(response.data.verification_code)
+                setUserDetails({
+                    user_id: response.data.user_id,
+                    token: response.data.token,
+                    user_type_id: response.data.user_type_id
+                })
+                setLoading(false);
+            }
+            else {
+                setLoading(false);
+                setError(response.error);
+            }
+        } else {
+            if (verficationCode == validatedVerificationCode) {
+                saveLoginDetails(email, userDetails.user_id, userDetails.token);
+                localStorage.setItem("user_type_id", userDetails.user_type_id);
+                setIsLoggedIn(true);
+                navigate(routes.home);
+            } else {
+                setError("Verification code does not match!")
+            }
         }
     }
 
@@ -79,14 +96,28 @@ function LoginScreen() {
                         <div className="password_icon" onClick={() => setShowPassword(!showPassword)}>
                             {
                                 showPassword
-                                ? <AiFillEyeInvisible color='var(--text-secondary)' size={20}/>
-                                : <AiFillEye color='var(--text-secondary)' size={20}/>
+                                    ? <AiFillEyeInvisible color='var(--text-secondary)' size={20} />
+                                    : <AiFillEye color='var(--text-secondary)' size={20} />
                             }
                         </div>
                     </div>
                     <Spacer height={7} />
-                    <ForgotPassword onClick={() => navigate(routes.forgot_password)}/>
-                    <Button text="Next" onClick={onNext} isLoading={loading}/>
+                    <ForgotPassword onClick={() => navigate(routes.forgot_password)} />
+                    <Spacer height={30} />
+
+                    {
+                        verficationCode != "" ?
+                            <div>
+                                <Description text="Enter the code that we sent you on your email" />
+                                <Spacer height={10} />
+                                <Textfield type="text" placeholder="Verification Code" value={validatedVerificationCode} onChange={setValidatedVerificationCode} />
+                                <Spacer height={10} />
+                            </div>
+                            :
+                            null
+                    }
+
+                    <Button text={verficationCode == "" ? "Next" : "verify"} onClick={onNext} isLoading={loading} />
                 </div>
                 <div className="error-wrapper">
                     {error && <ErrorComponent message={error} />}
@@ -94,7 +125,7 @@ function LoginScreen() {
                 <Spacer height={70} />
                 <Description text="Or continue with" style={{ alignSelf: "center" }} />
                 <Spacer height={30} />
-                <Google isSignup={false} setLoading={setLoading} setError={setError}/>
+                <Google isSignup={false} setLoading={setLoading} setError={setError} />
             </Card>
         </div>
     )
