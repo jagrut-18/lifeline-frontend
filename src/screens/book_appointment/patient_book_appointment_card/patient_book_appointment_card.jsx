@@ -11,7 +11,7 @@ import { useState } from 'react';
 import ReviewsModal from '../reviews_modal/reviews_modal';
 
 export default function PatientBookAppointmentCard(props) {
-    const {doctor_name, specialization, covid_care, hospital_name, hospital_address, total_rating, reviews_rating} = props.data;
+    const {doctor_name, specialization, covid_care, hospital_name, hospital_address, total_rating, reviews_rating, profile_image_url} = props.data;
 
     const [isAppointmentModalOpen, setIsAppointmentModalOpen] = useState(false);
     const [isReviewsModalOpen, setIsReviewsModalOpen] = useState(false);
@@ -26,7 +26,7 @@ export default function PatientBookAppointmentCard(props) {
             {isAppointmentModalOpen && <AppointmentModal isOpen={isAppointmentModalOpen} setIsOpen={setIsAppointmentModalOpen} data={props.data} allAppointments={props.allAppointments} onAppointmentBooked={onAppointmentBooked} currentInsuranceDetails={props.currentInsuranceDetails} />}
             {isReviewsModalOpen && <ReviewsModal isOpen={isReviewsModalOpen} setIsOpen={setIsReviewsModalOpen} reviewsRatings={reviews_rating} />}
             <div className="patient_book_appointment_container">
-                <div style={{ backgroundImage: `url(${Doctor})` }} className="patient_book_appointment_doctor_image" />
+                <div style={{ backgroundImage: `url(${profile_image_url == null ? Doctor : profile_image_url})` }} className="patient_book_appointment_doctor_image" />
                 <div className="appointment_doctor_details">
                     <div className="name_row">
                         <Heading text={doctor_name} style={{fontSize: 18}}/>

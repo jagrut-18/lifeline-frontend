@@ -43,12 +43,14 @@ export default function OnboardingScreen3(props) {
         let formData = new FormData();
         const userId = localStorage.getItem('user_id');
 
+        
         if (isDoctor){
             onboardingData = {
                 ...onboardingData,
                 ...selectedHospital,
                 'user_id': parseInt(userId),
-                'user_type_id': parseInt(localStorage.getItem("user_type_id"))
+                'user_type_id': parseInt(localStorage.getItem("user_type_id")),
+                'profile_image_url': `https://placehold.jp/24/cccccc/ffffff/250x250.png?text=${onboardingData.first_name.charAt(0)}${onboardingData.last_name.charAt(0)}`,
             }
         }
         else {
@@ -59,7 +61,8 @@ export default function OnboardingScreen3(props) {
                 'state': state,
                 'zipcode': zipcode,
                 'user_id': userId,
-                'user_type_id': parseInt(localStorage.getItem("user_type_id"))
+                'user_type_id': parseInt(localStorage.getItem("user_type_id")),
+                'profile_image_url': `https://avatars.dicebear.com/api/${onboardingData.sex.toLowerCase()}/${onboardingData.first_name}.svg`,
             }
         }
 
