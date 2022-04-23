@@ -80,10 +80,26 @@ export default function AppointmentModal(props) {
         formData.append("time", dateIndexAndSlot[1]);
         formData.append("date", bookedDate);
         formData.append("doctor_id", parseInt(props.data.doctor_id));
-        formData.append("patient_id", localStorage.getItem("user_id"));
+        formData.append("patient_id", parseInt(localStorage.getItem("user_id")));
         formData.append("document_url", fileName);
         formData.append("comments", comments);
-        
+        formData.append("insurance_plan_id", props.currentInsuranceDetails.package_id);
+        formData.append("actual_payment", fee);
+        formData.append("total_payment", Math.min(fee, deductible));
+        formData.append("payment_reference", "temp_reference");
+
+        console.log({
+            time: dateIndexAndSlot[1],
+            date: bookedDate,
+            doctor_id: parseInt(props.data.doctor_id),
+            patient_id: localStorage.getItem("user_id"),
+            document_url: fileName,
+            comments: comments,
+            insurance_plan_id: props.currentInsuranceDetails.package_id,
+            actual_payment: fee,
+            total_payment: Math.min(fee, deductible)
+        })
+
         const response = await API.bookAppointment(formData);
         if (response.success){
             props.onAppointmentBooked(parseInt(props.data.doctor_id), bookedDate, dateIndexAndSlot[1]);

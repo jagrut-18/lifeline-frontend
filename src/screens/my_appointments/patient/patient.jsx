@@ -28,6 +28,12 @@ export default function PatientMyAppointments(props) {
     }
     return (
         <div className="my_appointments_container">
+            <Heading text="Your billing statistics" />
+            <Spacer height={10} />
+            <div className="appointment_container">
+
+            </div>
+            <Spacer height={10} />
             <Heading text="Your upcoming appointments" />
             <Spacer height={10} />
             <div className="appointments_container">
