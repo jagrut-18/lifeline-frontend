@@ -6,6 +6,7 @@ import {IoMdCloseCircle, IoIosAdd} from 'react-icons/io';
 import Spacer from '../../../components/spacer';
 import {BsFillCheckCircleFill} from 'react-icons/bs';
 import Textarea from '../../../components/textarea/textarea';
+import Description from '../../../components/description/description';
 import Button from '../../../components/button/button';
 import { API } from '../../../api/api';
 import PatientPackageDescription from '../../search_package_patient/patient_package_description';
@@ -70,6 +71,13 @@ export default function AppointmentModal(props) {
             }
         }
 
+        if (selectedSlot == 'undefined' || selectedSlot == null || selectedSlot == "") {
+            alert("Please select a time.")
+            setLoading(false);
+            return
+        }
+
+        console.log({selectedSlot})
         const dateIndexAndSlot = selectedSlot.split("_");
         let date = new Date();
         date.setDate(date.getDate() + parseInt(dateIndexAndSlot[0]) + 1);

@@ -3,7 +3,7 @@
     flex-direction: column;
     padding: 2% 8%;
     background-color: var(--background);
-    height: calc(100vh - 80px);
+    /* height: calc(100vh - 80px); */
 }
 
 .appointments_container {
@@ -11,4 +11,8 @@
     flex-direction: row;
     flex-wrap: wrap;
     gap: 20px;
+}
+
+.statistics_wrapper {
+    width: 30%;
 }
