@@ -26,7 +26,7 @@ export default function PatientBookAppointmentCard(props) {
             {isAppointmentModalOpen && <AppointmentModal isOpen={isAppointmentModalOpen} setIsOpen={setIsAppointmentModalOpen} data={props.data} allAppointments={props.allAppointments} onAppointmentBooked={onAppointmentBooked} currentInsuranceDetails={props.currentInsuranceDetails} />}
             {isReviewsModalOpen && <ReviewsModal isOpen={isReviewsModalOpen} setIsOpen={setIsReviewsModalOpen} reviewsRatings={reviews_rating} />}
             <div className="patient_book_appointment_container">
-                <div style={{ backgroundImage: `url(${profile_image_url == null ? Doctor : profile_image_url})` }} className="patient_book_appointment_doctor_image" />
+                <div style={{ backgroundImage: `url(${profile_image_url == null ? `https://placehold.jp/50/cccccc/ffffff/250x250.png?text=${doctor_name.split(" ")[0].charAt(0)}${doctor_name.split(" ")[1].charAt(0)}` : profile_image_url})` }} className="patient_book_appointment_doctor_image" />
                 <div className="appointment_doctor_details">
                     <div className="name_row">
                         <Heading text={doctor_name} style={{fontSize: 18}}/>

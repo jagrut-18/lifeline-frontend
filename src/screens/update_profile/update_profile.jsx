@@ -292,7 +292,7 @@ export default function UpdateProfileScreen(props) {
                 <Heading text="General details" />
                 <Spacer height={15} />
                 <div className="profile_row_between">
-                    <img className='update_profile_image' src={profileImageUrl == null ? `https://avatars.dicebear.com/api/${gender.toLowerCase()}/${first}.svg` : profileImageUrl} alt="Profile Image" />
+                    <img className='update_profile_image' src={profileImageUrl == null ? `https://placehold.jp/84/cccccc/ffffff/250x250.png?text=${localStorage.getItem("email").toUpperCase().charAt(0)}` : profileImageUrl} alt="Profile Image" />
                     <OutlineButton text='Change Profile Picture' onClick={selectProfileImage} />
                     <input id='update_profile_image_input' type="file" accept="image/*" onChange={(e) => onProfileImageUpdate(e.target.files[0])} />
                 </div>

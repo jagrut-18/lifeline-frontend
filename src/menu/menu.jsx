@@ -95,7 +95,7 @@ const Menu = (props) => {
                             
                             <div className="avatar" onClick={() => setOpenMenu(!openMenuFlag)}>
                                 {/* <div className="profile_img">{getUserInitials}</div> */}
-                                <img src={globalProfileImage == null ? Doctor : globalProfileImage} alt="avatar" className="profile_img" />
+                                <img src={globalProfileImage == null ? `https://placehold.jp/120/cccccc/ffffff/250x250.png?text=${localStorage.getItem("email").toUpperCase().charAt(0)}` : globalProfileImage} alt="avatar" className="profile_img" />
                                 <IoIosArrowDown size={14} color='var(--text-primary)'/>
                             </div>
                             {openMenuFlag && 
