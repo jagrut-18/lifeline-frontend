@@ -36,9 +36,9 @@ function App() {
     <LoginStateContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
       <ProfileImageContext.Provider value={{ globalProfileImage, setGlobalProfileImage }}>
         <div className="App" data-theme={theme}>
-          {/* {
+          {
             captchaVerified
-              ? <> */}
+              ? <>
                 <Menu theme={theme} setTheme={setTheme} />
                 {
                   isLoggedIn
@@ -48,12 +48,12 @@ function App() {
                     </div>
                     : <RouteStack />
                 }
-              {/* </>
+              </>
               : <ReCAPTCHA
               sitekey={SITEKEY}
-              onChange={onChange} */}
-            {/* />
-          } */}
+              onChange={onChange}
+            />
+          }
 
         </div>
       </ProfileImageContext.Provider>

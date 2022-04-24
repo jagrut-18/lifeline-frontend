@@ -41,17 +41,17 @@
     color: var(--text-secondary);
 }
 
-.container-landing .row .col-1 button {
+/* .container-landing .row .col-1 button {
     width: 180px;
     border: 0;
     padding: 20px 12px;
     outline: none;
     color: var(--text-primary);
-    /* background: linear-gradient(to right, #fff, #B8405E); */
+    background: linear-gradient(to right, #fff, #B8405E);
     background-color: #B8405E;
     border-radius: 7px;
     cursor: pointer;
-}
+} */
 
 .container-landing .row .col-2 {
     position: relative;

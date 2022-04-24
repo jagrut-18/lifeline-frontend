@@ -8,7 +8,7 @@ export default function ButtonSimple(props) {
     }
 
     return (
-        <button className='button' style={style} onClick={props.onClick}>
+        <button className='button-simple' style={style} onClick={props.onClick}>
             {props.text}
         </button>
     )

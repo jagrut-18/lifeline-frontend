@@ -1,5 +1,5 @@
 .chat_popup {
-    position: absolute;
+    position: fixed;
     z-index: 200;
     bottom: 35px;
     right: 0;
@@ -23,7 +23,7 @@
 }
 
 .chat_popup_show {
-    position: absolute;
+    position: fixed;
     z-index: 200;
     bottom: 0px;
     right: 0;

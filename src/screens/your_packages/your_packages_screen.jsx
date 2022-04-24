@@ -41,7 +41,7 @@ export default function YourPackagesScreen() {
     }
 
     return (
-        <>
+        <div>
             <div className="heading_container">
                 <Heading text="Your Packages" />
                 <OutlineButton text="Create Package" onClick={() => navigate(routes.create_insurance_package)} />
@@ -77,6 +77,6 @@ export default function YourPackagesScreen() {
                         : <>No packages created yet.</>
                 }
             </div>
-        </>
+        </div>
     );
 }

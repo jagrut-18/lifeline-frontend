@@ -58,7 +58,7 @@ const HomeScreen = () => {
     }
 
     return (
-        <div className="container-home">
+        <div className={`${localStorage.getItem("user_type_id") == "1" && 'container-home-patient'} container-home`}>
             <div className="home-screen-section-1">
                 <div className="home-screen-section-1-inner">
                     {patientAppointments.length > 0 && <Heading text="Your upcoming appointments" />}
@@ -86,15 +86,15 @@ const HomeScreen = () => {
                 </div>
             </div>
             <div className="home-screen-section-2">
-                <Description text={"Covid-19 related articles"}/>
-                <Spacer height={10}/>
-                <PatientSectionTwo title={"WHO: Coronavirus disease (COVID-19)"} description={"Coronavirus disease (COVID-19) is an infectious disease caused by the SARS-CoV-2 virus."} url={"https://www.who.int/health-topics/coronavirus#tab=tab_1"}/>
-                <Spacer height={20}/>
-                <PatientSectionTwo title={"CDC: Symptoms of COVID-19"} description={"People with COVID-19 have had a wide range of symptoms reported – ranging from mild symptoms to severe illness."} url={"https://www.cdc.gov/coronavirus/2019-ncov/symptoms-testing/symptoms.html"}/>
-                <Spacer height={20}/>
-                <PatientSectionTwo title={"Vaccine Information and Planning"} description={"COVID-19 Vaccination in Indiana"} url={"https://www.coronavirus.in.gov/vaccine/"}/>
-                <Spacer height={20}/>
-                <PatientSectionTwo title={"Treating COVID-19 at home: Care tips for you and others"} description={"If you have coronavirus disease 2019 (COVID-19) and you're caring for yourself at home or you're caring for a loved one with COVID-19 at home, you might have questions"} url={"https://www.mayoclinic.org/diseases-conditions/coronavirus/in-depth/treating-covid-19-at-home/art-20483273"}/>
+                <Description text={"Covid-19 related articles"} />
+                <Spacer height={10} />
+                <PatientSectionTwo title={"WHO: Coronavirus disease (COVID-19)"} description={"Coronavirus disease (COVID-19) is an infectious disease caused by the SARS-CoV-2 virus."} url={"https://www.who.int/health-topics/coronavirus#tab=tab_1"} />
+                <Spacer height={20} />
+                <PatientSectionTwo title={"CDC: Symptoms of COVID-19"} description={"People with COVID-19 have had a wide range of symptoms reported – ranging from mild symptoms to severe illness."} url={"https://www.cdc.gov/coronavirus/2019-ncov/symptoms-testing/symptoms.html"} />
+                <Spacer height={20} />
+                <PatientSectionTwo title={"Vaccine Information and Planning"} description={"COVID-19 Vaccination in Indiana"} url={"https://www.coronavirus.in.gov/vaccine/"} />
+                <Spacer height={20} />
+                <PatientSectionTwo title={"Treating COVID-19 at home: Care tips for you and others"} description={"If you have coronavirus disease 2019 (COVID-19) and you're caring for yourself at home or you're caring for a loved one with COVID-19 at home, you might have questions"} url={"https://www.mayoclinic.org/diseases-conditions/coronavirus/in-depth/treating-covid-19-at-home/art-20483273"} />
             </div>
         </div>
     );

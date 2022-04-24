@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import Heading from '../../components/heading/heading';
 import Description from '../../components/description/description';
 import Spacer from '../../components/spacer';
+import ButtonSimple from '../../components/buttonsimple/buttonsimple';
 
 const LandingScreen = () => {
     const navigate = useNavigate();
@@ -35,7 +36,7 @@ const LandingScreen = () => {
                 <div className="col-1">
                     <Heading text="Find Doctors and Insurance Packages" style={{fontSize: 40}} />
                     <p>Whether finding a doctor, setting up an appointment, or just helping you get more from your plan, our platform provides everything. Plus, we’ve made it easier to talk to a doctor quickly. So, you can spend less time searching for answers and more time doing what you actually want.</p>
-                    <button type="button" onClick={navigateNext}>Get Started</button>
+                    <ButtonSimple text="Get Started" onClick={navigateNext} />
                 </div>
                 <div className="col-2">
                     <img src={doctor} alt="doctor" />
