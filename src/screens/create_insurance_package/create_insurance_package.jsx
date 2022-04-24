@@ -16,17 +16,17 @@ import { createUUID } from '../../utilities/create_uuid';
 
 function CreateInsurancePackage() {
 	const navigate = useNavigate()
-	const[packageName, setPackageName] = useState("")
-	const[policyNumber, setPolicyNumber] = useState("")
-	const[premium, setPremium] = useState("")
-	const[deductible, setDeductible] = useState("")
-	const[benefits, setBenefits] = useState({})
-	const[timePeriod, setTimePeriod] = useState("")
-	const[isPlanDisabled, setIsPlanDisabled] = useState("")
-	const[error, setError] = useState("")
+	const [packageName, setPackageName] = useState("")
+	const [policyNumber, setPolicyNumber] = useState("")
+	const [premium, setPremium] = useState("")
+	const [deductible, setDeductible] = useState("")
+	const [benefits, setBenefits] = useState({})
+	const [timePeriod, setTimePeriod] = useState("")
+	const [isPlanDisabled, setIsPlanDisabled] = useState("")
+	const [error, setError] = useState("")
 
 	useEffect(() => {
-	  console.log(benefits)
+		console.log(benefits)
 	}, [])
 
 	const setBenefitsFunc = (benefits) => {
@@ -66,21 +66,22 @@ function CreateInsurancePackage() {
 		formData.append("includes_dental", benefits["Medical"]);
 		formData.append("includes_vision", benefits["Vision"]);
 		formData.append("insurance_provider_id", parseInt(localStorage.getItem("user_id")));
-		console.log({packageName})
-		console.log({premium})
-		console.log({policyNumber})
-		console.log({deductible})
-		console.log({timePeriod})
-		console.log({isPlanDisabled})
-		console.log({benefits})
+		console.log({ packageName })
+		console.log({ premium })
+		console.log({ policyNumber })
+		console.log({ deductible })
+		console.log({ timePeriod })
+		console.log({ isPlanDisabled })
+		console.log({ benefits })
 		console.log(localStorage.getItem("user_id"))
-		
+
 		const response = await API.createPackage(formData);
-		if (response.success) {
+		if (response.responseFlag == 1) {
 			alert("Your Package has been created");
 			navigate(-1);
-		}
-		else {
+		} else if (response.responseFlag == 2) {
+			setError(response.message);
+		} else if (response.responseFlag == 3) {
 			setError(response.error);
 		}
 	}
@@ -89,31 +90,31 @@ function CreateInsurancePackage() {
 		<div className="container">
 			<Card width="40%" height="inherit" style={{ margin: "40px 0" }}>
 				<Heading text="Create a package" fontSize={24} />
-                <Description text="Create a profile for yourself and have all your details and requirments at one place!" />
+				<Description text="Create a profile for yourself and have all your details and requirments at one place!" />
 				<Spacer height={15} />
 				<Textfield placeholder="Package Name" value={packageName} onChange={setPackageName} />
-                <Spacer height={10} />
-                <div className="policy_no_container">
+				<Spacer height={10} />
+				<div className="policy_no_container">
 					<Textfield placeholder="Policy Number" value={policyNumber} onChange={setPolicyNumber} />
-					<OutlineButton text="Generate" onClick={() => setPolicyNumber(createUUID())}/>
+					<OutlineButton text="Generate" onClick={() => setPolicyNumber(createUUID())} />
 				</div>
-                <Spacer height={10} />
+				<Spacer height={10} />
 				<div className="profile_row">
-                    <Textfield placeholder="Premium in $" value={premium} type={'number'} onChange={setPremium} />
-                    <Spacer width={15} />
-                    <Textfield placeholder="Deductible" value={deductible} type={'number'} onChange={setDeductible} />
-                </div>
+					<Textfield placeholder="Premium in $" value={premium} type={'number'} onChange={setPremium} />
+					<Spacer width={15} />
+					<Textfield placeholder="Deductible" value={deductible} type={'number'} onChange={setDeductible} />
+				</div>
 				<Spacer height={15} />
 				<Description text={'What does the package cover?'} />
 				<Spacer height={10} />
-				<Multiselect options={['Medical', 'Dental', 'Vision']} onChange={setBenefitsFunc}/>
+				<Multiselect options={['Medical', 'Dental', 'Vision']} onChange={setBenefitsFunc} />
 				<Textfield placeholder="Time in years" type={"number"} step={0.5} value={timePeriod} onChange={setTimePeriod} />
 				<Spacer height={15} />
 				<Description text="Plan Disabled?" />
 				<Spacer height={10} />
-				<DropdownSelect options={["Yes", "No"]} onChange={setIsPlanDisabled}/>
+				<DropdownSelect options={["Yes", "No"]} onChange={setIsPlanDisabled} />
 				<Spacer height={20} />
-				<Button text={'Create'} onClick={createPackage}/>
+				<Button text={'Create'} onClick={createPackage} />
 				<Spacer height={10} />
 				{error && <ErrorComponent message={error} />}
 			</Card>
