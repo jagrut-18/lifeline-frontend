@@ -13,7 +13,7 @@ const Menu = (props) => {
     const {isLoggedIn, setIsLoggedIn} = useContext(LoginStateContext);
     const [openMenuFlag, setOpenMenu] = useState(false);
     const isPatient = localStorage.getItem("user_type_id") == "1";
-    const {globalProfileImage, _} = useContext(ProfileImageContext);
+    const {globalProfileImage, setGlobalProfileImage} = useContext(ProfileImageContext);
     const navigate = useNavigate();
 
     // to close the menu when clicked outside
@@ -56,6 +56,7 @@ const Menu = (props) => {
     const onLogout = () => {
         logout();
         setIsLoggedIn(false);
+        setGlobalProfileImage(null);
         navigate(routes.login);
     }
 
