@@ -71,11 +71,12 @@ function LoginScreen() {
             formData.append('password', password);
 
             const response = await API.login(formData);
+            console.log(response.data);
             if (response.success) {
                 const date = new Date();
-                date.setSeconds(date.getSeconds + 10);
-                // date.setDate(date.getDate() + 7);
-                console.log(date.getTime());
+                // date.setSeconds(date.getSeconds() + 60);
+                date.setDate(date.getDate() + 7);
+                console.log(date.getTime().toString());
                 localStorage.setItem('session', date.getTime().toString())
                 console.log(response)
                 setVerificationCode(response.data.verification_code)
