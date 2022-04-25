@@ -97,7 +97,7 @@ function SearchPackagePatient() {
 
             setRecommendedPackage(response.data.data.suggested_package)
             setPatientInsurancePackage(response.data.data.my_package)
-            setInsurancePackages(response.data.data.filtered_packages.filter((filtered) => filtered.package_id != response.data.data.my_package.package_id || filtered.is_disabled == 0))
+            setInsurancePackages(response.data.data.filtered_packages.filter((filtered) => filtered.is_disabled == 0 || (Object.keys(response.data.data.my_package).length != 0 && filtered.package_id != response.data.data.my_package.package_id)))
             setTotalSearches(response.data.data.filtered_packages.length)
             setLoading(false);
         }

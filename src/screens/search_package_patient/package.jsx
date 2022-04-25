@@ -13,7 +13,6 @@ function Package(props) {
         <div>
             {
                 props.insurancePackages.map((data) => (
-                    data.is_disabled == 0 ?
                         <div key={data.package_id} className="section-box">
                             <div className="search_package_details_container">
                                 <div className="row">
@@ -50,8 +49,6 @@ function Package(props) {
                             }} />
 
                         </div>
-                        :
-                        null
                 ))
             }
         </div>

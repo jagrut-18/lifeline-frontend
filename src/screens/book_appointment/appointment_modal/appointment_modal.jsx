@@ -94,7 +94,7 @@ export default function AppointmentModal(props) {
         formData.append("patient_id", parseInt(localStorage.getItem("user_id")));
         formData.append("document_url", fileName);
         formData.append("comments", comments);
-        formData.append("insurance_plan_id", props.currentInsuranceDetails.package_id ?? 0);
+        formData.append("insurance_plan_id", props.currentInsuranceDetails.package_id ?? 31);
         formData.append("actual_payment", fee);
         formData.append("total_payment", amountToPay);
         formData.append("payment_reference", "temp_reference");
@@ -106,7 +106,7 @@ export default function AppointmentModal(props) {
             patient_id: localStorage.getItem("user_id"),
             document_url: fileName,
             comments: comments,
-            insurance_plan_id: props.currentInsuranceDetails.package_id ?? 0,
+            insurance_plan_id: props.currentInsuranceDetails.package_id ?? 31,
             actual_payment: fee,
             total_payment: amountToPay
         })
