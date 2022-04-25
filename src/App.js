@@ -15,9 +15,6 @@ import ReCAPTCHA from 'react-google-recaptcha';
 
 
 
-const SITEKEY = '6LcbAIEfAAAAAEO_S0szi42RyMDQLqHHbFxdbnZw';
-const SECRETKEY = '6LcbAIEfAAAAAOr00SgBSfbl47k-EyWAhHxnMFjA';
-
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem("token") ? true : false);
@@ -36,9 +33,6 @@ function App() {
     <LoginStateContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
       <ProfileImageContext.Provider value={{ globalProfileImage, setGlobalProfileImage }}>
         <div className="App" data-theme={theme}>
-          {
-            captchaVerified
-              ? <>
                 <Menu theme={theme} setTheme={setTheme} />
                 {
                   isLoggedIn
@@ -48,12 +42,6 @@ function App() {
                     </div>
                     : <RouteStack />
                 }
-              </>
-              : <ReCAPTCHA
-              sitekey={SITEKEY}
-              onChange={onChange}
-            />
-          }
 
         </div>
       </ProfileImageContext.Provider>

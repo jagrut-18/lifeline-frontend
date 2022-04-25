@@ -1,7 +1,6 @@
 import './menu.css'
 import React, { useState, useRef, useEffect, useContext } from 'react';
 import Logo from '../images/logo.svg';
-import Doctor from '../images/doctor.png';
 import {IoIosArrowDown} from 'react-icons/io';
 import routes from '../routing/routes';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -21,6 +20,7 @@ const Menu = (props) => {
     // TODO: Create utility function to use here and in dropdown component
     const ref = useRef(null);
     useEffect(() => {
+        window.onLogout = onLogout;
         const handleClickOutside = (event) => {
           if (ref.current && !ref.current.contains(event.target)) {
             onClickOutside && onClickOutside();

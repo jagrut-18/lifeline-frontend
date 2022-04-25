@@ -63,63 +63,52 @@ export default function UpdateProfileScreen(props) {
             }
     }
 
-    function getData() {
+    async function getData() {
         setIsLoading(true)
         let formData = new FormData();
         formData.append("user_id", localStorage.getItem('user_id'));
 
-        axios.post('http://3.220.183.182:5000/fetch_data', formData).then(function (response) {
-            console.log("res", response.data);
-            if (response.data.response_code == "200") {
-                    setFirst(response.data.data.first_name)
-                    setLast(response.data.data.last_name)
-                    setPhone(response.data.data.phone_number)
-                    setAddress(response.data.data.address)
-                    setCity(response.data.data.city)
-                    setState(response.data.data.state)
-                    setZipcode(response.data.data.zipcode)
-                    setProfileImageUrl(response.data.data.profile_image_url)
-                    setGlobalProfileImage(response.data.data.profile_image_url)
-                if (userTypeId == "1") {
-                    setWeight(response.data.data.Weight)
-                    setDob(response.data.data.birth_date)
-                    setBloodGroup(response.data.data.blood_type)
-                    setDrink(response.data.data.drinking_preference)
-                    setHeight(response.data.data.height)
-                    setGender(response.data.data.sex.toLowerCase() == genderOptions[0].toLowerCase() ? genderOptions[0] : genderOptions[1])
-                    setSmoke(response.data.data.smoking_preference)
-                } else if (userTypeId == "2") {
-                    setGender(response.data.data.sex.toLowerCase() == genderOptions[0].toLowerCase() ? genderOptions[0] : genderOptions[1])
-                    setDob(response.data.data.birth_date)
-                    setHasCovidCare(response.data.data.has_covid_care)
-                    setSpecialization(response.data.data.specialization)
-                    setHospitalName(response.data.data.hospital_name)
+        const response = await API.fetchData(formData);
+        if (response.success) {
+            setFirst(response.data.first_name)
+            setLast(response.data.last_name)
+            setPhone(response.data.phone_number)
+            setAddress(response.data.address)
+            setCity(response.data.city)
+            setState(response.data.state)
+            setZipcode(response.data.zipcode)
+            setProfileImageUrl(response.data.profile_image_url)
+            setGlobalProfileImage(response.data.profile_image_url)
+            if (userTypeId == "1") {
+                setWeight(response.data.Weight)
+                setDob(response.data.birth_date)
+                setBloodGroup(response.data.blood_type)
+                setDrink(response.data.drinking_preference)
+                setHeight(response.data.height)
+                setGender(response.data.sex.toLowerCase() == genderOptions[0].toLowerCase() ? genderOptions[0] : genderOptions[1])
+                setSmoke(response.data.smoking_preference)
+            } else if (userTypeId == "2") {
+                setGender(response.data.sex.toLowerCase() == genderOptions[0].toLowerCase() ? genderOptions[0] : genderOptions[1])
+                setDob(response.data.birth_date)
+                setHasCovidCare(response.data.has_covid_care)
+                setSpecialization(response.data.specialization)
+                setHospitalName(response.data.hospital_name)
 
-                } else if (userTypeId == "3") {
-                    setCompanyName(response.data.data.company_name)
-                }
-
-            } else if (response.data.response_code == "230") {
-                alert("Something went wrong")
+            } else if (userTypeId == "3") {
+                setCompanyName(response.data.company_name)
             }
-            else {
-                alert("Something went wrong")
-
-            }
-            setIsLoading(false)
-        })
-            .catch(function (error) {
-                // setError("Something went wrong")
-                setIsLoading(false)
-                console.log(error);
-            })
+        }
+        else {
+            alert(response.error);
+        }
+        setIsLoading(false)
     }
 
     useEffect(() => {
         getData()
     }, [])
 
-    function updateUserProfile() {
+    async function updateUserProfile() {
         let formData = new FormData()
 
         let requestData = {}
@@ -195,18 +184,16 @@ export default function UpdateProfileScreen(props) {
             formData.append(key, requestData[key]);
         }
 
-        axios.post('http://3.220.183.182:5000/updating', formData).then(function (response) {
-            console.log("res", response.data);
-
-            if (response.data.response_code == "200") {
-                alert("Record successfully updated")
-                localStorage.setItem('user_name', first + ' ' + last);
-                localStorage.setItem('profile_image', profileImageUrl);
-                getData()
-            } else if (response.data.response_code == "230") {
-                alert("Something went wrong")
-            }
-        })
+        const response = await API.updating(formData);
+        if (response.success) {
+            alert("Record successfully updated")
+            localStorage.setItem('user_name', first + ' ' + last);
+            localStorage.setItem('profile_image', profileImageUrl);
+            getData()
+        }
+        else {
+            alert(response.error);
+        }
     }
 
     function getProfile2() {

@@ -9,9 +9,9 @@ import Button from '../../components/button/button';
 import Google from '../../components/google/google';
 import { useNavigate } from 'react-router-dom';
 import routes from '../../routing/routes';
-import axios from 'axios';
 import ErrorComponent from '../../components/error/error';
 import saveLoginDetails from '../../auth/login';
+import { API } from '../../api/api';
 
 function SignupScreen() {
   const [email, setEmail] = useState('');
@@ -104,7 +104,7 @@ function SignupScreen() {
 
   }
 
-  function onNext() {
+  async function onNext() {
     if (!validate()) return;
     setLoading(true);
     var formData = new FormData();
@@ -113,28 +113,22 @@ function SignupScreen() {
     formData.append('password', password);
     formData.append('user_type_id', localStorage.getItem('user_type_id'));
     
-    axios.post('http://3.220.183.182:5000/signup', formData).then(function (response) {
-      console.log(response.data);
-      if (response.data.response_code == "200") {
-        saveLoginDetails(email, response.data.data.user_id, response.data.data.token);
-        localStorage.setItem("specializations", JSON.stringify(response.data.data.specialization));
+    const response = await API.signup(formData);
+    if (response.success) {
+      const date = new Date();
+      date.setDate(date.getDate() + 7);
+      localStorage.setItem('session', date.getTime().toString())
+      saveLoginDetails(email, response.data.user_id, response.data.token);
+        localStorage.setItem("specializations", JSON.stringify(response.data.specialization));
         navigate(routes.onboarding1);
         setLoading(false);
-      } else if (response.data.response_code == "210") {
-        //user already exists
-        setError("This user already exists")
+    }
+    else {
+        setError(response.error);
         setLoading(false);
-      } else if (response.data.response_code == "230") {
-        setError("Something went wrong")
-        setLoading(false);
-      }
-    })
-    .catch(function (error) {
-      setError("Something went wrong")
-      setLoading(false);
-      console.log(error);
-    })
+    }
   }
+    
   return (
     <div className="container">
       <Card>

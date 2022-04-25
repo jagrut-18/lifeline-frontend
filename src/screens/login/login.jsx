@@ -16,6 +16,12 @@ import { LoginStateContext } from '../../contexts';
 import { regexEmail, regexPassword } from '../../utilities/regex.js';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 import { API } from '../../api/api';
+import ReCAPTCHA from 'react-google-recaptcha';
+
+
+
+const SITEKEY = '6LcbAIEfAAAAAEO_S0szi42RyMDQLqHHbFxdbnZw';
+const SECRETKEY = '6LcbAIEfAAAAAOr00SgBSfbl47k-EyWAhHxnMFjA';
 
 function LoginScreen() {
     const [email, setEmail] = useState('');
@@ -26,8 +32,13 @@ function LoginScreen() {
     const [verficationCode, setVerificationCode] = useState("")
     const [validatedVerificationCode, setValidatedVerificationCode] = useState("")
     const [userDetails, setUserDetails] = useState({})
+    const [captchaVerified, setCaptchaVerified] = useState(false);
     const { _, setIsLoggedIn } = useContext(LoginStateContext);
     const navigate = useNavigate();
+  
+    function onChange(value) {
+      setCaptchaVerified(value ? true : false);
+    }
 
     //validate input
     function validate() {
@@ -48,6 +59,10 @@ function LoginScreen() {
     }
 
     async function onNext() {
+        if (!captchaVerified) {
+            setError('Please verify captcha first');
+            return;
+        }
         if (verficationCode == "") {
             if (!validate()) return;
             setLoading(true);
@@ -57,6 +72,11 @@ function LoginScreen() {
 
             const response = await API.login(formData);
             if (response.success) {
+                const date = new Date();
+                date.setSeconds(date.getSeconds + 10);
+                // date.setDate(date.getDate() + 7);
+                console.log(date.getTime());
+                localStorage.setItem('session', date.getTime().toString())
                 console.log(response)
                 setVerificationCode(response.data.verification_code)
                 setUserDetails({
@@ -103,7 +123,7 @@ function LoginScreen() {
                     </div>
                     <Spacer height={7} />
                     <ForgotPassword onClick={() => navigate(routes.forgot_password)} />
-                    <Spacer height={30} />
+                    <Spacer height={20} />
 
                     {
                         verficationCode != "" ?
@@ -115,8 +135,9 @@ function LoginScreen() {
                             </div>
                             :
                             null
-                    }
-
+                        }
+                    {!captchaVerified && <ReCAPTCHA sitekey={SITEKEY} onChange={onChange} />}
+                    <Spacer height={20} />
                     <Button text={verficationCode == "" ? "Next" : "verify"} onClick={onNext} isLoading={loading} />
                 </div>
                 <div className="error-wrapper">

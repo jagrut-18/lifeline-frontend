@@ -6,7 +6,6 @@ import {IoMdCloseCircle, IoIosAdd} from 'react-icons/io';
 import Spacer from '../../../components/spacer';
 import {BsFillCheckCircleFill} from 'react-icons/bs';
 import Textarea from '../../../components/textarea/textarea';
-import Description from '../../../components/description/description';
 import Button from '../../../components/button/button';
 import { API } from '../../../api/api';
 import PatientPackageDescription from '../../search_package_patient/patient_package_description';
@@ -15,6 +14,7 @@ export default function AppointmentModal(props) {
     const bookedAppointments = props.data.appointments;
     const fee = props.data.fee;
     const deductible = props.currentInsuranceDetails.deductible;
+    const amountToPay = deductible ? Math.min(fee, deductible) : fee;
 
     const [selectedDate, setSelectedDate] = useState(0);
     const [selectedSlot, setSelectedSlot] = useState();
@@ -91,9 +91,9 @@ export default function AppointmentModal(props) {
         formData.append("patient_id", parseInt(localStorage.getItem("user_id")));
         formData.append("document_url", fileName);
         formData.append("comments", comments);
-        formData.append("insurance_plan_id", props.currentInsuranceDetails.package_id);
+        formData.append("insurance_plan_id", props.currentInsuranceDetails.package_id ?? 0);
         formData.append("actual_payment", fee);
-        formData.append("total_payment", Math.min(fee, deductible));
+        formData.append("total_payment", amountToPay);
         formData.append("payment_reference", "temp_reference");
 
         console.log({
@@ -103,9 +103,9 @@ export default function AppointmentModal(props) {
             patient_id: localStorage.getItem("user_id"),
             document_url: fileName,
             comments: comments,
-            insurance_plan_id: props.currentInsuranceDetails.package_id,
+            insurance_plan_id: props.currentInsuranceDetails.package_id ?? 0,
             actual_payment: fee,
-            total_payment: Math.min(fee, deductible)
+            total_payment: amountToPay
         })
 
         const response = await API.bookAppointment(formData);
@@ -179,10 +179,10 @@ export default function AppointmentModal(props) {
                 </div>
             </div>
             <Spacer height={10} />
-            <Heading text="Payment Details:" style={{fontSize: 16}}/>
-            <PatientPackageDescription text1="Total Amount: " text2={fee} />
-            <PatientPackageDescription text1="Deductible: " text2={deductible} />
-            <Heading text={`Amount to pay: ${Math.min(fee, deductible)}`} />
+            {deductible && <Heading text="Payment Details:" style={{fontSize: 16}}/>}
+            {deductible && <PatientPackageDescription text1="Total Amount: " text2={fee} />}
+            {deductible && <PatientPackageDescription text1="Deductible: " text2={deductible} />}
+            <Heading text={`Amount to pay: ${amountToPay}`} />
             <Spacer height={10} />
             <Button text="Book Appointment" isLoading={loading} width={250} onClick={bookAppointment}/>
         </Modal>

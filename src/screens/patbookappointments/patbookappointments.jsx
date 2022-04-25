@@ -19,7 +19,6 @@ import Searchfield from '../../components/searchfield/searchfield'
 import PatientBookAppointmentCard from '../../components/patient_book_appointment_card/patient_book_appointment_card'
 import { API } from '../../api/api';
 import ErrorComponent from '../../components/error/error';
-import { maxHeight } from '@mui/system';
 import { BsStarFill } from 'react-icons/bs';
 import { BsStar } from 'react-icons/bs';
 import axios from 'axios';

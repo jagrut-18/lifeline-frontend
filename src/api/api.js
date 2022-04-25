@@ -20,10 +20,14 @@ import { forgotPassword } from "./apis/forgot_passord";
 import { updatePassword } from "./apis/update_password"
 import { updateAppointmentDoneFlag } from "./apis/update_appointment_done_flag"
 import { updateReviewsRatings } from "./apis/update_reviews_ratings"
+import { signup } from "./apis/signup";
+import { fetchData } from "./apis/fetch_data";
+import { updating } from "./apis/updating";
 
 
 export const API = {
     login: (formData) => login(formData),
+    signup: (formData) => signup(formData),
     forgotPassword: (formData) => forgotPassword(formData),
     updatePassword: (formData) => updatePassword(formData),
     onboarding: (formData) => onboarding(formData),
@@ -44,5 +48,7 @@ export const API = {
     getEnrolledPatients: (formData) => getEnrolledPatients(formData),
     suggestPackage: (formData) => suggestPackage(formData),
     updateAppointmentDoneFlag: (formData) => updateAppointmentDoneFlag(formData),
-    updateReviewsRatings: (formData) => updateReviewsRatings(formData)
+    updateReviewsRatings: (formData) => updateReviewsRatings(formData),
+    fetchData: (formData) => fetchData(formData),
+    updating: (formData) => updating(formData),
 };
