@@ -42,6 +42,7 @@ export default function PatientAppointmentView(props) {
     const { appointment_id } = useParams();
     const [loading, setLoading] = useState(true)
     const [reviewsRatingsModalFlag, setReviewsRatingsModalFlag] = useState(0)
+    const [appointmentDoneFlag, setAppointmentDoneFlag] = useState(0)
 
     const uploadFile = async () => {
         // openFileSelector()
@@ -57,6 +58,12 @@ export default function PatientAppointmentView(props) {
 
         if (response.success) {
             const data = response.data;
+
+            let date = new Date(data.date)
+            console.log({date})
+            date.setHours(date.getHours() + (date.getTimezoneOffset() / 60));
+            console.log({date})
+            
             console.log("res: ", data.date)
             // setDetails(data);
 
@@ -65,7 +72,7 @@ export default function PatientAppointmentView(props) {
 
             setDoctorDetails({
                 time: data.time,
-                date: data.date,
+                date: `${date.toLocaleString('default', { month: 'short' })} ${date.getDate()}, ${date.getFullYear()}`,
                 doctorId: data.doctor_id,
                 doctorName: data.doctor_name,
                 specialization: data.specialization,
@@ -76,7 +83,7 @@ export default function PatientAppointmentView(props) {
                 comments: data.comments
             });
 
-            console.log(data.document_url)
+            setAppointmentDoneFlag(data.appointment_done_flag)
 
             setDocumentUrl(data.document_url)
         } else {
@@ -147,10 +154,10 @@ export default function PatientAppointmentView(props) {
 
     return (
         <div>
-            {reviewsRatingsModalFlag == 0 ? <ReviewsRatingsModal doctorName={doctorDetails.doctorName} 
-            appointmentId={appointment_id} doctorId={doctorDetails.doctorId}
+            {reviewsRatingsModalFlag == 0 && appointmentDoneFlag == 1 ? <ReviewsRatingsModal doctorName={doctorDetails.doctorName}
+                appointmentId={appointment_id} doctorId={doctorDetails.doctorId}
             /> : null}
-            <Heading text={`Appointment: ${getDateString(doctorDetails.date)} ${doctorDetails.time}`} />
+            <Heading text={`Appointment: ${doctorDetails.date} ${doctorDetails.time}`} />
             <Spacer height={10} />
             <div className="app_details_wrapper">
                 <div className="app_details">

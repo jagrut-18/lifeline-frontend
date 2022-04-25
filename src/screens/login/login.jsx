@@ -139,7 +139,7 @@ function LoginScreen() {
                         }
                     {!captchaVerified && <ReCAPTCHA sitekey={SITEKEY} onChange={onChange} />}
                     <Spacer height={20} />
-                    <Button text={verficationCode == "" ? "Next" : "verify"} onClick={onNext} isLoading={loading} />
+                    <Button text={verficationCode == "" ? "Next" : "Verify"} onClick={onNext} isLoading={loading} />
                 </div>
                 <div className="error-wrapper">
                     {error && <ErrorComponent message={error} />}

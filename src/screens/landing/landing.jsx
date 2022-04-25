@@ -34,7 +34,7 @@ const LandingScreen = () => {
         <div className="container-landing">
             <div className="row">
                 <div className="col-1">
-                    <Heading text="Your Life. Our mission/responsibility." style={{fontSize: 40}} />
+                    <Heading text="Your Life, Our Mission." style={{fontSize: 40}} />
                     <p>Right care provided at the right time. Discover LifeLine and the services we offer. Find doctor, book appointments, purchase insurance packages, all at one place. Managing your wellness has never been this easy.</p>
                     <ButtonSimple text="Get Started" onClick={navigateNext} />
                 </div>

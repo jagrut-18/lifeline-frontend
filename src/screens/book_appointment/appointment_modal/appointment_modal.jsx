@@ -2,9 +2,9 @@ import './appointment_modal.css';
 import Modal from 'react-modal';
 import { useState } from 'react';
 import Heading from '../../../components/heading/heading';
-import {IoMdCloseCircle, IoIosAdd} from 'react-icons/io';
+import { IoMdCloseCircle, IoIosAdd } from 'react-icons/io';
 import Spacer from '../../../components/spacer';
-import {BsFillCheckCircleFill} from 'react-icons/bs';
+import { BsFillCheckCircleFill } from 'react-icons/bs';
 import Textarea from '../../../components/textarea/textarea';
 import Button from '../../../components/button/button';
 import { API } from '../../../api/api';
@@ -41,11 +41,14 @@ export default function AppointmentModal(props) {
         let date = new Date();
         date.setDate(date.getDate() + selectedDate + 1);
         date.setHours(0, 0, 0, 0);
+
         for (let i = 0; i < bookedAppointments.length; i++) {
             const appointment = bookedAppointments[i];
             const bookedDate = new Date(appointment.date);
+            bookedDate.setHours(bookedDate.getHours() + (bookedDate.getTimezoneOffset() / 60));
             bookedDate.setHours(0, 0, 0, 0);
-            if (bookedDate.toLocaleDateString() == date.toLocaleDateString() && appointment.booked_appointment == slot){
+
+            if (bookedDate.toLocaleDateString() == date.toLocaleDateString() && appointment.booked_appointment == slot) {
                 return true;
             }
         }
@@ -77,7 +80,7 @@ export default function AppointmentModal(props) {
             return
         }
 
-        console.log({selectedSlot})
+        console.log({ selectedSlot })
         const dateIndexAndSlot = selectedSlot.split("_");
         let date = new Date();
         date.setDate(date.getDate() + parseInt(dateIndexAndSlot[0]) + 1);
@@ -109,7 +112,7 @@ export default function AppointmentModal(props) {
         })
 
         const response = await API.bookAppointment(formData);
-        if (response.success){
+        if (response.success) {
             props.onAppointmentBooked(parseInt(props.data.doctor_id), bookedDate, dateIndexAndSlot[1]);
             alert("Your appointment has been booked!");
         }
@@ -123,10 +126,10 @@ export default function AppointmentModal(props) {
         <Modal isOpen={props.isOpen} onRequestClose={() => props.setIsOpen(false)} style={customStyles}>
             <div className="modal_heading_row">
                 <Heading text="Book an appointment" />
-                <IoMdCloseCircle color='var(--text-primary)' size={20} onClick={() => {props.setIsOpen(false)}} cursor='pointer' />
+                <IoMdCloseCircle color='var(--text-primary)' size={20} onClick={() => { props.setIsOpen(false) }} cursor='pointer' />
             </div>
             <Spacer height={10} />
-            <Heading text="Pick a date and time:" style={{fontSize: 16}}/>
+            <Heading text="Pick a date and time:" style={{ fontSize: 16 }} />
             <Spacer height={10} />
             <div className="modal_date_bar">
                 {
@@ -151,7 +154,7 @@ export default function AppointmentModal(props) {
                         return (
                             <button key={index} onClick={() => setSelectedSlot(`${selectedDate}_${slot}`)} className={`modal_appointment_slot ${isSelected && "modal_selected_slot"}`}>
                                 {slot}
-                                {isSelected && <BsFillCheckCircleFill color='var(--secondary)' size={18}/>}
+                                {isSelected && <BsFillCheckCircleFill color='var(--secondary)' size={18} />}
                             </button>
                         );
                     })
@@ -160,31 +163,31 @@ export default function AppointmentModal(props) {
             <Spacer height={20} />
             <div className="modal_comments_document_row">
                 <div className='modal_comments_container'>
-                    <Heading text="Any comments for the doctor?" style={{fontSize: 16}}/>
+                    <Heading text="Any comments for the doctor?" style={{ fontSize: 16 }} />
                     <Spacer height={5} />
-                    <Textarea placeholder="Write here" value={comments} onChange={setComments} style={{minHeight: 100, resize: 'vertical'}}/>
+                    <Textarea placeholder="Write here" value={comments} onChange={setComments} style={{ minHeight: 100, resize: 'vertical' }} />
                 </div>
                 <Spacer width="20px" />
                 <div className="divider"></div>
                 <Spacer width="20px" />
                 <div>
-                    <Heading text="Upload a document" style={{fontSize: 16}}/>
+                    <Heading text="Upload a document" style={{ fontSize: 16 }} />
                     <Spacer height={5} />
-                    <input type="file" id='modal_file_input' onChange={(e) => setSelectedFile(e.target.files[0])}/>
+                    <input type="file" id='modal_file_input' onChange={(e) => setSelectedFile(e.target.files[0])} />
                     <div className="modal_upload_document" onClick={selectFile}>
-                        <IoIosAdd color='var(--primary)' size={30}/>
+                        <IoIosAdd color='var(--primary)' size={30} />
                         {selectedFile ? 'Replace' : 'Add a'} document
                     </div>
-                    {selectedFile && <div style={{fontStyle: 'italic', marginTop: 5}}>{selectedFile.name}</div>}
+                    {selectedFile && <div style={{ fontStyle: 'italic', marginTop: 5 }}>{selectedFile.name}</div>}
                 </div>
             </div>
             <Spacer height={10} />
-            {deductible && <Heading text="Payment Details:" style={{fontSize: 16}}/>}
+            {deductible && <Heading text="Payment Details:" style={{ fontSize: 16 }} />}
             {deductible && <PatientPackageDescription text1="Total Amount: " text2={fee} />}
             {deductible && <PatientPackageDescription text1="Deductible: " text2={deductible} />}
             <Heading text={`Amount to pay: ${amountToPay}`} />
             <Spacer height={10} />
-            <Button text="Book Appointment" isLoading={loading} width={250} onClick={bookAppointment}/>
+            <Button text="Book Appointment" isLoading={loading} width={250} onClick={bookAppointment} />
         </Modal>
     );
 }
