@@ -58,46 +58,10 @@ function SearchPackagePatient() {
         console.log({ response })
 
         if (response.success) {
-            // let recommendedPackage = [{
-            //     company_address: "5000 E, 16th Street",
-            //     company_name: "United Health Care",
-            //     deductible: 300,
-            //     includes_dental: "Yes",
-            //     includes_medical: "No",
-            //     includes_vision: "No",
-            //     insurance_provider: "Kella Johnson",
-            //     insurance_provider_contact: "8786546589",
-            //     insurance_provider_id: 58,
-            //     package_id: 20,
-            //     patient_count: "0",
-            //     plan_name: "UHC1",
-            //     policy_number: "3a9e5136-9b5c-4e6a-a0a9-c3655efc6af2",
-            //     premium: 90,
-            //     time_period: 1
-            // }]
-
-            // company_address: "5000 E, 16th Street"
-            // company_name: "United Health Care"
-            // deductible: 998
-            // includes_dental: "Yes"
-            // includes_medical: "Yes"
-            // includes_vision: "Yes"
-            // insurance_provider: "Kella Johnson"
-            // insurance_provider_contact: "8786546589"
-            // insurance_provider_id: 58
-            // package_id: 22
-            // patient_count: "0"
-            // plan_name: "UHC50"
-            // policy_number: "5b7c3e81-9f83-401a-a070-285553fc2af3"
-            // premium: 700
-            // time_period: 2
-
-            // console.log(response.data)
-            // alert("Data fetched");
 
             setRecommendedPackage(response.data.data.suggested_package)
             setPatientInsurancePackage(response.data.data.my_package)
-            setInsurancePackages(response.data.data.filtered_packages.filter((filtered) => filtered.is_disabled == 0 || (Object.keys(response.data.data.my_package).length != 0 && filtered.package_id != response.data.data.my_package.package_id)))
+            setInsurancePackages(response.data.data.filtered_packages.filter((filtered) => filtered.is_disabled == 0 && (Object.keys(response.data.data.my_package).length != 0 && filtered.package_id != response.data.data.my_package.package_id)))
             setTotalSearches(response.data.data.filtered_packages.length)
             setLoading(false);
         }
