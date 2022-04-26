@@ -60,10 +60,9 @@ export default function PatientAppointmentView(props) {
             const data = response.data;
 
             let date = new Date(data.date)
-            console.log({date})
             date.setHours(date.getHours() + (date.getTimezoneOffset() / 60));
-            console.log({date})
-            
+
+
             console.log("res: ", data.date)
             // setDetails(data);
 
@@ -205,7 +204,10 @@ export default function PatientAppointmentView(props) {
                             null
                     }
                     <Spacer height={10} />
-                    <Heading text="Patient Details" />
+                    {
+                        documentUrl &&
+                        <Heading text="Document" />
+                    }
                     <Spacer height={5} />
                     <div className="document_section">
                         {
@@ -216,8 +218,8 @@ export default function PatientAppointmentView(props) {
                                 :
                                 null
                         }
-                        <input type="file" className="select_document" id="select-file" onChange={() => uploadDocument()} />
-                        <button className="file_picker" onClick={() => uploadFile()}>
+                        {/* <input type="file" className="select_document" id="select-file" onChange={() => uploadDocument()} /> */}
+                        {/* <button className="file_picker" onClick={() => uploadFile()}>
                             {
                                 progress != 0 ?
                                     <div className="loader"></div>
@@ -232,7 +234,7 @@ export default function PatientAppointmentView(props) {
                                         'Add Document'
                                 }
                             </span>
-                        </button>
+                        </button> */}
                         {/* <div>Native SDK File Upload Progress is {progress}%</div> */}
                     </div>
                     {/* <div className="app_documents_container">

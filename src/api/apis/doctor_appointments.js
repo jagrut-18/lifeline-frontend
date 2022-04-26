@@ -10,9 +10,10 @@ export async function getDoctorAppointments(){
         console.log(response.data);
         if (resCode == "200"){ // success
             const appointments = response.data.data.appointments;
-
+            const sortedAppointments = appointments.sort((b, a) => (new Date(b.date)) - (new Date(a.date)))
+            
             var data = {};
-            appointments.forEach(appointment => {
+            sortedAppointments.forEach(appointment => {
                 if (appointment.date in data){
                     data[appointment.date].push(appointment);
                 }
