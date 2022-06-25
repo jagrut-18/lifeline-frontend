@@ -20,8 +20,8 @@ import ReCAPTCHA from 'react-google-recaptcha';
 
 
 
-const SITEKEY = '6LcbAIEfAAAAAEO_S0szi42RyMDQLqHHbFxdbnZw';
-const SECRETKEY = '6LcbAIEfAAAAAOr00SgBSfbl47k-EyWAhHxnMFjA';
+const SITEKEY = '';
+const SECRETKEY = '';
 
 function LoginScreen() {
     const [email, setEmail] = useState('');
