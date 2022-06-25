@@ -1,0 +1,180 @@
+.app_details_wrapper {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.app_details {
+    width: 60%;
+}
+
+.chat_wrapper {
+    width: 40%;
+}
+
+.patient_details_container {
+    /* width: 80%; */
+    width: 100%;
+    min-height: 200px;
+}
+
+.patient_avatar {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.heading_wraper {
+    flex: 1;
+}
+
+
+/* .heading {
+    flex: 1;
+    color: #535461
+} */
+
+.ratings {
+    display: flex;
+    background-color: #FFC107;
+    padding: 5px;
+    width: 57px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+}
+
+.ratings span {
+    color: #fff;
+    margin-right: 3px;
+}
+
+.ratings img {
+    width: 20px;
+}
+
+.doctor_info_section_1 {
+    display: flex;
+    margin-left: 40px;
+    margin-top: 10px;
+}
+
+.search_box .doctor_info .doctor_info_section_1 .ratings img {
+    width: 20px;
+}
+
+.search_box .doctor_info .doctor_info_section_1 {
+    display: flex;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.doctor_info_section_1 .display_info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(184, 64, 94, 0.13);
+    border-radius: 20px;
+    padding: 10px;
+    width: 120px;
+}
+
+.doctor_info_section_1 .display_info_2 {
+    margin-left: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(76, 175, 80, 0.13);
+    border-radius: 20px;
+    padding: 10px;
+    width: 120px;
+}
+
+.doctor_info_section_1 .display_info span {
+    color: #B8405E;
+}
+
+.doctor_info_section_1 .display_info_2 span {
+    color: #4CAF50;
+}
+
+.doctor_info_section_1 {
+    display: flex;
+    width: inherit;
+    margin-left: 40px;
+    margin-top: 10px;
+}
+
+.doctor_info_section_1 .section_3_description {
+    flex: 1;
+}
+
+.doctor_info_section_1 .section_3_description h3 {
+    margin: 0px;
+    color: var(--text-secondary);
+}
+
+.doctor_info_section_1 .section_3_description p {
+    margin: 0px;
+    color: var(--text-secondary);
+}
+
+.modal_section_4 {
+    display: flex;
+    margin-top: 10px;
+}
+
+.document_section {
+    display: flex;
+}
+
+.document_wrapper {
+    margin-right: 10px;
+    font-size: 15px;
+}
+
+.file_picker {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    padding: 10px;
+    border-radius: 8px;
+    font-weight: bold;
+    align-items: center;
+    background-color: var(--background-secondary);
+    border: 1px solid var(--divider-color);
+    cursor: pointer;
+}
+
+.file_picker span {
+    color: var(--text-secondary);
+    font-size: 15px;
+}
+
+.select_document {
+    display: none;
+}
+
+.loader {
+    width: 25px;
+    height: 25px;
+    --c: radial-gradient(farthest-side, var(--primary) 92%, #0000);
+    background: var(--c) 50% 0, var(--c) 50% 100%, var(--c) 100% 50%, var(--c) 0 50%;
+    background-size: 7px 7px;
+    background-repeat: no-repeat;
+    animation: s7 1s infinite;
+}
+
+.seperator {
+    margin-right: 10px;
+}
+
+.ratings-wrapper {
+    display: flex;
+    gap: 5px;
+}
+
+@keyframes s7 {
+    to {
+        transform: rotate(.5turn)
+    }
+}

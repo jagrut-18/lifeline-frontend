@@ -1,0 +1,36 @@
+.appointment_container {
+    background-color: var(--background-secondary);
+    box-shadow: var(--shadow-medium);
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px;
+}
+
+.date_container {
+    background-color: var(--background);
+    border-radius: 12px;
+    color: var(--text-primary);
+    font-size: 16px;
+    font-weight: bold;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 50px;
+    padding: 10px;
+}
+
+.arrow_container {
+    border-radius: 8px;
+    height: 30px;
+    width: 30px;
+    background-color: var(--primary);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}

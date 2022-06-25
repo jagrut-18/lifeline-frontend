@@ -1,0 +1,110 @@
+.ReactModal__Overlay--after-open {
+    z-index: 200;
+}
+
+.modal_heading_row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--text-secondary);
+}
+
+.modal_date_bar {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    border-radius: 12px;
+    width: fit-content;
+    margin: 0 auto;
+    background-color: var(--background);
+}
+
+.modal_date_container {
+    height: 80px;
+    width: 80px;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: var(--text-secondary);
+    cursor: pointer;
+    border: none;
+    gap: 2px;
+}
+
+.modal_date_selected {
+    background-color: var(--secondary);
+    color: white;
+}
+
+.modal_date {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.modal_appointments {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+
+.modal_appointment_slot {
+    height: 50px;
+    width: 200px;
+    background-color: var(--textfield-background);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border: var(--textfield-unfocused);
+    color: var(--text-secondary);
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.modal_selected_slot {
+    background-color: var(--secondary-light);
+    color: var(--secondary);
+    border: var(--textfield-focused);
+}
+
+.modal_comments_document_row {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+}
+
+.modal_comments_container {
+    width: 50%;
+}
+
+.divider {
+    background-color: var(--text-secondary);
+    width: 1px;
+    opacity: 0.3;
+    margin: 20px 0;
+}
+
+#modal_file_input {
+    display: none;
+}
+
+.modal_upload_document {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    width: 200px;
+    border-radius: 8px;
+    gap: 5px;
+    background-color: var(--primary-light);
+    color: var(--primary);
+    border: var(--textfield-error);
+    cursor: pointer;
+}

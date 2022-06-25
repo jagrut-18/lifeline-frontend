@@ -1,0 +1,62 @@
+.patient_book_appointment_container {
+    display: flex;
+    flex-direction: row;
+    background-color: var(--background-secondary);
+    border-radius: 12px;
+    min-height: 200px;
+    box-shadow: var(--shadow-medium);
+    margin-bottom: 30px;
+}
+
+.patient_book_appointment_doctor_image {
+    width: 200px;
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.appointment_doctor_details {
+    padding: 20px;
+    width: 100%;
+}
+
+.name_row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    min-height: 35px;
+}
+
+.highlight_row {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.hospital_row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.book_appointment_hospital_details {
+    width: 50%;
+}
+
+.rating_bubble {
+    display: flex;
+    background-color: var(--yellow);
+    height: 35px;
+    width: 60px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    cursor: pointer;
+    border: none;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+}

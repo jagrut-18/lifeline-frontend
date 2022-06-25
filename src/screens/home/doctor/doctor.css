@@ -1,0 +1,24 @@
+.doctor_home_container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.doctor_appointments_container {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    flex-wrap: wrap;
+    padding: 10px 0;
+}
+
+.no_data_container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+}
+
+.no_data_img {
+    height: 200px;
+}

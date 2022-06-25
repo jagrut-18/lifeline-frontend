@@ -1,0 +1,13 @@
+.card {
+    box-shadow: var(--shadow-large);
+    border-radius: 18px;
+    background-color: var(--background-secondary);
+    /*TODO: create CSS variable */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px;
+    min-width: 500px;
+    min-height: 400px;
+}

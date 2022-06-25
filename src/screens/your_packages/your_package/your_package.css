@@ -1,0 +1,135 @@
+.your_package_container {
+    background-color: var(--background-secondary);
+    box-shadow: var(--shadow-medium);
+    border-radius: 20px;
+    padding-top: 20px;
+}
+
+.package_name_row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.patients_count {
+    padding: 5px 10px;
+    font-size: 12px;
+    font-weight: 500;
+    border: 1px solid var(--yellow);
+    color: var(--yellow);
+    border-radius: 20px;
+}
+
+.package_details_container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.package_details {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    margin: 5px 0;
+}
+
+.package_detail_title {
+    font-size: 16px;
+    color: var(--text-secondary);
+    font-weight: 600;
+}
+
+.package_detail_value {
+    font-size: 16px;
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.insurance_packages_divider {
+    border-top: 1px solid var(--divider-color);
+}
+
+.your_package_container .show_hide_button {
+    width: 100%;
+    background-color: var(--background-secondary);
+    border: none;
+    cursor: pointer;
+    color: #757575;
+    padding: 15px 0;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.your_package_container .show_hide_button:hover {
+    filter: brightness(90%);
+    -webkit-filter: brightness(90%);
+}
+
+.insurance-card-padding {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.suggest-ins-modal .suggest-ins-modal-section-1 {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.suggest-ins-modal .suggest-ins-modal-section-1 h3 {
+    flex: 1;
+    margin: 0;
+    font-size: 20px;
+}
+
+.suggest-ins-modal .suggest-ins-modal-section-1 button {
+    background-color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+.suggest-ins-modal .suggest-ins-modal-section-1 button img {
+    width: 20px;
+}
+
+.suggest-insurance-packages-divider {
+    border-top: 1px solid var(--divider-color);
+}
+
+.suggest-ins-modal .partition-1 {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.suggest-ins-modal .partition-1 .profile-description {
+    flex: 1;
+    margin-right: 10px;
+}
+
+.suggest-ins-modal .partition-1 .profile-description .profile-description-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.suggest-ins-modal .partition-1 .profile-description .profile-description-wrapper .your_package_profile_img {
+    width: 45px;
+    height: 45px;
+    background-color: var(--primary);
+    border-radius: 50%;
+    margin-right: 10px;
+    object-fit: cover;
+}
+
+.suggest-ins-modal .partition-1 .dropdown-wrapper {
+    margin-right: 10px;
+    width: 30%;
+}
+
+.suggest-ins-modal .general-description-wrapper {
+    display: flex;
+}

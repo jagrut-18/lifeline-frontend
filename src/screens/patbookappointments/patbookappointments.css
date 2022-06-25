@@ -1,0 +1,410 @@
+/* * {
+    margin: 0, padding: 0
+} */
+
+.container-home {
+    margin: 0;
+    width: 100%;
+    min-height: calc(100vh - 80px);
+    overflow-x: scroll;
+    overflow: hidden;
+}
+
+.main-div {
+    position: relative;
+    /* padding-left: 8%;
+    padding-right: 8%; */
+}
+
+.main-div .header {
+    position: relative;
+}
+
+.main-div .search-filters {
+    position: relative;
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.main-div .search-filters .filter-wrapper {
+    flex: 1;
+    margin-right: 15px;
+}
+
+.main-div .main-data-wrapper {
+    position: relative;
+    display: flex;
+}
+
+.main-data-wrapper .doctor-view {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    overflow: scroll;
+    overflow-x: hidden;
+    margin-right: 40px;
+}
+
+.main-data-wrapper .doctor-view .search-box .doctor-image {
+    width: 200px;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    /* You must set a specified height */
+    background-position: center;
+    /* Center the image */
+    background-repeat: no-repeat;
+    /* Do not repeat the image */
+    background-size: cover;
+}
+
+.main-data-wrapper .maps {
+    display: flex;
+    flex-direction: row;
+    width: 40%;
+}
+
+.loader {
+    width: 25px;
+    height: 25px;
+    --c: radial-gradient(farthest-side, #ffffff 92%, #0000);
+    background: var(--c) 50% 0, var(--c) 50% 100%, var(--c) 100% 50%, var(--c) 0 50%;
+    background-size: 7px 7px;
+    background-repeat: no-repeat;
+    animation: s7 1s infinite;
+}
+
+@keyframes s7 {
+    to {
+        transform: rotate(.5turn)
+    }
+}
+
+.modal-section-1 {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.modal-section-1 h3 {
+    flex: 1;
+    margin: 0;
+    font-size: 20px;
+}
+
+.modal-section-1 button {
+    background-color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+.modal-section-1 button img {
+    width: 20px;
+}
+
+.partition {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.sub-header {
+    margin: 0;
+    font-weight: 500;
+    font-size: 15px;
+    margin-top: 10px;
+}
+
+.sub-header-1 {
+    margin: 0;
+    font-weight: 500;
+    font-size: 15px;
+}
+
+.modal-section-2 {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.modal-section-2 .dates-button-wrapper {
+    display: flex;
+    position: relative;
+    width: 50%;
+    background-color: #F9F9F9;
+    border-radius: 15px;
+    background-color: #F9F9F9;
+}
+
+.modal-section-2 .dates-button-wrapper .date-button {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    border: none;
+    height: 70px;
+    border-radius: 15px;
+    background-color: #F9F9F9;
+    cursor: pointer;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-section-2 .dates-button-wrapper .date-button span {
+    display: block;
+    color: #535461;
+    font-weight: 700;
+    font-size: 15px;
+}
+
+.modal-section-2 .dates-button-wrapper .date-button .date-span-1 {
+    font-weight: 500;
+}
+
+.modal-section-2 .dates-button-wrapper .date-button-1 {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    border: none;
+    height: 70px;
+    border-radius: 15px;
+    background-color: #1976D2;
+    cursor: pointer;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-section-2 .dates-button-wrapper .date-button-1 span {
+    display: block;
+    color: #fff;
+    font-weight: 700;
+    font-size: 15px;
+}
+
+.modal-section-2 .dates-button-wrapper .date-button-1 .date-span-1 {
+    font-weight: 500;
+}
+
+.modal-section-3 {
+    /* display: flex; */
+    margin-top: 10px;
+}
+
+.modal-section-3 .time-button-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+    background-color: #FFF;
+    border-radius: 15px;
+    justify-content: flex-start;
+    margin-top: 10px;
+}
+
+.modal-section-3 .time-button-wrapper .time-button {
+    border: 1px solid #D9D9D9;
+    display: flex;
+    height: 40px;
+    border-radius: 8px;
+    background-color: #F9F9F9;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    width: 31%;
+    margin-bottom: 10px;
+    margin-right: 10px;
+}
+
+.modal-section-3 .time-button-wrapper .time-button span {
+    display: block;
+    color: #535461;
+    font-weight: 700;
+    font-size: 15px;
+}
+
+.modal-section-3 .time-button-wrapper .time-button-1 {
+    display: flex;
+    border: 1px solid #1976D2;
+    height: 40px;
+    border-radius: 8px;
+    background-color: rgba(25, 118, 210, 0.1);
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    width: 31%;
+    margin-bottom: 10px;
+    margin-right: 10px;
+}
+
+.modal-section-3 .time-button-wrapper .time-button-1 span {
+    display: block;
+    color: #1976D2;
+    font-weight: 700;
+    font-size: 15px;
+    margin-right: 10px;
+}
+
+.modal-section-3 .time-button-wrapper .time-button-1 img {
+    width: 20px;
+}
+
+
+/* .textfield {
+    height: 50px;
+    border-radius: 12px;
+    border: var(--textfield-unfocused);
+    background-color: var(--textfield-background);
+    outline-color: var(--secondary);
+    padding-left: 15px;
+    font-size: 16px;
+    width: 80%;
+    margin-top: 5px;
+}
+
+.textfield::placeholder {
+    color: var(--text-secondary);
+    font-size: 16px;
+}
+
+.textfield:focus {
+    background-color: var(--secondary-light);
+} */
+
+.textfield-modal {
+    height: 100px;
+    border-radius: 12px;
+    border: var(--textfield-unfocused);
+    background-color: var(--textfield-background);
+    outline-color: var(--secondary);
+    font-size: 16px;
+    width: 80%;
+    margin-top: 5px;
+    padding: 10px;
+}
+
+.textfield-modal::placeholder {
+    color: var(--text-secondary);
+    font-size: 16px;
+}
+
+.textfield-modal:focus {
+    background-color: var(--secondary-light);
+}
+
+
+/* .error {
+    border-color: var(--primary);
+    outline-color: var(--primary);
+    background-color: var(--primary-light);
+}
+
+.error_msg {
+    color: var(--primary);
+    text-align: left;
+    font-size: 14px;
+} */
+
+.aptmt-button-wrapper {
+    margin-top: 10px;
+}
+
+.modal-section-4 {
+    display: flex;
+    margin-top: 10px;
+}
+
+.document-wrapper {
+    margin-right: 10px;
+    font-size: 15px;
+}
+
+.select-document {
+    display: none;
+}
+
+.file-picker {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    padding: 10px;
+    border-radius: 8px;
+    font-weight: bold;
+    align-items: center;
+    background-color: #fff;
+    border: 1px solid #D9D9D9;
+    cursor: pointer;
+}
+
+.file-picker span {
+    color: #757575;
+    font-size: 15px;
+}
+
+.no-data-view {
+    font-size: 12px;
+    margin: 20px 0px;
+}
+
+.reviews-ratings-wrapper {
+    overflow: scroll;
+    overflow-x: hidden;
+}
+
+
+/* reviews and ratings start */
+
+.reviews-ratings-header-wrapper {
+    display: flex;
+    margin-bottom: 15px;
+}
+
+.reviews-ratings-header-1 {
+    font-weight: bold;
+    font-size: 15px;
+    max-width: 100px;
+    min-width: 100px;
+    margin-right: 10px;
+}
+
+.reviews-ratings-header-2 {
+    flex: 1;
+    font-weight: bold;
+    font-size: 15px;
+    margin-right: 10px;
+}
+
+.reviews-ratings-header-3 {
+    font-weight: bold;
+    font-size: 15px;
+    max-width: 100px;
+    min-width: 100px;
+}
+
+.reviews-ratings {
+    display: flex;
+}
+
+.reviews-ratings-1 {
+    margin-right: 10px;
+    max-width: 100px;
+    min-width: 100px;
+}
+
+.reviews-ratings-2 {
+    flex: 1;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.reviews-ratings-3 {
+    font-size: 15px;
+    max-width: 100px;
+    min-width: 100px;
+}
+
+
+/* reviews and ratings start */
+
+
+/* .search-box .doctor-info .doctor-info-section-1 .doctor-title {
+    flex: 1;
+}
+
+.search-box .doctor-info .doctor-info-section-1 .ratings span {
+    margin-right: 2px;
+} */

@@ -1,0 +1,25 @@
+.google {
+    width: 300px;
+    min-height: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    background-color: var(--google);
+    font-size: 18px;
+    color: var(--text-secondary);
+    align-self: center;
+}
+
+.google:hover {
+    filter: brightness(95%);
+    -webkit-filter: brightness(95%);
+}
+
+.google_icon {
+    height: 30px;
+    margin-right: 10px;
+}

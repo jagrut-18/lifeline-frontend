@@ -1,0 +1,36 @@
+.book_appointment_header_bar {
+    padding: 0 8%;
+    position: sticky;
+    top: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 200px;
+    background-color: var(--background);
+    z-index: 100;
+}
+
+.book_appointment_container {
+    background-color: var(--background);
+}
+
+.search_filters {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+}
+
+.book_appointment_content {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    margin: 0 8%;
+    background-color: var(--background);
+}
+
+.book_appointment_maps {
+    position: sticky;
+    top: 280px;
+    height: 500px;
+    width: 40%;
+}

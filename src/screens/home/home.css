@@ -1,0 +1,59 @@
+/* * {
+    margin: 0, padding: 0
+} */
+
+.container-home {
+    margin: 0;
+    display: flex;
+    width: 100%;
+    min-height: calc(100vh - 80px);
+    /* overflow-x: scroll; */
+    overflow: hidden;
+    background-color: var(--background);
+    padding: 2% 8%;
+    display: flex;
+    flex-direction: column;
+}
+
+.container-home-patient {
+    flex-direction: row;
+}
+
+.container-home .home-screen-section-1 {
+    width: 70%;
+}
+
+.container-home .home-screen-section-2 {
+    width: 30%;
+}
+
+.container-home .home-screen-section-1 .home-screen-section-1-inner {
+    width: 100%;
+}
+
+.row {
+    position: relative;
+    margin: 0;
+    display: flex;
+    /* justify-content: space-between; */
+    /* text-align: left; because App.css sets it to center*/
+    /* text-align: left; */
+    background-color: inherit;
+}
+
+.col-1 {
+    flex-basis: 70%;
+    position: relative;
+    /* margin-left: 50px; */
+}
+
+.col-1 h2 {
+    font-size: 30px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.col-1 p {
+    font-size: 16px;
+    color: #535461;
+}

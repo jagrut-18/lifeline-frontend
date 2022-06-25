@@ -1,0 +1,57 @@
+body {
+  margin: 0;
+  font-family: 'Nunito', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--background);
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+/* Light Theme */
+:root {
+  --background: #f0f0f0;
+  --background-secondary: white;
+  --text-primary: black;
+  --text-secondary: #757575;
+  --primary: #B8405E;
+  --primary-light: #b8405e0a;
+  --secondary: #1976D2;
+  --secondary-light: #1976D20a;
+  --google: #F1F1F1;
+  --textfield-background: #f9f9f9;
+  --textfield-unfocused: 1px solid #D9D9D9;
+  --textfield-focused: 1px solid var(--secondary);
+  --textfield-error: 1px solid var(--primary);
+  --button-text: white;
+  --error: #FF3D00;
+  --loading-background: #9D9D9D;
+  --yellow: #FFC107;
+  --shadow-small: 0px 4px 5px 2px rgba(0, 0, 0, 0.10);
+  --shadow-medium: 0px 10px 15px 2px rgb(0 0 0 / 5%);
+  --shadow-large: 0px 14px 19px 2px rgba(0, 0, 0, 0.10);
+  --divider-color: #C4C4C4;
+}
+
+/* Dark Theme */
+[data-theme='dark'] {
+  --background: #222831;
+  --background-secondary: #34383f;
+  --text-primary: #d8d8d8;
+  --text-secondary: #929292;
+  --divider-color: #757575;
+  --primary: #B8405E;
+  --google: var(--background);
+  --textfield-background: #222831;
+  --textfield-unfocused: 1px solid #757575;
+}
+
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}

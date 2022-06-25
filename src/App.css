@@ -1,0 +1,42 @@
+.chat_popup {
+    position: fixed;
+    z-index: 200;
+    bottom: 35px;
+    right: 0;
+    margin-right: 8%;
+    box-shadow: var(--shadow-medium);
+}
+
+.chat_popup_close {
+    position: relative;
+    bottom: -40px;
+    right: 15px;
+    background-color: #e7ecee;
+    color: black;
+    height: 30px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.chat_popup_close:hover {
+    color: var(--primary);
+}
+
+.chat_popup_show {
+    position: fixed;
+    z-index: 200;
+    bottom: 0px;
+    right: 0;
+    margin-right: 8%;
+    height: 35px;
+    width: 170px;
+    border-radius: 5px;
+    background-color: var(--primary);
+    color: white;
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    align-items: center;
+    justify-content: center;
+}

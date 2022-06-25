@@ -1,0 +1,111 @@
+/* * {
+    margin: 0, padding: 0
+} */
+
+.container-landing {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: calc(100vh - 80px);
+    overflow: hidden;
+    background-color: var(--background);
+}
+
+.container-landing .row {
+    position: relative;
+    padding-left: 8%;
+    padding-right: 8%;
+    padding-top: 50px;
+    margin: 0;
+    display: flex;
+    /* justify-content: space-between; */
+    /* text-align: left; because App.css sets it to center*/
+    /* text-align: left; */
+    background-color: var(--background);
+}
+
+.container-landing .row .col-1 {
+    flex-basis: 40%;
+    position: relative;
+    /* margin-left: 50px; */
+}
+
+.container-landing .row .col-1 h2 {
+    font-size: 42px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.container-landing .row .col-1 p {
+    font-size: 16px;
+    color: var(--text-secondary);
+}
+
+/* .container-landing .row .col-1 button {
+    width: 180px;
+    border: 0;
+    padding: 20px 12px;
+    outline: none;
+    color: var(--text-primary);
+    background: linear-gradient(to right, #fff, #B8405E);
+    background-color: #B8405E;
+    border-radius: 7px;
+    cursor: pointer;
+} */
+
+.container-landing .row .col-2 {
+    position: relative;
+    flex-basis: 60%;
+    display: flex;
+    justify-content: center;
+}
+
+.container-landing .row .box {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -40%;
+    width: 84%;
+    margin: 0 auto;
+    display: flex;
+    background-color: var(--background-secondary);
+    box-shadow: var(--shadow-large);
+    border-radius: 9px;
+    padding: 30px 100px;
+    /* text-align: left; because App.css sets it to center*/
+    /* text-align: left; */
+}
+
+.container-landing .row .box .box-col {
+    flex: 1;
+    padding-right: 20px;
+}
+
+.container-landing .row .box .box-col .heading-wrapper {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    background-color: rgba(184, 64, 94, 0.25);
+    border-radius: 25px;
+    padding: 10;
+    justify-content: center;
+    align-items: center;
+}
+
+.container-landing .row .box .box-col div span {
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #B8405E;
+    font-size: 29px;
+}
+
+.container-landing .row .box .box-col h2 {
+    font-weight: 600;
+    font-size: 21px;
+}
+
+.container-landing .row .box .box-col p {
+    margin: 0px;
+    font-size: 14;
+    color: #535461;
+}

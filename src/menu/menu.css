@@ -1,0 +1,111 @@
+.navbar {
+    padding-left: 8%;
+    padding-right: 8%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--background-secondary);
+    height: 80px; /* if this is changed, then the main container height should also be changed */
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo {
+    width: 170px;
+    cursor: pointer;
+}
+
+.nav-wrapper {
+    display: flex;
+    /* width: 100%; */
+    align-items: center;
+}
+
+nav {
+    flex: 1;
+    /* text-align: right; */
+}
+
+nav ul li {
+    list-style: none;
+    display: inline-block;
+    margin-right: 30px;
+}
+
+nav ul li .link {
+    text-decoration: none;
+    color: var(--text-secondary);
+    font-size: 16px;
+    cursor: pointer;
+}
+
+nav ul li .link:hover {
+    color: #B8405E;
+}
+
+.menu_wrapper {
+    position: relative;
+}
+
+.avatar {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+}
+
+.profile_img {
+    width: 35px;
+    height: 35px;
+    /* background-color: var(--primary); */
+    border: 2px solid var(--primary);
+    padding: 1px;
+    border-radius: 50%;
+    color: white;
+}
+
+.menu_options {
+    position: absolute;
+    right: 0px;
+    margin-top: 5px;
+    background-color: var(--background);
+    z-index: 100;
+    box-shadow: var(--shadow-small);
+    width: 180px;
+}
+
+.menu_option {
+    color: var(--text-secondary);
+    font-size: 16px;
+    height: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    padding-left: 15px;
+    background-color: var(--background);
+    cursor: pointer;
+}
+
+.menu_option:hover {
+    color: var(--text-primary);
+    filter: brightness(95%);
+    -webkit-filter: brightness(95%);
+}
+
+.login-button {
+    width: 140px;
+    padding: 10px 12px;
+    border: 1px solid var(--primary);
+    color: var(--primary);
+    background-color: transparent;
+    border-radius: 7px;
+    cursor: pointer;
+    font-weight: bold;
+}

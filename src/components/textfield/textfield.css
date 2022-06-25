@@ -1,0 +1,32 @@
+.textfield {
+    height: 50px;
+    border-radius: 12px;
+    border: var(--textfield-unfocused);
+    background-color: var(--textfield-background);
+    outline-color: var(--secondary);
+    padding: 10px 10px;
+    font-size: 16px;
+    width: 100%;
+    color: var(--text-primary);
+}
+
+.textfield::placeholder {
+    color: var(--text-secondary);
+    font-size: 16px;
+}
+
+.textfield:focus {
+    background-color: var(--secondary-light);
+}
+
+.error {
+    border-color: var(--primary);
+    outline-color: var(--primary);
+    background-color: var(--primary-light);
+}
+
+.error_msg {
+    color: var(--primary);
+    text-align: left;
+    font-size: 14px;
+}
